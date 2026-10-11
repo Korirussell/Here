@@ -1,4 +1,4 @@
-"""Print every message in a relay session, one line each (README §22).
+"""Print every message in a relay session, one line each (SPEC §22).
 
     python tools/relay_tap.py                         # session from laptop/config.yaml / HERE_SESSION
     python tools/relay_tap.py --types utterance,alert

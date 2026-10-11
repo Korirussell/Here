@@ -1,4 +1,4 @@
-"""DoA accuracy spike (README §21, §11): error per position, settle time, and the second beam.
+"""DoA accuracy spike (SPEC §21, §11): error per position, settle time, and the second beam.
 
 Guided (a person walks around the array):
 
@@ -10,12 +10,12 @@ Loudspeaker (no people: TTS from a speaker you place at each spot, or left where
 
     python tools/doa_accuracy.py --speaker --angles 135 --distances 0.4 --trials 6 --auto
 
-Angles are world bearings (README §8: 0 = the array's marked front, clockwise, so 90 = its right); measure
+Angles are world bearings (SPEC §8: 0 = the array's marked front, clockwise, so 90 = its right); measure
 them with the floor tape. Per position it prints the median bearing and its error, the spread, the share
-of speech readings within 15 deg (attribution's face window, README §13) and 30 deg, the settle time (talk
+of speech readings within 15 deg (attribution's face window, SPEC §13) and 30 deg, the settle time (talk
 start -> the bearing holds within 15 deg of where it ends up), and how often the XVF3800's second focused
 beam reports another talker >= 30 deg away (with one talker: a ghost rate; with two: a detection rate).
-Results go to logs/doa_accuracy/<time>.json and a markdown table to paste into laptop/audio/SPIKE.md.
+Results go to logs/doa_accuracy/<time>.json.
 
 Uses the array's control interface: stop `python -m laptop` first. Run from a normal terminal.
 """

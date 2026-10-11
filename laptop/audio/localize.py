@@ -313,7 +313,7 @@ def peaks(power, az_deg, k=2, min_sep_deg=30.0, rel=0.6, floor=0.15):
 
 
 class SrpTracker:
-    """Track A step 2 (DOA_VS_ODAS.md): SRP-PHAT peaks every hop -> tracks with ids.
+    """Track A step 2: SRP-PHAT peaks every hop -> tracks with ids.
 
     Gating gate_deg, a track is born after birth_hits consecutive-ish hits (within 2 hops) and dies after death_s
     without a hit. Bearings are smoothed (alpha). Works in any frame; the caller converts to world bearings.

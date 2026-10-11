@@ -1,4 +1,4 @@
-"""Where memory lives: Neon Postgres when NEON_DATABASE_URL works, local SQLite otherwise (INTEGRATION_CONTRACT §8).
+"""Where memory lives: Neon Postgres when NEON_DATABASE_URL works, local SQLite otherwise (docs/INTEGRATION.md §8).
 
 Both speak the same schema (one SQL text, two dialects):
 
@@ -203,7 +203,7 @@ class Store:
             self.conn.commit()
 
     def purge(self, before):
-        """README §25: delete live memory older than `before` (epoch s). Seeded data is synthetic and exempt."""
+        """SPEC §25: delete live memory older than `before` (epoch s). Seeded data is synthetic and exempt."""
         n = int(self._rows("SELECT COUNT(*) AS n FROM events WHERE origin = 'live' AND event_time < ?",
                            (before,))[0]["n"])
         with self.lock:

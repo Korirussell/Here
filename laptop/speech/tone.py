@@ -1,4 +1,4 @@
-"""How it sounded (README §14 accessibility rules: tone describes sound, not emotion).
+"""How it sounded (SPEC §14 accessibility rules: tone describes sound, not emotion).
 
 Simple, explainable rules on loudness, the transcript, and the sound classifier: PANNs scores
 "laughter" every 0.5 s on the same audio, and recent laughter during an utterance makes it "laughing".

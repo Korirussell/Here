@@ -1,7 +1,7 @@
 import XCTest
 @testable import HERE
 
-/// Projector and Frames (README §14 "Coordinates (where bugs live)"): captureAngle rotation for all four
+/// Projector and Frames (SPEC §14 "Coordinates (where bugs live)"): captureAngle rotation for all four
 /// orientations, and the Simulator's no-camera fallback mapping. `Projector`'s *real* (layer-backed) path
 /// goes through `AVCaptureVideoPreviewLayer.layerRectConverted`, a live-session-dependent system call that
 /// isn't meaningfully unit-testable off a device -- that's exactly why the human checklist (top of this
@@ -30,7 +30,7 @@ final class ProjectorTests: XCTestCase {
     }
 
     func test90And270AreInverseRotations() {
-        // Landscape-left vs. landscape-right mounts use opposite captureAngles (README §14 "both
+        // Landscape-left vs. landscape-right mounts use opposite captureAngles (SPEC §14 "both
         // landscape orientations"): rotating one way then the other must be the identity.
         let rotated = Frames.sensorRect(fromUprightTopLeft: upright, captureAngle: 90)
         let back = Frames.sensorRect(fromUprightTopLeft: rotated, captureAngle: 270)
@@ -53,7 +53,7 @@ final class ProjectorTests: XCTestCase {
         XCTAssertEqual(p.y, 0.7, accuracy: 1e-9)
     }
 
-    // MARK: Projector, no layer (Simulator / simulated-faces fallback, README §14 dev tips)
+    // MARK: Projector, no layer (Simulator / simulated-faces fallback, SPEC §14 dev tips)
 
     func testFallbackRectAspectFillsWideScreen() {
         // size wider than a 16:9 frame at its own height: width-constrained (w = size.width).

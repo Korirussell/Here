@@ -1,1 +1,1 @@
-"""HERE contract v3 (README §12)."""
+"""HERE contract v3 (SPEC §12)."""

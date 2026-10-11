@@ -1,7 +1,7 @@
 # HERE belt
 
 8 coin motors at 45° around the waist, driven by an ESP32 through a ULN2803, with a WS2812B
-status ring and an Anker power bank (README §16). The phone is the BLE central and decides *what*
+status ring and an Anker power bank (SPEC §16). The phone is the BLE central and decides *what*
 to buzz; the ESP32 owns *how* (pattern timing), so BLE jitter can't smear the rhythm.
 
 ## Wiring
@@ -45,7 +45,7 @@ to buzz; the ESP32 owns *how* (pattern timing), so BLE jitter can't smear the rh
 | 7 | Left | 33 | IN7 → OUT7 |
 | 8 | Front-left | 23 | IN8 → OUT8 |
 
-Checklist (README §16):
+Checklist (SPEC §16):
 - **ULN2803 COM (pin 10) to the motor supply (+5 V)**, or the flyback diodes do nothing.
 - **Shared ground** between the ESP32, the ULN2803 and both power bank ports.
 - Separate power bank ports for motors and ESP32.

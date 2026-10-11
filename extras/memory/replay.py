@@ -1,11 +1,11 @@
-"""Replay Lab backend (TASKS A3 G): what would HERE have surfaced under another attention policy?
+"""Replay Lab backend: what would HERE have surfaced under another attention policy?
 
 Input: a segment's stored events + a policy {sensitivity 0..1, crowd_filter, focus_mode, hazard_priority,
-speech_priority}. Output (INTEGRATION_CONTRACT §5.3):
+speech_priority}. Output (docs/INTEGRATION.md §5.3):
     {surfaced, suppressed, kept_important, by_category:{cat:{surfaced, suppressed}}, decisions:[...]}
 
 Deterministic: a base relevance per event from what was stored (alert priority, the attention enrichment,
-directed-at-user, label), then the policy. Optional `model_score` from the Shared/ATTENTION.md zero-shot model
+directed-at-user, label), then the policy. Optional `model_score` from the docs/ATTENTION.md zero-shot model
 (HERE_REPLAY_MODEL=1, relevance.py) is reported alongside and blended in when already computed; missing scores are
 queued for the background scorer and never waited for.
 """

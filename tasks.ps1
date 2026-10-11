@@ -2,7 +2,6 @@
 #   demo stack (tools/demo.py):  .\tasks.ps1 demo-up [--source real|replay|fake|none] [--cloud] | demo-reset [--full] | demo-down | demo-status | demo-check | latency [--relay wss://host/ws]
 param([Parameter(Mandatory = $true)][string]$Task, [Parameter(ValueFromRemainingArguments = $true)][string[]]$Rest)
 $py = Join-Path $PSScriptRoot ".venv\Scripts\python.exe"
-if (-not (Test-Path $py)) { $py = Join-Path $PSScriptRoot "..\shh\.venv\Scripts\python.exe" }   # worktrees share the main venv
 if (-not (Test-Path $py)) { $py = "py" }
 Push-Location $PSScriptRoot
 try {

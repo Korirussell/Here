@@ -1,7 +1,7 @@
-"""The final rehearsal order (Shared/SIX_CLAUDE_ORCHESTRATION.md), automated as far as a script can go, N times in a row.
+"""The final rehearsal order , automated as far as a script can go, N times in a row.
 
     python tools/rehearsal.py                    # 3 runs, --source replay of fixtures/mock_scene, spare ports
-    python tools/rehearsal.py --runs 1 --source real     # on the array (only when K1 isn't using it)
+    python tools/rehearsal.py --runs 1 --source real     # on the array (only when nothing else is using the array)
 
 Each run: a light `demo.py reset` (timed), then the core moments from the laptop as the dashboard page receives them
 (`/live`), then the dashboard's memory endpoints. The steps that need a person (calibrate, the belt, the wearer turning,

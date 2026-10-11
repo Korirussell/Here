@@ -1,4 +1,4 @@
-"""Enroll a sound from the array: "teach HERE your doorbell" (README §15; matcher in enrolled.py).
+"""Enroll a sound from the array: "teach HERE your doorbell" (SPEC §15; matcher in enrolled.py).
 
 Records the array's processed audio (what the pipeline hears) while you play the sound once, trims the
 recording to the sound, checks the template against the room noise it was recorded in, saves it to
@@ -70,7 +70,7 @@ def check(pcm, recording, t0, t1, label):
     hit = snd.score(recording)
     noise = np.concatenate([recording[: max(0, int(t0 * SR) - SR // 10)], recording[int(t1 * SR) + SR // 10:]])
     # Just above what the room itself scores, NOT half-way to the self-match: in crowd babble the sound's match
-    # drops to ~0.15-0.2 while everything else stays <= ~0.13 (tools/stress_test.py, CHANGELOG Task 6).
+    # drops to ~0.15-0.2 while everything else stays <= ~0.13 (tools/stress_test.py).
     if len(noise) <= len(pcm) + SR // 2:
         miss = None          # not enough room noise around the sound to test against: record longer
         threshold = 0.12
@@ -154,7 +154,7 @@ def main(argv=None):
     p.add_argument("--no-config", action="store_true", help="save the template but leave laptop/config.yaml alone")
     a = p.parse_args(argv)
     if a.label not in SOUND_LABELS or a.label == "speech":
-        raise SystemExit(f"{a.label!r} isn't a contract SoundLabel (README §12.3)")
+        raise SystemExit(f"{a.label!r} isn't a contract SoundLabel (SPEC §12.3)")
 
     recording = read_any(a.from_wav) if a.from_wav else record(a.seconds, a.device)
     found = trim(recording)

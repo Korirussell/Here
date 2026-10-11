@@ -1,5 +1,5 @@
 """Flat event export for the Databricks job (extras/cloud/): one JSON object per line, normalized columns plus
-the canonical payload. Text and metadata only (README §25)."""
+the canonical payload. Text and metadata only (SPEC §25)."""
 
 import json
 from pathlib import Path

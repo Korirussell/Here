@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
-SKIP = {".venv", "reference", "legacy", "node_modules", ".git", "logs", "__pycache__"}
+SKIP = {".venv", "node_modules", ".git", "logs", "__pycache__"}
 FILES = sorted(p for p in ROOT.rglob("*.py") if not SKIP.intersection(p.relative_to(ROOT).parts))
 
 

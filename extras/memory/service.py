@@ -31,7 +31,7 @@ def relay_url(base, session, token):
 
 
 class RelayLink:
-    """Minimal relay client: hello, receive, reconnect with backoff (README §12.1). Sends only search_result."""
+    """Minimal relay client: hello, receive, reconnect with backoff (SPEC §12.1). Sends only search_result."""
 
     def __init__(self, memory, ingestor, url, session, token, log=print):
         self.memory = memory

@@ -1,4 +1,4 @@
-"""HERE relay (README §7): routes contract messages between the laptop, the phone and the extras.
+"""HERE relay (SPEC §7): routes contract messages between the laptop, the phone and the extras.
 
     wss://<host>/ws?session=<session>&role=<role>&token=<token>      (Caddy terminates TLS)
     GET /health -> {"ok": true, "sessions": {...}, "clients": [{"role", "session", "connected_s"}]}
@@ -6,13 +6,13 @@
 Rules:
 - Token from HERE_RELAY_TOKEN; a wrong or missing token gets HTTP 401 before the WebSocket opens.
 - A message goes to every *other* client in the same session whose `hello.subscribe` contains its
-  `type` (or "*"). Clients that don't list subscriptions get the README §12.10 defaults for their role.
+  `type` (or "*"). Clients that don't list subscriptions get the SPEC §12.10 defaults for their role.
 - The latest `config` per session is kept and sent to each new client right after its hello.
 - No queues: per client, positional streams (sources, scene, heartbeat) keep only the newest message
   per (type, src); events (utterance, alert...) go in a bounded outbox that drops the oldest.
 - TCP_NODELAY on every socket; every message logged as JSON lines.
 
-Run locally (also the "local fallback relay", README §7):  python -m relay --port 8080
+Run locally (also the "local fallback relay", SPEC §7):  python -m relay --port 8080
 """
 
 import argparse
@@ -162,7 +162,7 @@ class Relay:
         try:
             async for raw in ws:
                 if isinstance(raw, bytes):
-                    continue                     # README §12.1: JSON text only
+                    continue                     # SPEC §12.1: JSON text only
                 self.on_text(client, raw)
         except ConnectionClosed:
             pass

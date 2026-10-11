@@ -1,4 +1,4 @@
-"""Session export bundles (TASKS A3 H): text and metadata only, never audio (README §25).
+"""Session export bundles: text and metadata only, never audio (SPEC §25).
 
     python -m extras.cloud.export_bundle                     # every live session -> logs/exports/<session>/<stamp>/
     python -m extras.cloud.export_bundle --session demo      # one session

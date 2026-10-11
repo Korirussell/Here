@@ -1,4 +1,4 @@
-"""TASKS A3 H: server status, Object Storage signing and session bundles. No network beyond localhost.
+"""server status, Object Storage signing and session bundles. No network beyond localhost.
 Run: python -m pytest extras/cloud"""
 
 import hashlib

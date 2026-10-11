@@ -1,4 +1,4 @@
-"""Relay latency from this machine (TASKS.md K3 C): laptop -> relay -> client, on the local relay or Vultr.
+"""Relay latency from this machine: laptop -> relay -> client, on the local relay or Vultr.
 
     python tools/latency_probe.py                               # relay from laptop/config.yaml / laptop/.env
     python tools/latency_probe.py --relay wss://<host>/ws -n 400
@@ -7,7 +7,7 @@
 Two clients on the same machine (one clock, so no sync needed), in their own session (`latency-probe`), so a
 real phone or dashboard never sees the probe. The sender sends `sources` frames at 20 Hz like the laptop does;
 the receiver (role dashboard) timestamps each on arrival. Reports one-way relay latency (p50 / p95 / max) and
-lost frames. Run it on campus Wi-Fi and on the hotspot; the network budget is <= 100 ms (INTEGRATION_CONTRACT §7).
+lost frames. Run it on campus Wi-Fi and on the hotspot; the network budget is <= 100 ms (docs/INTEGRATION.md §7).
 """
 
 import argparse

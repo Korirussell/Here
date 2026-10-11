@@ -1,4 +1,4 @@
-"""HERE contract v3 for Python (README §12). Mirrors contracts/schemas/*.schema.json.
+"""HERE contract v3 for Python (SPEC §12). Mirrors contracts/schemas/*.schema.json.
 
     from contracts.python.here_contract import Utterance, parse, validate
 
@@ -286,7 +286,7 @@ MESSAGE_TYPES: dict[str, type[Message]] = {cls.TYPE: cls for cls in (
     Hello, Heartbeat, ClockPing, ClockPong, Config, Sources, SpeechStart, Utterance,
     SoundEvent, Alert, PerceptionEnrichment, Attribution, Scene, SearchRequest, SearchResult)}
 
-# README §12.10: what each role receives when its hello doesn't list subscriptions.
+# SPEC §12.10: what each role receives when its hello doesn't list subscriptions.
 DEFAULT_SUBSCRIBE: dict[str, list[str]] = {
     "phone": ["sources", "speech_start", "utterance", "sound_event", "alert", "perception_enrichment", "config",
               "clock_pong", "heartbeat"],

@@ -1,7 +1,7 @@
 import CoreGraphics
 import Foundation
 
-/// Which AR layer draws over the camera. `legacy` is the README §14 look (rings, top-right panel, edge
+/// Which AR layer draws over the camera. `legacy` is the SPEC §14 look (rings, top-right panel, edge
 /// glows); `spatialV2` is the calm-until-something-happens direction built on `SpatialPresence`.
 /// Kept side by side until the replacement is proven on the rig (Settings > Developer).
 enum SpatialVisualStyle: String, Codable, CaseIterable {

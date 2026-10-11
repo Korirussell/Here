@@ -1,4 +1,4 @@
-// REPLAY LAB: one recorded segment, the actual policy vs an alternative. Decisions come from A3's
+// REPLAY LAB: one recorded segment, the actual policy vs an alternative. Decisions come from the memory service's
 // /api/replay, or the dashboard's offline replay policy (extras/dashboard/fallback.py) on the seeded day.
 import { esc, fmtClock, fmtBearing, dirWord, getJSON } from './core.js'
 import { M, loadDay, inspectStored } from './memory.js'

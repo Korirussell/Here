@@ -1,4 +1,4 @@
-"""Insight metrics + wording, shared by the Databricks notebook and the local precomputed run (TASKS A3 F).
+"""Insight metrics + wording, shared by the Databricks notebook and the local precomputed run.
 
 Input: rows of the flat event export (`python -m extras.memory export`, extras/memory/export.py). The metrics:
 events per hour, speech vs environmental sound by location, unknown rate, important rear-origin events, top

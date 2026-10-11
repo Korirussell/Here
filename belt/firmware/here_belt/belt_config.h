@@ -1,4 +1,4 @@
-// HERE belt: pins, BLE identifiers and per-motor calibration (README §16).
+// HERE belt: pins, BLE identifiers and per-motor calibration (SPEC §16).
 // The BLE UUIDs are mirrored in ios/HERE/Belt/BeltProtocol.swift (BeltUUID). Change both together.
 #pragma once
 
@@ -13,7 +13,7 @@
 // Avoid strapping pins (0, 2, 5, 12, 15) and input-only pins (34..39).
 static const uint8_t MOTOR_PINS[8] = {13, 14, 25, 26, 27, 32, 33, 23};
 
-// Per-motor strength calibration, 0..255 multiplier /255 (README §16: back motors often feel weaker
+// Per-motor strength calibration, 0..255 multiplier /255 (SPEC §16: back motors often feel weaker
 // through clothes). Tune with the serial "cal" command, then copy the values here.
 static uint8_t MOTOR_GAIN[8] = {255, 255, 255, 255, 255, 255, 255, 255};
 
@@ -28,5 +28,5 @@ static uint8_t MOTOR_GAIN[8] = {255, 255, 255, 255, 255, 255, 255, 255};
 #define LED_COUNT            12
 #define LED_BRIGHTNESS       40      // 0..255; keep low: it's for the wearer's helpers, not the room
 
-// An emergency pattern stops by itself after this (README §16: max 10 s).
+// An emergency pattern stops by itself after this (SPEC §16: max 10 s).
 #define EMERGENCY_MAX_MS     10000

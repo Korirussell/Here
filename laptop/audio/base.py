@@ -49,7 +49,7 @@ class BearingEstimate:
 
 
 class DirectionHistory:
-    """The last few seconds of `sources`, for utterance and sound bearings (README §13 "On the laptop")."""
+    """The last few seconds of `sources`, for utterance and sound bearings (SPEC §13 "On the laptop")."""
 
     def __init__(self, seconds: float = 30.0, speech_min_confidence: float = 0.3, fixed_beam: bool = False,
                  fixed_beam_spread_deg: float = 30.0):
@@ -162,7 +162,7 @@ class DirectionHistory:
 
 
 class SourcesThrottle:
-    """README §12.5: send at the source rate while anything is active; otherwise on change or keepalive.
+    """SPEC §12.5: send at the source rate while anything is active; otherwise on change or keepalive.
     `active` comes from the SourceTracker (laptop/events/tracker.py) when there is one; without it, a source
     with speech or energy >= active_energy counts. A change of the id set (a track appearing or expiring,
     down to the empty list) always sends."""

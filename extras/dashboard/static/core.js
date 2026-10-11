@@ -38,7 +38,7 @@ export const S = {
   memoryHealth: null,
   insightSource: null,       // 'databricks' | 'precomputed' | null
   lastRx: {},                // message type -> receive time of the latest one
-  serverStatus: null,        // A3's /api/status: the relay next to the memory service (Vultr when deployed)
+  serverStatus: null,        // the memory service's /api/status: the relay next to the memory service (Vultr when deployed)
   attribRx: 0,               // last attribution from the phone
   demoSeen: 0,               // last time the server said a scripted scene was playing
   rev: 0,                    // bumps on anything a panel shows
@@ -111,7 +111,7 @@ function pushCapped(map, k, v, n) {
 // Which provider produced which field. Only claims a provider when the message says so.
 export function modelProvider(model) {
   if (!model) return null
-  // A2's classifier reports an enrolled-sound match as "<base model>+enrolled" (scenes say just "enrolled").
+  // the sound classifier's classifier reports an enrolled-sound match as "<base model>+enrolled" (scenes say just "enrolled").
   const enrolled = /\+enrolled$/.exec(model)
   if (enrolled) return { name: 'Enrolled sounds', detail: `template match on the laptop · base model ${model.slice(0, enrolled.index).split('/').pop()}`, tag: 'local' }
   if (model === 'rules') return { name: 'Deterministic rules', detail: 'fallback · Hugging Face attention model not loaded', tag: 'fallback' }
@@ -167,7 +167,7 @@ export function insightProvider(source) {
 }
 export const off = (name, detail) => ({ name, detail, tag: 'off' })
 
-/** A3's /api/status, summarised: the relay that runs next to the memory service (Vultr when deployed there).
+/** the memory service's /api/status, summarised: the relay that runs next to the memory service (Vultr when deployed there).
  * {where, ok, roles: Set of roles connected in our session, rate: msg/s over the window, ageP50, reason} */
 export function serverRelay() {
   const st = S.serverStatus
@@ -187,7 +187,7 @@ export function phoneSeen() {
   return seen > 0 && t - seen < 30
 }
 
-// ATTENTION.md tier 3, mirrored so the inspector can say "rules would have said X".
+// docs/ATTENTION.md tier 3, mirrored so the inspector can say "rules would have said X".
 const HAZARDS = new Set(['car_horn', 'siren', 'alarm', 'loud_bang', 'vehicle'])
 const MEDIA = new Set(['music', 'tv', 'laughter'])
 export function rulesAttention(m, alert) {
@@ -201,7 +201,7 @@ export function rulesAttention(m, alert) {
 }
 export function isHazard(label) { return HAZARDS.has(label) }
 
-// What the phone does with each attention level (IOS_INTEGRATION.md, the perception_enrichment row).
+// What the phone does with each attention level.
 export const WEARER = { ambient: 'minimal', notice: 'small cue', important: 'card + belt', urgent: 'interrupt' }
 export const WEARER_LONG = { ambient: 'kept ambient (minimal)', notice: 'a small indicator', important: 'a full card + belt buzz',
   urgent: 'an interrupt' }
@@ -216,7 +216,7 @@ export function alertFor(id) {
 }
 
 // ---------------------------------------------------------------------------------------------- ingest
-/** A retraction: a final utterance with no words (A1 ends an utterance that turned out to be noise or the wearer). */
+/** A retraction: a final utterance with no words (the speech pipeline ends an utterance that turned out to be noise or the wearer). */
 export const isRetraction = m => m.type === 'utterance' && m.final && !`${m.text || ''}${m.pending || ''}`.trim()
 
 function retract(uttId) {

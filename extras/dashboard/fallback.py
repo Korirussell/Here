@@ -1,7 +1,7 @@
-"""Memory API client with seeded fallbacks (Shared/INTEGRATION_CONTRACT.md §5.3).
+"""Memory API client with seeded fallbacks (docs/INTEGRATION.md §5.3).
 
-`Memory.call(endpoint, query)` asks A3's service first; if it doesn't answer within MEMORY_TIMEOUT_S, the same
-shape is built from ONE seed bundle: A3's frozen API snapshots (extras/memory/seed/api/) when they exist, else
+`Memory.call(endpoint, query)` asks the memory service's service first; if it doesn't answer within MEMORY_TIMEOUT_S, the same
+shape is built from ONE seed bundle: the memory service's frozen API snapshots (extras/memory/seed/api/) when they exist, else
 ours (demo_data/). Bundles are never mixed: insights and Ask evidence must point at events of the same day.
 Every reply carries `_source`: "api" or "seed", and the page labels seeded data as seeded. A seed reply given
 because the API failed also carries `_fallback_reason` (e.g. "memory API slow (>4 s)"). A slow answer is not a
@@ -11,9 +11,9 @@ Both sources go through the same normalizers, so the page sees one shape: segmen
 Ask answers carry full evidence, replay decisions carry label / person / bearing and the page's categories.
 A seeded day is shown on today's date (SEED_AS_TODAY); live memory is never moved.
 
-The replay policy here is the dashboard's offline stand-in for A3's /api/replay: deterministic, explainable,
+The replay policy here is the dashboard's offline stand-in for the memory service's /api/replay: deterministic, explainable,
 and built on the same attention labels the live system sends (perception_enrichment), falling back to the
-rules in Shared/ATTENTION.md tier 3 when an event has none.
+rules in docs/ATTENTION.md tier 3 when an event has none.
 """
 
 import datetime as dt
@@ -36,7 +36,7 @@ DEFAULT_POLICY = {"sensitivity": 0.6, "crowd_filter": 0.3, "focus_mode": False, 
 
 
 def seed_folder():
-    """The one seed bundle to use: A3's frozen API responses when present, else the dashboard's own."""
+    """The one seed bundle to use: the memory service's frozen API responses when present, else the dashboard's own."""
     a3 = S.MEMORY_SEED / "api"
     return a3 if (a3 / "day.json").exists() else S.DEMO_DATA
 
@@ -47,7 +47,7 @@ def _load_json(folder, name):
 
 
 def normalize_day(day):
-    """A3's day names locations by id ({locations:[{id, name}]}); ours by name. The page wants names."""
+    """the memory service's day names locations by id ({locations:[{id, name}]}); ours by name. The page wants names."""
     names = {loc["id"]: loc.get("name") or loc["id"] for loc in day.get("locations") or [] if "id" in loc}
     segs = [{**g, "location_id": g.get("location"), "location": names.get(g.get("location"), g.get("location"))}
             for g in day.get("segments") or []]
@@ -61,7 +61,7 @@ STOP = {"what", "did", "the", "a", "an", "about", "say", "said", "when", "was", 
 
 
 def normalize_ask(raw):
-    """Ours: {answers:[{match, q, answer, evidence_ids}]}. A3's snapshot: {question: {answer, evidence, ...}}."""
+    """Ours: {answers:[{match, q, answer, evidence_ids}]}. the memory service's snapshot: {question: {answer, evidence, ...}}."""
     if not raw:
         return []
     if "answers" in raw:
@@ -126,7 +126,7 @@ def event_id(e):
 
 
 def rules_attention(e, alert):
-    """ATTENTION.md tier 3."""
+    """docs/ATTENTION.md tier 3."""
     if alert is not None:
         return "urgent" if alert.get("priority") == 3 else "important"
     if e.get("type") == "sound_event":
@@ -259,7 +259,7 @@ def ask(seed, q):
 
 
 def a3_policy(pol):
-    """The page's sliders (0..1) as A3's policy (§5.3: sensitivity 0..1, the rest booleans)."""
+    """The page's sliders (0..1) as the memory service's policy (§5.3: sensitivity 0..1, the rest booleans)."""
     pol = {**DEFAULT_POLICY, **(pol or {})}
     return {"sensitivity": float(pol["sensitivity"]), "focus_mode": bool(pol["focus_mode"]),
             "crowd_filter": float(pol["crowd_filter"]) >= 0.25, "hazard_priority": float(pol["hazard_priority"]) >= 0.6,
@@ -267,7 +267,7 @@ def a3_policy(pol):
 
 
 def join_replay(idx, up, policy):
-    """A3's /api/replay answer, with each decision filled from the same day's event and the page's categories."""
+    """the memory service's /api/replay answer, with each decision filled from the same day's event and the page's categories."""
     decisions, by_cat = [], {}
     for d in up.get("decisions") or []:
         e = idx.by_id.get(d.get("event_id")) or {}
@@ -300,7 +300,7 @@ class Memory:
     def __init__(self, base, today=None, token=""):
         self.base = base.rstrip("/")
         self.remote = (urlsplit(self.base).hostname or "") not in LOCAL_HOSTS
-        self.token = token if self.remote else ""          # A3's API wants the relay token only through a proxy
+        self.token = token if self.remote else ""          # the memory service's API wants the relay token only through a proxy
         self.last_error = ""
         self.seed = Seed()
         self.down_until = 0.0
@@ -379,7 +379,7 @@ class Memory:
         return out
 
     def call(self, endpoint, q):
-        if endpoint == "status":                       # A3's server status: relay health + message rates
+        if endpoint == "status":                       # the memory service's server status: relay health + message rates
             where = "vultr" if self.remote else "local"
             up = self._upstream("GET", "/api/status")
             if up is None:

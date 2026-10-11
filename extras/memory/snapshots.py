@@ -1,5 +1,5 @@
-"""Static copies of the memory API's answers over the seeded day, for K2's dashboard when the API is down
-(INTEGRATION_CONTRACT §5.3: "falls back to the seeded JSON in extras/memory/seed/").
+"""Static copies of the memory API's answers over the seeded day, for the dashboard when the API is down
+(docs/INTEGRATION.md §5.3: "falls back to the seeded JSON in extras/memory/seed/").
 
     python -m extras.memory snapshots          # rewrite extras/memory/seed/api/*.json
     python -m extras.memory snapshots --check  # fail if stale (tests run this)

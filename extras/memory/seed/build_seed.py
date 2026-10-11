@@ -1,9 +1,9 @@
-"""Build the SEEDED synthetic day (TASKS A3 D): extras/memory/seed/synthetic_day.jsonl + segments.json.
+"""Build the SEEDED synthetic day: extras/memory/seed/synthetic_day.jsonl + segments.json.
 
 Every line of synthetic_day.jsonl is one canonical v3 message (contracts/examples shapes), exactly what the memory
 service would receive from the relay as role `memory` (+ `scene` for the wearer's heading), validated against
 contracts/schemas. It is SEEDED, not captured: the session is `seeded-<date>`, ids start with `seed-`, and
-segments.json says `"seeded": true`. Never present it as live capture (CONTEXT.md, cloud philosophy).
+segments.json says `"seeded": true`. Never present it as live capture.
 
 Deterministic (fixed random seed), so the files only change when this script does.
 
@@ -290,7 +290,7 @@ class Day:
                                emoji=emoji, text=text, confidence=conf, bearing_deg=b, t_start=round(t0, 3),
                                t_end=round(first_end, 3), count=opts.get("count", 1), source_id=1,
                                model="panns_cnn14"))
-        if "upgrade" in opts:                               # same event_id, better label (INTEGRATION_CONTRACT §4)
+        if "upgrade" in opts:                               # same event_id, better label (docs/INTEGRATION.md §4)
             new, new_conf, after = opts["upgrade"]
             category, emoji, text = SOUND_DISPLAY[new]
             label, conf = new, new_conf

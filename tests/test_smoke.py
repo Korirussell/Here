@@ -1,6 +1,6 @@
 """End-to-end smoke test (no hardware, no models): relay + tools/fake_events.py + a headless phone.
 
-Asserts the phone-side subscription receives README §4's core moments in order, every message
+Asserts the phone-side subscription receives SPEC §4's core moments in order, every message
 valid against the contract, routed with the session set, and nothing the phone didn't subscribe to.
 """
 

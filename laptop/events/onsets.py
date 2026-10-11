@@ -1,7 +1,7 @@
-"""Onset candidates for the sound classifier (K1 -> A2, HERE_36hr_vibecode_plan/Shared/INTEGRATION_CONTRACT.md §5.1).
+"""Onset candidates for the sound classifier (docs/INTEGRATION.md §5.1).
 
 Whenever an audio stream gets suddenly louder than its own noise floor, the detector publishes an
-`OnsetCandidate(t, bearing_deg, energy, source_id)`: "something started here, classify this window". A2
+`OnsetCandidate(t, bearing_deg, energy, source_id)`: "something started here, classify this window". The classifier
 subscribes (`app.onsets.subscribe(fn)`), classifies around `t`, and emits a `sound_event` (a label, or
 `unknown`); it never drops a candidate silently.
 
@@ -11,11 +11,11 @@ Per stream (beams mode: stream k = beam k = `sources` id k):
   a crowd's hum) becomes the floor and never fires;
 - onset = the level stays `margin_db` over the floor for `min_s` (debounce); `t` is when it first crossed;
 - then nothing until the level falls back under floor + `rearm_db` and `cooldown_s` has passed (a ding-dong or
-  a sustained cry is one candidate; A2 merges repeats anyway).
+  a sustained cry is one candidate; the classifier merges repeats anyway).
 
 It runs on the audio the pipeline already gets, so a fixture replay and the live array produce the same
 candidates. Speech onsets are candidates too, flagged `speech=True` (the array heard a talker at that moment):
-the speech pipeline owns them, A2 may skip them.
+the speech pipeline owns them, the classifier may skip them.
 """
 
 from __future__ import annotations

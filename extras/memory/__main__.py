@@ -1,4 +1,4 @@
-"""python -m extras.memory [serve|seed|ask|replay|export]   (README §17.1, INTEGRATION_CONTRACT §5.3)
+"""python -m extras.memory [serve|seed|ask|replay|export]   (SPEC §17.1, docs/INTEGRATION.md §5.3)
 
     python -m extras.memory                          # relay client (role memory) + API on :8790, seeds if empty
     python -m extras.memory --no-relay               # API only, over the seeded day
@@ -6,7 +6,7 @@
     python -m extras.memory ask "What happened at lunch?"
     python -m extras.memory replay lunch --sensitivity 0.8 --no-crowd-filter
     python -m extras.memory export out.jsonl         # flat event export for the Databricks job
-    python -m extras.memory forget <session>         # README §25: delete a session now
+    python -m extras.memory forget <session>         # SPEC §25: delete a session now
     python -m extras.memory snapshots [--check]      # static API answers for the dashboard's offline fallback
 
 Database: NEON_DATABASE_URL (extras/memory/.env) or local SQLite (extras/memory/data/memory.sqlite).

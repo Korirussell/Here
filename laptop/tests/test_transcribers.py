@@ -1,5 +1,5 @@
 """Speech engines without the network or models: Scribe Realtime against a local fake server, the fallback,
-and the pipeline driven by FakeTranscriber (README §10 fast path, §12.6 utterance, TASKS A1 G)."""
+and the pipeline driven by FakeTranscriber (SPEC §10 fast path, §12.6 utterance)."""
 
 import asyncio
 import base64

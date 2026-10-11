@@ -1,10 +1,10 @@
 """End-to-end across every role (no hardware, no models): relay + tools/fake_events.py's core moments, with a
-stand-in enricher that sends `perception_enrichment` after the event it refers to (A2's job on the laptop).
+stand-in enricher that sends `perception_enrichment` after the event it refers to (the sound classifier's job on the laptop).
 
 A phone, a dashboard and a memory client listen in the same session; a phone in another session must hear
-nothing. Asserts each role gets exactly its README §12.10 subscription, every message is valid v3, and an
+nothing. Asserts each role gets exactly its SPEC §12.10 subscription, every message is valid v3, and an
 enrichment reaches the phone, dashboard and memory only after its event. The laptop side knows nothing about
-the dashboard or memory: mirroring is the relay's job (Shared/INTEGRATION_CONTRACT.md §1).
+the dashboard or memory: mirroring is the relay's job (docs/INTEGRATION.md §1).
 """
 
 import asyncio
@@ -42,7 +42,7 @@ async def relay_server():
 
 class Enricher:
     """Wraps the laptop's RelayClient: forwards everything, and after each sound_event or final utterance
-    sends a perception_enrichment that refers to it (once per event), like A2's attention model would (rules, no
+    sends a perception_enrichment that refers to it (once per event), like the sound classifier's attention model would (rules, no
     Gemini). The script may send enrichments of its own; those pass through untouched."""
 
     def __init__(self, client):
@@ -143,7 +143,7 @@ def test_every_role_gets_its_subscription_and_enrichment_follows_its_event():
             assert m["session"] == "demo"
             assert "*" in subs or m["type"] in subs, (role, m["type"])
 
-    # Memory gets A3's ingest stream (README §12.10) and none of the 20 Hz positional traffic.
+    # Memory gets the memory service's ingest stream (SPEC §12.10) and none of the 20 Hz positional traffic.
     mem_types = {m["type"] for m in got["memory"]}
     assert {"utterance", "alert", "sound_event", "perception_enrichment"} <= mem_types
     assert not mem_types & {"sources", "speech_start", "heartbeat", "config"}
@@ -177,7 +177,7 @@ def test_every_role_gets_its_subscription_and_enrichment_follows_its_event():
 
 def test_local_relay_latency_is_well_under_budget():
     """Laptop observation `t` -> client receive, through the local relay. The ≤100 ms network budget
-    (INTEGRATION_CONTRACT §7) is for Vultr; locally the relay hop should be a few ms."""
+    (docs/INTEGRATION.md §7) is for Vultr; locally the relay hop should be a few ms."""
     got, _ = run_session()
     lags = sorted((m["_rx"] - m["t"]) * 1000 for m in got["phone"] if m["src"] == "laptop")
     assert lags

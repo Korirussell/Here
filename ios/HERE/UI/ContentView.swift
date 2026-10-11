@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// The glasses view (README §14): full-screen camera, AR overlay, status pill top-left, sound panel
+/// The glasses view (SPEC §14): full-screen camera, AR overlay, status pill top-left, sound panel
 /// top-right, belt indicator bottom-right, settings bottom-left. Mirrored to the judges' monitor.
 struct ContentView: View {
     @EnvironmentObject private var model: AppModel
@@ -91,7 +91,7 @@ struct ContentView: View {
     }
 }
 
-/// Spatial V2: the belt indicator shows what the belt just did (README §23: visible even if BLE
+/// Spatial V2: the belt indicator shows what the belt just did (SPEC §23: visible even if BLE
 /// drops), then gets out of the way instead of sitting in the corner all the time.
 struct TransientBeltIndicator: View {
     @ObservedObject var belt: BeltController

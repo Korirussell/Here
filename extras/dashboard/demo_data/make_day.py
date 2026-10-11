@@ -1,9 +1,9 @@
-"""Builds the seeded synthetic day the dashboard falls back to when A3's memory API is down.
+"""Builds the seeded synthetic day the dashboard falls back to when the memory service's memory API is down.
 
     python extras/dashboard/demo_data/make_day.py      # writes day.json, ask.json, insights.json next to it
 
 Events use the canonical v3 message shapes unchanged, plus the stored-event metadata from
-Shared/INTEGRATION_CONTRACT.md §5.3 (`person_label`, `location_id`, `session`, `seeded: true`). Deterministic.
+docs/INTEGRATION.md §5.3 (`person_label`, `location_id`, `session`, `seeded: true`). Deterministic.
 """
 
 import json

@@ -1,7 +1,7 @@
-"""Sound classifier bakeoff on our sounds (A2): per-class accuracy, latency, warmup, memory, calibration, licence.
+"""Sound classifier bakeoff on our sounds: per-class accuracy, latency, warmup, memory, calibration, licence.
 
     python tools/sound_bench.py                              # every candidate in laptop/config.yaml sounds.models
-    python tools/sound_bench.py --models panns_cnn14 mispeech/ced-base --device cuda   # K3: GPU latency, finalists
+    python tools/sound_bench.py --models panns_cnn14 mispeech/ced-base --device cuda   # GPU latency, finalists
     python tools/sound_bench.py --no-babble                  # skip the +5 dB crowd-babble condition
 
 Clips (cached in logs/sound_bench/clips, downloaded once):

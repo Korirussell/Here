@@ -1,4 +1,4 @@
-"""Sound classifier backends: 16 kHz int16 audio in, contract SoundLabel scores out (README §12.7, §18).
+"""Sound classifier backends: 16 kHz int16 audio in, contract SoundLabel scores out (SPEC §12.7, §18).
 
 One `Backend` per model family, all behind the same call so the live pipeline (classifier.py) and the bakeoff
 (tools/sound_bench.py) run exactly the same code:

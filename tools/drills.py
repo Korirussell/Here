@@ -1,4 +1,4 @@
-"""Scripted failure drills (TASKS K3 D): the real laptop on a fixture replay, one dependency broken, compared
+"""Scripted failure drills: the real laptop on a fixture replay, one dependency broken, compared
 with a clean run of the same fixture. Repeatable, no hardware, no cloud account needed.
 
     python tools/drills.py                     # every drill

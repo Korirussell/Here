@@ -1,7 +1,7 @@
 import CoreGraphics
 import Foundation
 
-/// Bearings and camera geometry (README §8). Pure functions, unit-tested in GeometryTests.
+/// Bearings and camera geometry (SPEC §8). Pure functions, unit-tested in GeometryTests.
 ///
 /// World bearing: degrees from the array's forward direction, clockwise, (-180, 180].
 /// Relative (body) bearing: degrees from the wearer's front. heading = world bearing the wearer faces.
@@ -30,7 +30,7 @@ enum Geo {
         return 0.5 + tan(rel * .pi / 180) / (2 * half)
     }
 
-    /// Belt motor 1...8, clockwise from the front: motor = (round(rel / 45) mod 8) + 1 (README §8).
+    /// Belt motor 1...8, clockwise from the front: motor = (round(rel / 45) mod 8) + 1 (SPEC §8).
     static func motor(forRelative rel: Double) -> Int {
         var r = rel.truncatingRemainder(dividingBy: 360)
         if r < 0 { r += 360 }
@@ -57,7 +57,7 @@ enum Geo {
     /// actually the sensor's *vertical* extent, which has a different -- usually narrower -- angle of
     /// view. Using the landscape value there skews every bearing computed from a pixel position by a
     /// large, orientation-dependent amount, even though the Vision rects themselves are already
-    /// correctly rotated (README §14 "Coordinates (where bugs live)").
+    /// correctly rotated (SPEC §14 "Coordinates (where bugs live)").
     static func effectiveHFOVDeg(hfovDeg: Double, vfovDeg: Double, captureAngle: Double) -> Double {
         Frames.swapsDimensions(captureAngle: captureAngle) ? vfovDeg : hfovDeg
     }
@@ -76,7 +76,7 @@ enum Geo {
     }
 }
 
-/// Vision rects and capture rotation (README §14 "Coordinates (where bugs live)").
+/// Vision rects and capture rotation (SPEC §14 "Coordinates (where bugs live)").
 ///
 /// Vision returns normalized rects in the *upright, rotated* buffer with a bottom-left origin.
 /// `AVCaptureVideoPreviewLayer.layerRectConverted(fromMetadataOutputRect:)` wants normalized rects in

@@ -1,4 +1,4 @@
-"""Streaming speech: audio in, `speech_start` + `utterance` out (README §10, §12.6, §13).
+"""Streaming speech: audio in, `speech_start` + `utterance` out (SPEC §10, §12.6, §13).
 
 Silero VAD segments speech. At onset the pipeline sends `speech_start` with the current direction
 (fast path, before any words). While the utterance grows it is re-decoded every partial_every_s;
@@ -6,7 +6,7 @@ words that two consecutive decodes agree on move from `pending` into `text` (loc
 final decode follows end_silence_s after speech stops. Each update carries the circular-mean bearing
 of the speech directions during the utterance, its spread, an overlap flag, loudness and a tone.
 
-The wearer stands within 0.5 m of the array (README §5), so their own voice arrives from one fixed world
+The wearer stands within 0.5 m of the array (SPEC §5), so their own voice arrives from one fixed world
 bearing (`audio.wearer_bearing_deg`, set by `python -m laptop.audio.calibrate --wearer`). Speech from
 within `wearer_ignore_deg` of it is never captioned and never sends speech_start (so the belt stays
 still); an utterance that only turns out to be the wearer later is retracted with an empty final.
@@ -449,7 +449,7 @@ class SpeechPipeline:
 
     def diffuse(self, seg, t_end):
         """Confident speech readings from all over the place: crowd babble, not one talker (a real talker's
-        readings spread ~0.5 deg on the array, laptop/audio/SPIKE.md)."""
+        readings spread ~0.5 deg on the array)."""
         c = self.cfg
         if not self.doa_gating(t_end):
             return False
@@ -489,7 +489,7 @@ class SpeechPipeline:
                 and abs(angdiff(bearing, self.wearer_bearing)) <= self.wearer_ignore_deg)
 
     def start(self, seg, t):
-        """speech_start the moment VAD hears speech, with the newest direction (README §10)."""
+        """speech_start the moment VAD hears speech, with the newest direction (SPEC §10)."""
         src = self.history.onset(t, self.cfg["onset_lookback_s"])
         seg.onset = src
         if src is not None and src.speech and self.is_wearer(src.bearing_deg):
@@ -622,7 +622,7 @@ class SpeechPipeline:
         voiced = audio[int(seg.preroll_s * SR): len(audio) - int(seg.silence_s * SR)]   # drop pre-roll + tail
         level = speech_db(voiced if len(voiced) >= 1024 else audio)
         ref = self.speech_ref_db if self.speech_ref_db is not None else level
-        # 0.5 = this room's normal talking level; +-loudness_range_db/2 spans the rest (README §12.6 loudness)
+        # 0.5 = this room's normal talking level; +-loudness_range_db/2 spans the rest (SPEC §12.6 loudness)
         loud = min(max(0.5 + (level - ref) / c["loudness_range_db"], 0.0), 1.0)
         if final and text:
             self.speech_ref_db = level if self.speech_ref_db is None else 0.85 * self.speech_ref_db + 0.15 * level

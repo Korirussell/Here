@@ -1,13 +1,13 @@
 # Databricks notebook source
 # MAGIC %md
-# MAGIC # HERE insights (TASKS A3 F)
+# MAGIC # HERE insights
 # MAGIC
 # MAGIC Reads the flat event export from the memory service (`python -m extras.memory export events.jsonl`, uploaded
 # MAGIC to a Unity Catalog volume), computes the day's metrics with Spark, writes them as Delta tables, and renders the
 # MAGIC dashboard insights with the **same** `extras/cloud/insights_core.render()` the local fallback uses, tagged
 # MAGIC `source: "databricks"`.
 # MAGIC
-# MAGIC Text and metadata only: no audio ever reaches this job (README §25).
+# MAGIC Text and metadata only: no audio ever reaches this job (SPEC §25).
 # MAGIC
 # MAGIC Run it as a job (`job.json`) or interactively. `python -m extras.cloud.databricks_sync --create-job` uploads it
 # MAGIC to `/Workspace/Shared/here/` next to `extras/cloud/insights_core.py` and `extras/memory/replay.py`, which it imports.

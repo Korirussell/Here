@@ -1,4 +1,4 @@
-"""How each contract SoundLabel / AlertKind is shown (README §12.3, §15). Data, not tunables."""
+"""How each contract SoundLabel / AlertKind is shown (SPEC §12.3, §15). Data, not tunables."""
 
 # label -> (category, emoji, text)
 SOUND_DISPLAY = {
@@ -12,7 +12,7 @@ SOUND_DISPLAY = {
     "tv": ("media", "📺", "TV"),
     "laughter": ("speech", "😂", "Laughter"),
     "phone_ringing": ("alert", "📱", "Phone ringing"),
-    "loud_bang": ("alert", "💥", "Loud bang"),          # never "gunshot" (README §15)
+    "loud_bang": ("alert", "💥", "Loud bang"),          # never "gunshot" (SPEC §15)
     "car_horn": ("alert", "📯", "Car horn"),
     "vehicle": ("other", "🚗", "Vehicle"),
     "siren": ("alert", "🚑", "Siren"),

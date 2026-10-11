@@ -14,8 +14,8 @@ panns-inference    # doorbell classifier (PANNs CNN14)
 jsonschema         # contract validation (tests, relay_tap --validate)
 pytest
 rich               # optional: python -m laptop --dashboard (plain one-line status without it)
-# Attention tiers (laptop/enrich/, Shared/ATTENTION.md). transformers is PINNED: 5.19+ needs torch >= 2.6 and breaks on
-# import with torch 2.5.1; < 5 downgrades huggingface_hub / tokenizers under faster-whisper (WORKLOG_K3 round 7).
+# Attention tiers (laptop/enrich/, docs/ATTENTION.md). transformers is PINNED: 5.19+ needs torch >= 2.6 and breaks on
+# import with torch 2.5.1; < 5 downgrades huggingface_hub / tokenizers under faster-whisper.
 transformers==5.18.0
 peft               # JEV-9B adapter
 bitsandbytes       # JEV-9B 4-bit NF4 (16 GB GPU)

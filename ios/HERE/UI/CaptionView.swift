@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// One caption box (README §14 "What the screen shows"):
+/// One caption box (SPEC §14 "What the screen shows"):
 /// header = color dot + "Person N" + tone chip; body = committed words, provisional words dimmer,
 /// two lines max (newest words win); a tail toward the speaker; typing dots before any words.
 struct CaptionView: View {
@@ -38,7 +38,7 @@ struct CaptionView: View {
         .modifier(CaptionPlate(spatial: spatial, simple: simpleGlass))
         // Ties the whole card to the speaker's color, not just the header dot -- a soft tinted edge
         // and glow instead of every caption being the same neutral dark plate regardless of who's
-        // talking (README §14: identity is never by color *alone*, but the color still carries
+        // talking (SPEC §14: identity is never by color *alone*, but the color still carries
         // meaning once "Person N" is also stated, which it always is in the header).
         .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous).stroke(color.opacity(spatial ? Tunables.captionBorderOpacity : 0.45), lineWidth: 1))
         .shadow(color: color.opacity(simpleGlass ? 0 : 0.35), radius: 12, x: 0, y: 4)
@@ -66,7 +66,7 @@ struct CaptionView: View {
         .fixedSize(horizontal: spatial, vertical: false)
     }
 
-    /// Committed words in white, provisional words a dimmer but *opaque* gray (README §14: >= 4.5:1,
+    /// Committed words in white, provisional words a dimmer but *opaque* gray (SPEC §14: >= 4.5:1,
     /// measured against the brightest booth background). Opaque, not `.white.opacity(...)`, on purpose:
     /// a translucent color blends with whatever the glass tint lets through, so it quietly loses
     /// contrast right along with the backdrop; a fixed color keeps the ratio independent of the scene.
@@ -111,7 +111,7 @@ struct CaptionPlate: ViewModifier {
     }
 }
 
-/// Emoji + word; fades with low confidence (README §14).
+/// Emoji + word; fades with low confidence (SPEC §14).
 struct ToneChip: View {
     let tone: Tone
     let confidence: Double
@@ -129,7 +129,7 @@ struct ToneChip: View {
     }
 }
 
-/// Shown on speech_start, before any words arrive (fast path, README §10).
+/// Shown on speech_start, before any words arrive (fast path, SPEC §10).
 struct TypingDots: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 

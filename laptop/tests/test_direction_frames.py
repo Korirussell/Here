@@ -1,4 +1,4 @@
-"""Every path from array data to a WORLD bearing (README §8: clockwise, 0 = array front, (-180, 180]) gives the
+"""Every path from array data to a WORLD bearing (SPEC §8: clockwise, 0 = array front, (-180, 180]) gives the
 same answer for the same physical source, for array_clockwise false AND true, so a mirrored path can't come
 back silently (2026-10-11: recalibration flipped array_clockwise true -> false; left/right had been swapped).
 
@@ -12,7 +12,7 @@ array; then each path must read w back:
   sound SRP        raw mics -> SRP-PHAT -> aec_to_device -> to_world      (RawLocator.locate)
   speech SRP       same, restricted to a fixed beam's half of the room   (SpeechBearings / locate_within)
   replay           a fixture recorded under one calibration, replayed while the live config holds another
-  phone            wrap(world - heading) -> belt motor (README §8; mirrors ios/HERE/Geometry/Geometry.swift)
+  phone            wrap(world - heading) -> belt motor (SPEC §8; mirrors ios/HERE/Geometry/Geometry.swift)
 """
 
 import math
@@ -259,7 +259,7 @@ def test_four_point_check_catches_a_side_mixup():
     assert all(abs(err) < 1 for *_, err in good) and not left_right_swapped(good)
 
 
-# ---- the phone's half (README §8; ios/HERE/Geometry/Geometry.swift relative + motor) -----------------------
+# ---- the phone's half (SPEC §8; ios/HERE/Geometry/Geometry.swift relative + motor) -----------------------
 
 @pytest.mark.parametrize("world,heading,motor", [(0.0, 0.0, 1), (90.0, 0.0, 3), (-90.0, 0.0, 7), (180.0, 0.0, 5),
                                                  (180.0, 90.0, 3), (0.0, 90.0, 7), (90.0, 90.0, 1),

@@ -1,4 +1,4 @@
-# HERE task runner (README §22). On Windows without make: .\tasks.ps1 <task>
+# HERE task runner (SPEC §22). On Windows without make: .\tasks.ps1 <task>
 PY ?= .venv/Scripts/python
 ifeq ($(wildcard $(PY)),)
 PY = python3
@@ -40,7 +40,7 @@ golden:          ## pass/fail regression gate: mock + real-array scenes, babble 
 demo-up:         ## demo stack: local relay + source + dashboard + memory API (ARGS="--source real")
 	$(PY) tools/demo.py up $(ARGS)
 
-demo-reset:      ## between judge groups: relay + dashboard restart, laptop stays warm (ARGS=--full for all)
+demo-reset:      ## between demo runs: relay + dashboard restart, laptop stays warm (ARGS=--full for all)
 	$(PY) tools/demo.py reset $(ARGS)
 
 demo-down:

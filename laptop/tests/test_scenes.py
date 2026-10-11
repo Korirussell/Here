@@ -1,4 +1,4 @@
-"""fixtures/events scenes (K1 E): every line is valid v3, the scenes match the script, and playback rebases them."""
+"""fixtures/events scenes: every line is valid v3, the scenes match the script, and playback rebases them."""
 
 import json
 import sys

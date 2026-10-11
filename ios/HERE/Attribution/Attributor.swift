@@ -18,7 +18,7 @@ enum Speaker: Equatable, Hashable {
     }
 }
 
-/// Speech -> person, on the phone (README §13). Thresholds are (tune) in Tunables.
+/// Speech -> person, on the phone (SPEC §13). Thresholds are (tune) in Tunables.
 ///
 /// 1. On speech_start / utterance, pick the visible face within `matchDeg` of the bearing;
 ///    if two are close (within `tieDeg` of each other's distance), prefer whoever spoke most recently.

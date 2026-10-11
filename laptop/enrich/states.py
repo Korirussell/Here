@@ -1,4 +1,4 @@
-"""State sentences for the attention models (ATTENTION.md "What it decides"), plus labelled demo states.
+"""State sentences for the attention models (docs/ATTENTION.md "What it decides"), plus labelled demo states.
 
 One short sentence per event, built only from what the laptop knows: label, confidence, energy, a transcript
 snippet, repeats in the last minute, whether a conversation is going on, focus mode. Never a direction relative to
@@ -49,7 +49,7 @@ def speech_state(text, tone=None, name_called=False, overlap=False, focus=False,
     return s
 
 
-# (state, expected attention, expected directed-at-user or None): gate 4 in ATTENTION.md and tuning on CPU.
+# (state, expected attention, expected directed-at-user or None): gate 4 in docs/ATTENTION.md and tuning on CPU.
 # "obvious" = rules and every model should agree; the rest are judgment calls.
 DEMO_STATES = [
     (sound_state("siren", 0.85, 0.8), "urgent", None, "obvious"),

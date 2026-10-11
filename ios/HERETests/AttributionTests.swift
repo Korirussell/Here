@@ -1,7 +1,7 @@
 import XCTest
 @testable import HERE
 
-/// README §13 with synthetic faces and bearings (same cases as laptop/legacy fusion tests).
+/// SPEC §13 with synthetic faces and bearings (same cases as laptop/legacy fusion tests).
 final class AttributionTests: XCTestCase {
     let p1 = FaceRef(id: 1, label: "Person 1", bearing: 32)
     let p2 = FaceRef(id: 2, label: "Person 2", bearing: -30)

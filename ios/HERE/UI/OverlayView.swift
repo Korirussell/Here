@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// The AR layer over the camera (README §14): rings on whoever is talking, captions above heads,
+/// The AR layer over the camera (SPEC §14): rings on whoever is talking, captions above heads,
 /// off-camera captions at the screen edge with a chevron, sound tags, and edge glows toward alerts.
 struct OverlayView: View {
     @EnvironmentObject private var model: AppModel
@@ -64,7 +64,7 @@ struct OverlayView: View {
                     }
                     .fixedSize()
                     .position(p.point)
-                    // Short enough to still smooth out single-frame jitter (README §14 "no jitter") without
+                    // Short enough to still smooth out single-frame jitter (SPEC §14 "no jitter") without
                     // visibly lagging behind the face: the ring and box below track the same data with no
                     // animation at all (they snap every frame), so anything much slower than that reads as
                     // the caption detaching from the person during normal head/camera movement.

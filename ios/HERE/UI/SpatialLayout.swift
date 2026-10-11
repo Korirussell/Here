@@ -190,7 +190,7 @@ enum SpatialLayout {
         return clamp(CGPoint(x: icon.x + CGFloat(dx * d), y: icon.y + CGFloat(dy * d)), size)
     }
 
-    /// README §14: never cover a mouth, and never draw one caption over another. Captions are settled
+    /// SPEC §14: never cover a mouth, and never draw one caption over another. Captions are settled
     /// in order; each takes the first of these spots that is on screen, clear of every face and clear
     /// of the captions already settled: where it wants to be, just above or below any face it would
     /// cover, above or below a caption it would hit, then beside that caption.

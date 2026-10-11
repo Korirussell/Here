@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Thin ring around whoever is talking, in their color, pulsing gently with loudness (README §14).
+/// Thin ring around whoever is talking, in their color, pulsing gently with loudness (SPEC §14).
 struct SpeakerRing: View {
     let color: Color
     let loudness: Double
@@ -23,7 +23,7 @@ struct SpeakerRing: View {
 }
 
 /// Top-down direction ring: wearer in the middle, front at the top, a glowing arc toward the sound
-/// (README §14: like a video-game damage indicator).
+/// (SPEC §14: like a video-game damage indicator).
 struct DirectionRing: View {
     let relative: Double?          // degrees, body frame; nil = unknown direction
     var color: Color = Palette.alert
@@ -90,7 +90,7 @@ struct EdgeGlow: View {
     }
 }
 
-/// Small top-left pill: relay, transcription engine, thermal, latency (README §14).
+/// Small top-left pill: relay, transcription engine, thermal, latency (SPEC §14).
 struct StatusPill: View {
     @EnvironmentObject private var model: AppModel
 
@@ -133,13 +133,13 @@ struct StatusPill: View {
         case .connected: laptopQuiet ? "no laptop" : "live"
         case .connecting: "connecting"
         case .disconnected: "offline"
-        case .rejected: "bad token"   // README §7/§12: 401 before the WebSocket opens -- won't fix itself
+        case .rejected: "bad token"   // SPEC §7/§12: 401 before the WebSocket opens -- won't fix itself
         }
     }
 }
 
 /// Bottom-right: the 8 motors around the waist, the last one fired lit, so the audience (and the
-/// wearer's helpers) can see what the belt does even if BLE drops (README §23 backup).
+/// wearer's helpers) can see what the belt does even if BLE drops (SPEC §23 backup).
 struct BeltIndicator: View {
     @EnvironmentObject private var model: AppModel
     @ObservedObject var belt: BeltController

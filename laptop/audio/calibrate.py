@@ -1,4 +1,4 @@
-"""Guided array calibration (README §8): finds array_offset_deg and the device's rotation direction.
+"""Guided array calibration (SPEC §8): finds array_offset_deg and the device's rotation direction.
 
 Talk from the array's front, then from its right; the helper averages the device's
 direction while you speak, works out the offset and whether angles run clockwise,
@@ -35,7 +35,7 @@ MIN_SAMPLES = 15          # speech samples needed per position (~0.75 s of talki
 MAX_SPREAD_DEG = 20.0     # circular std above this means noise, echo or a second talker (tune)
 RIGHT_TOLERANCE_DEG = 35  # the "right" reading must be within this of +-90 deg from front
 CHECK_TOLERANCE_DEG = 25  # --verify / --four-point: a position reading further than this from its truth = CHECK
-# Where a helper stands for each check position, and the world bearing it must read (README §8: clockwise).
+# Where a helper stands for each check position, and the world bearing it must read (SPEC §8: clockwise).
 POSITIONS = (("in FRONT", 0.0), ("to the RIGHT", 90.0), ("BEHIND", 180.0), ("to the LEFT", -90.0))
 
 
@@ -200,7 +200,7 @@ def verify(dev, seconds):
 
 
 def calibrate_wearer(dev, seconds, no_save):
-    """The wearer talks from their tape mark; the array's world bearing to them is stored (README §5)."""
+    """The wearer talks from their tape mark; the array's world bearing to them is stored (SPEC §5)."""
     print("Wearer calibration: the wearer stands on their mark (within 0.5 m of the array), facing its front.")
     print(f"Array calibration in use: offset {C.ARRAY_OFFSET_DEG} deg, "
           f"{'clockwise' if C.ARRAY_CLOCKWISE else 'counter-clockwise'} (run the full calibration first if unsure).")
@@ -222,7 +222,7 @@ def main():
     p.add_argument("--seconds", type=float, default=5.0, help="listening time per position (default 5)")
     p.add_argument("--no-save", action="store_true", help="print the result without writing laptop/config.yaml")
     p.add_argument("--wearer", action="store_true",
-                   help="only measure the wearer's own voice -> audio.wearer_bearing_deg (README §5)")
+                   help="only measure the wearer's own voice -> audio.wearer_bearing_deg (SPEC §5)")
     p.add_argument("--verify", action="store_true",
                    help="4-point check (front, right, behind, left) of the saved calibration; saves nothing")
     p.add_argument("--four-point", action="store_true",
@@ -247,7 +247,7 @@ def main():
         finally:
             dev.close()
         return
-    print("Array calibration (README §8)")
+    print("Array calibration (SPEC §8)")
     print(f"current config: offset {C.ARRAY_OFFSET_DEG} deg, "
           f"{'clockwise' if C.ARRAY_CLOCKWISE else 'counter-clockwise'}")
     print("\n'Front' is the side you'll treat as the array's forward direction (mark it with tape).")

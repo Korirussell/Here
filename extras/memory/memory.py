@@ -36,7 +36,7 @@ def clock(t):
 
 
 def public_event(row):
-    """Canonical message unchanged + the memory fields (INTEGRATION_CONTRACT §5.3)."""
+    """Canonical message unchanged + the memory fields (docs/INTEGRATION.md §5.3)."""
     return {**row["payload"], "person_label": row["person_label"], "location_id": row["location_id"],
             "rel_bearing": row["rel_bearing"], "origin": row["origin"]}
 

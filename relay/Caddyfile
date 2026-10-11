@@ -1,4 +1,4 @@
-# Caddy in front of the HERE relay (README §7): automatic HTTPS, WebSocket upgrade, and the memory API.
+# Caddy in front of the HERE relay (SPEC §7): automatic HTTPS, WebSocket upgrade, and the memory API.
 # HERE_HOST comes from the environment (/etc/default/caddy or the systemd unit), e.g.
 #   HERE_HOST=here.example.com     (a domain you point at the server)
 #   HERE_HOST=203-0-113-7.sslip.io (free hostname for the server's IP; dashes, not dots)

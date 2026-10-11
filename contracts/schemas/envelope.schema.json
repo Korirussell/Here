@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://here.local/contracts/envelope.schema.json",
   "title": "envelope",
-  "description": "Common fields of every message (README §12.2). Receivers ignore unknown types.",
+  "description": "Common fields of every message (SPEC §12.2). Receivers ignore unknown types.",
   "type": "object",
   "properties": {
     "type": {

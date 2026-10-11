@@ -1,6 +1,6 @@
 """3D sound-field view in the browser: python -m laptop --real --viz (any mode with raw mics; --odas adds ODAS).
 
-A local page (http://127.0.0.1:8770 by default, laptop only: nothing leaves the machine, README §6) showing, in
+A local page (http://127.0.0.1:8770 by default, laptop only: nothing leaves the machine, SPEC §6) showing, in
 the world frame with the wearer looking "into" the screen:
   - a hemisphere heat map: our SRP-PHAT power over azimuth x elevation on the raw mics (a planar array can't tell
     up from down and resolves elevation only coarsely, so the sky is a guide, not a measurement)

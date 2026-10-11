@@ -126,7 +126,7 @@ final class SpeakerLocks {
             }
             a.confidence = min(1, holding)
         } else if let attributed {
-            // New source, and the per-utterance attribution (README §13) already named its speaker.
+            // New source, and the per-utterance attribution (SPEC §13) already named its speaker.
             a.personId = attributed
             a.state = .locked
             a.confidence = min(1, a.lastScores[attributed] ?? Tunables.speakerLockThreshold)

@@ -217,7 +217,7 @@ def test_short_blip_retracts_its_speech_start():
     assert names == []
 
 
-# ---- the wearer's own voice (README §5) ---------------------------------------------------
+# ---- the wearer's own voice (SPEC §5) ---------------------------------------------------
 
 def test_wearer_is_never_captioned_and_never_starts():
     sent, names = run_pipeline(bearing=-172.0, wearer_bearing=175.0, wearer_ignore_deg=20)
@@ -335,7 +335,7 @@ def test_whisper_hint_formats():
     assert w.hint is None
 
 
-# ---- whisper inventions on noise (README §24 loud hall) ----------------------------------
+# ---- whisper inventions on noise (SPEC §24 loud hall) ----------------------------------
 
 @pytest.mark.parametrize("final", ["Thank you.", "Thanks for watching!", "Thank you. Thank you.", "Um.", "you"])
 def test_classic_inventions_on_noise_are_retracted(final):
@@ -408,7 +408,7 @@ def test_an_array_gates_from_the_first_second():
 
 
 def test_partials_come_faster_until_the_first_words():
-    """K1 proposal (a): decodes of the first ~0.2 s of a voice come back empty; retrying every 0.4 s put the first
+    """Array tuning proposal (a): decodes of the first ~0.2 s of a voice come back empty; retrying every 0.4 s put the first
     words at 605 ms on the real array (fixtures/array_tts). Every 0.2 s until words appear: 423 ms."""
     from types import SimpleNamespace
     cfg = dict(CFG["speech"], partial_every_s=0.4, first_words_every_s=0.2)
@@ -436,7 +436,7 @@ def test_team_names_are_respelled_without_touching_other_words():
 
 
 def test_name_plus_an_invention_is_checked_without_the_hint():
-    """K1 proposal (c): "Kori. Thank you." on noise raised name_called twice in one real-array run (and once on 220 s
+    """Array tuning proposal (c): "Kori. Thank you." on noise raised name_called twice in one real-array run (and once on 220 s
     of real chatter with level_speech on). Name + only inventions = name-only: the plain decode decides."""
     sent, names = run_pipeline(partials=("Kori. Thank you.",), final="Kori. Thank you.",
                                engine={"hinting": True, "unhinted": "Thank you."})
@@ -450,7 +450,7 @@ def test_name_plus_an_invention_is_checked_without_the_hint():
 
 
 def test_music_no_longer_vetoes_a_caption():
-    """K1 proposal (c): speech.nonspeech_labels without music / tv (background music dropped "Kori.")."""
+    """Array tuning proposal (c): speech.nonspeech_labels without music / tv (background music dropped "Kori.")."""
     from types import SimpleNamespace
     cfg = dict(CFG["speech"])
     p = SpeechPipeline(cfg, SimpleNamespace(engine="fake"), DirectionHistory(), lambda m: None, vad=lambda w: 0.0)

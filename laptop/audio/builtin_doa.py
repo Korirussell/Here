@@ -1,4 +1,4 @@
-"""The ReSpeaker XVF3800 as HERE's ears: processed audio + built-in DoA -> `sources` (README §11, §12.5).
+"""The ReSpeaker XVF3800 as HERE's ears: processed audio + built-in DoA -> `sources` (SPEC §11, §12.5).
 
 Adapted from audio_here/__main__.py (v1). Same device logic: the array's processed 16 kHz output is
 streamed from the WASAPI input, its direction of arrival is polled over USB control at DOA_RATE_HZ

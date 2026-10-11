@@ -1,7 +1,7 @@
 import XCTest
 @testable import HERE
 
-/// `Layout.captions` (README §14 "What the screen shows" + the accessibility rule "never cover a mouth").
+/// `Layout.captions` (SPEC §14 "What the screen shows" + the accessibility rule "never cover a mouth").
 /// `proj` always uses `layer: nil`, which routes through `Projector`'s pure-geometry fallback math
 /// (no `AVCaptureVideoPreviewLayer` needed), so these are deterministic pure-function tests.
 final class LayoutTests: XCTestCase {

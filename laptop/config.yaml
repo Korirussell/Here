@@ -1,10 +1,10 @@
-# HERE laptop (hearing module) tunables. README §6, §10, §11, §13, §15.
+# HERE laptop (hearing module) tunables. SPEC §6, §10, §11, §13, §15.
 # (tune) = starting value, adjust after testing. Secrets never go here: see laptop/.env.example.
 # Each section is also readable as UPPER_CASE names from laptop/<section>/config.py, so the
 # ReSpeaker modules and their standalone CLIs keep working (e.g. audio.array_offset_deg -> C.ARRAY_OFFSET_DEG).
 
 relay:
-  # wss://<host>/ws for the Vultr relay (README §7); ws://<laptop-ip>:8080/ws for the local fallback relay.
+  # wss://<host>/ws for the Vultr relay (SPEC §7); ws://<laptop-ip>:8080/ws for the local fallback relay.
   # Overridden by HERE_RELAY_URL / HERE_SESSION / HERE_RELAY_TOKEN (environment or laptop/.env).
   url: ws://localhost:8080/ws          # TODO(relay): set to wss://<vultr-host>/ws once deployed
   # Mirrors get the identical stream at the same time, each on its own link: one that is down or slow never
@@ -21,17 +21,17 @@ audio:
   chunk_samples: 512                   # 32 ms capture blocks: VAD onset (speech_start) lands sooner
   audio_channel: 0                     # USB capture channel carrying the processed (beamformed) output
 
-  # Array calibration (README §8). `python -m laptop.audio.calibrate` rewrites these two lines.
+  # Array calibration (SPEC §8). `python -m laptop.audio.calibrate` rewrites these two lines.
   array_offset_deg: 356.9
   array_clockwise: false
 
-  # The wearer's own voice (README §5: they stand within 0.5 m of the array, so always at one world bearing).
+  # The wearer's own voice (SPEC §5: they stand within 0.5 m of the array, so always at one world bearing).
   # Speech from within wearer_ignore_deg of it is never captioned and never buzzes the belt.
   # `python -m laptop.audio.calibrate --wearer` rewrites wearer_bearing_deg; null = filter off.
   wearer_bearing_deg: null
   wearer_ignore_deg: 20.0              # (tune) half-width; a talker standing right behind the wearer is lost too
 
-  # What the USB audio carries (README §11). processed: the device's mix, one stream (the auto-select beam).
+  # What the USB audio carries (SPEC §11). processed: the device's mix, one stream (the auto-select beam).
   # beams: the two focused beams on USB ch 0/1 (routing registers, restored on exit): two streams, each with
   # its own captions, sounds and direction (sources id 0/1), so a second talker or a baby crying behind the
   # wearer doesn't land in the first talker's caption. `python -m laptop --real --beams` / `--no-beams`.
@@ -49,7 +49,7 @@ audio:
   # (laptop/audio/localize.SpeechBearings), not the beam's bearing (two people in front at +-30 both read 0.8, so
   # the phone matched neither face). Only peaks in the beam's half of the room count, so the other beam's talker
   # can't take it; one bearing per utterance (median of its looks, no jitter between partials). Measured on raw
-  # fixtures (CHANGELOG 2026-10-10 "speech bearings"): median error 6 deg vs 0.8-91 for the beam's bearing.
+  # fixtures: median error 6 deg vs 0.8-91 for the beam's bearing.
   speech_srp:
     enabled: true
     half_width_deg: 100.0              # the beam's half of the room (+10 deg so a talker at +-90 belongs to both)
@@ -70,14 +70,14 @@ audio:
   # speech.endpoint_use_doa captioned nothing. Diffuse babble (equal on both beams), steady noise (the floor) and a
   # talker's leak into the other beam (quieter there) don't open it. Energy units: 1.0 = 45 dB.
   level_speech:
-    enabled: false                     # off for the demo (WORKLOG_K1 "Which proposals to ship": no live gain shown yet; loud room takes WER 0.97 -> 0.26 when on)
+    enabled: false                     # off for the demo (no live gain shown yet; loud room takes WER 0.97 -> 0.26 when on)
     margin: 0.25                       # over the beam's floor (~11 dB)
     separation: 0.08                   # over the other beam (~3.6 dB)
     hold_s: 0.4
     confidence: 0.5                    # >= speech.bearing_min_confidence: the utterance gets the beam's bearing
     floor_rise_per_s: 0.02
 
-  doa_source: builtin                  # builtin | odas (README §11; odas is a stub until the spike passes)
+  doa_source: builtin                  # builtin | odas (SPEC §11; odas is a stub until the spike passes)
   # Booth robustness (laptop/audio/builtin_doa.py watchdog): the array counts as lost after loss_doa_fails USB
   # failures in a row, no audio for audio_stale_s, or a pause > sleep_gap_s (laptop slept). The heartbeat goes
   # degraded ("ReSpeaker lost ...; reconnecting") and HERE reconnects + sets the array up again every reconnect_s.
@@ -111,7 +111,7 @@ audio:
     overlap_window_s: 0.3              # two tracks active within this = overlap
     leak_margin: 0.15                  # a non-speech beam this much quieter than an active one is its leak (~7 dB);
                                        # measured 2026-10-10: a talker at 180 reads 0.5 on beam 1, 0.2-0.3 on beam 0
-  # Onset candidates for the classifier (laptop/events/onsets.py, INTEGRATION_CONTRACT §5.1): per audio stream,
+  # Onset candidates for the classifier (laptop/events/onsets.py, docs/INTEGRATION.md §5.1): per audio stream,
   # the block level vs its own noise floor (down fast, up floor_rise_db_per_s).
   onsets:
     margin_db: 10.0                    # this far over the floor ... (tune)
@@ -123,7 +123,7 @@ audio:
     min_level_dbfs: -65.0              # quieter onsets are ignored
     warmup_s: 0.5                      # no onsets while a new stream's floor settles
   # The XVF3800's second focused beam as sources[1] when it hears speech >= 30 deg from the main DoA.
-  # Off by default: README §12.5 says built-in DoA sends one source (MIGRATION_PLAN C11).
+  # Off by default: SPEC §12.5 says built-in DoA sends one source.
   builtin_beams_as_sources: false
   second_beam_min_sep_deg: 30.0
 
@@ -183,7 +183,7 @@ audio:
   srp_phat_beta: 0.5
   srp_min_confidence: 0.15
 
-  odas:                                # README §11; read by laptop/audio/odas.py (off unless doa_source: odas)
+  odas:                                # SPEC §11; read by laptop/audio/odas.py (off unless doa_source: odas)
     # ODAS runs in WSL2 (tools/odas/setup_wsl.sh) and connects to these Windows ports as a client
     # (WSL mirrored networking: Windows' 127.0.0.1 is reachable from WSL). laptop/audio/odas_cfg.py writes the
     # ODAS config from this section; laptop/audio/odas/here.cfg is the generated live config.
@@ -204,7 +204,7 @@ audio:
     speech_activity: 0.5               # activity >= this -> Source.speech (ODAS doesn't know speech from sound)
     activity_hold_s: 0.4               # per-track peak hold of ODAS activity (it flickers 0 <-> 1 within a word)
     audio: beams                       # beams (hybrid: steer the fixed beams to ODAS tracks) | separated | postfiltered
-    # Tuned on the rotation scenes 2026-10-09 (DOA_VS_ODAS.md): probMin 0.5 -> 0.3 = median error 14.8 -> 11.6 deg,
+    # Tuned on the rotation scenes 2026-10-09: probMin 0.5 -> 0.3 = median error 14.8 -> 11.6 deg,
     # same detection (85%) and two-source rate (66%). Shorter tracks (N_inactive 100) cut stale tracks 16 -> 3 s/min
     # but two-source detection fell to 5%. Any key of laptop/audio/odas_cfg.py DEFAULTS can be set here.
     probMin: 0.3
@@ -246,25 +246,25 @@ speech:
   preroll_s: 0.25
   max_utterance_s: 15.0
   min_utterance_s: 0.3
-  partial_every_s: 0.4                 # README §10: re-run every 0.3-0.5 s
+  partial_every_s: 0.4                 # SPEC §10: re-run every 0.3-0.5 s
   first_words_every_s: 0.2             # until the first words: re-decode this often (decodes come back empty
-                                       # for the first ~0.2 s of a voice; real array: first words 605 -> see K1 proposals)
+                                       # for the first ~0.2 s of a voice; real array: first words 605 -> tuned on the real array)
 
   loudness_range_db: 24.0              # loudness 0.5 = normal talking here; +12 dB -> 1.0, -12 dB -> 0.0
 
-  # Utterance bearing (README §13 "On the laptop")
+  # Utterance bearing (SPEC §13 "On the laptop")
   bearing_min_confidence: 0.4
   overlap_spread_deg: 25.0
   onset_lookback_s: 0.4                # speech_start uses the newest speech direction within this window
 
-  # Tone rules (README §14: how it sounded)
+  # Tone rules (SPEC §14: how it sounded)
   tone_shout_loudness: 0.8            # ~7 dB above normal talking
   tone_whisper_loudness: 0.12          # ~9 dB below
   tone_laugh_min: 0.15                 # PANNs laughter during the utterance -> "laughing". Speech and babble score <= 0.01, real laughs 0.2-0.35 (CHANGELOG Task 5)
 
   name_match_ratio: 0.8                # fuzzy match of user_name / name_aliases
   # The user's name + aliases reach whisper as a decoding hint: hotwords (faster-whisper's hint prompt),
-  # prompt (initial_prompt "Kori, Cory."), or off. Measured with tools/stress_test.py (CHANGELOG).
+  # prompt (initial_prompt "Kori, Cory."), or off. Measured with tools/stress_test.py.
   name_hints: prompt
   # The team's names spelled our way in captions (whole words, case-insensitive). Not a decoding hint: putting
   # every name in whisper's prompt made it write "Jena, Kori, Tre, Adil, Here." back on noise (2026-10-10 live).
@@ -282,7 +282,7 @@ speech:
   compression_max: 2.4                 # segment compression ratio above this = looping text (whisper's default)
   # Confident speech readings spread wider than this during an utterance = crowd babble from everywhere,
   # not one talker (one talker spreads ~0.5 deg on the array): not captioned.
-  diffuse_spread_deg: 60.0             # (tune; with the array's real crowd behaviour, see SPIKE.md)
+  diffuse_spread_deg: 60.0             # (tune; with the array's real crowd behaviour)
   hallucination_array_s: 1.0
   hallucinations: ["thank you", "thank you very much", "thank you so much", "thanks", "thanks for watching",
                    "thank you for watching", "thank you so much for watching", "thanks for listening",
@@ -300,7 +300,7 @@ speech:
   # than speech for at least nonspeech_share of an utterance: not captioned (the sound gets its alert).
   nonspeech_min: 0.3
   # Which classifier labels may veto a caption. Not music / tv: background music outscored speech and dropped
-  # "Kori." with no alert in return (real room, Mario Party). K1 proposal (c).
+  # "Kori." with no alert in return (real room, Mario Party). Array tuning proposal (c).
   nonspeech_labels: [doorbell, dog_barking, baby_crying, knock, alarm, loud_bang, phone_ringing, car_horn, vehicle,
                      siren, door]
   nonspeech_share: 0.25               # 0.5 let "That's a good question." through on the baby's beam (real test)
@@ -308,13 +308,13 @@ speech:
   # Silero often fires a few words late on the array's processed audio (real-array test: "Hey Kori, the"
   # scored 0.01-0.32 while the array already flagged speech). With DoA gating, an utterance's audio starts
   # where the array started hearing the talker (+ preroll_s), up to this far back.
-  array_lookback_s: 1.5                # (tune) K1 proposal (c): 0.8 cut "Hey Kori," off at -5 dB (Silero fired late)
+  array_lookback_s: 1.5                # (tune) array tuning proposal (c): 0.8 cut "Hey Kori," off at -5 dB (Silero fired late)
 
 sounds:
   enabled: true
   sample_rate: 16000
   model_sr: 32000
-  window_s: 1.0                        # README §10: 0.5-1 s windows with overlap
+  window_s: 1.0                        # SPEC §10: 0.5-1 s windows with overlap
   hop_s: 0.5
   device: cuda                         # exactly "cuda": panns_inference ignores "cuda:0"
   model_dir: ~/panns_data
@@ -324,20 +324,20 @@ sounds:
   model: panns_cnn14                   # the classifier (sounds.models key); sound_event.model names it
   fallback: panns_cnn14                # if `model` fails to load or mid-session
   buffer_s: 3.0                        # audio kept for onset windows
-  onset_queue: 4                       # K1 onset candidates waiting to be classified (drop the oldest)
+  onset_queue: 4                       # onset candidates waiting to be classified (drop the oldest)
   onset_pre_s: 0.1                     # an onset window starts this long before the onset
-  # Honest unknowns (INTEGRATION_CONTRACT §4): an onset no label explains, loud and long enough.
+  # Honest unknowns (docs/INTEGRATION.md §4): an onset no label explains, loud and long enough.
   unknown:
     enabled: true
     min_energy: 0.18                   # onset energy (0..1, sources scale) (tune; was 0.25: 24 real sounds dropped as too faint in the 2026-10-10 live test)
-    min_rise_db: 10.0                  # over the stream's noise floor (K1's detector margin)
+    min_rise_db: 10.0                  # over the stream's noise floor (the laptop's detector margin)
     min_active_s: 0.1                  # within 10 dB of its peak this long: a click isn't an event (was 0.15; a door click is short)
     upgrade_s: 3.0                     # a known label this soon after re-labels the same event_id
     cooldown_s: 2.5                    # another unknown this soon merges into the open one (was 6.0: 195 merged in 20 min live)
     ambient_n: 4                       # this many unknowns within ambient_window_s = ambience: merge, don't send (was 3)
     ambient_window_s: 30.0
   # Sound classifier backends (laptop/sounds/models.py). Bakeoff: tools/sound_bench.py, results in
-  # HERE_36hr_vibecode_plan/WORKLOG_A2.md. kind: panns | audioset (HF, 527 AudioSet outputs) | clap (zero-shot).
+  # kind: panns | audioset (HF, 527 AudioSet outputs) | clap (zero-shot).
   models:
     panns_cnn14: {kind: panns}
     MIT/ast-finetuned-audioset-10-10-0.4593: {kind: audioset, sigmoid: true}
@@ -380,9 +380,9 @@ sounds:
   # robust in crowd babble than the classifier. For the demo, enroll the exact file the speaker plays.
   enrolled:
     - {label: doorbell, file: fixtures/sounds/doorbell.wav, threshold: 0.12,   # synthetic ding-dong (TODO: real one)
-       head_s: 0.5, head_threshold: 0.25}  # K1 proposal (b): the first 0.5 s alone, matched early_after_s after an onset
+       head_s: 0.5, head_threshold: 0.25}  # array tuning proposal (b): the first 0.5 s alone, matched early_after_s after an onset
   early_after_s: 0.6                   # enrolled-head check this long after an onset (0 = off); 0.6 = the 0.5 s head fully heard
-  # Labels that produce sound_events. Core = doorbell (README §3); the rest are extras.
+  # Labels that produce sound_events. Core = doorbell (SPEC §3); the rest are extras.
   # dog_barking is off for the demo: no dog at the booth, and PANNs called room noise 'Dog' at 0.47-0.69 on
   # 2026-10-11 (two false alerts that would buzz a judge's belt). Add it back for a real dog.
   publish: [doorbell, baby_crying, door, knock, alarm, siren, car_horn, phone_ringing, loud_bang]   # actionable sounds; ambience (music, laughter, tv, vehicle, speech) stays unpublished. Was [doorbell, baby_crying]: doors and knocks never reached the phone (2026-10-10 live test)
@@ -405,7 +405,7 @@ sounds:
     tv: ["Television"]
 
 alerts:
-  min_confidence: 0.6                  # README §15 (tune)
+  min_confidence: 0.6                  # SPEC §15 (tune)
   min_confidence_by_kind:
     doorbell: 0.25                     # PANNs clipwise scores for a doorbell sit well below 0.6 (tune)
     loud_bang: 0.8                     # never "gunshot"
@@ -415,14 +415,14 @@ alerts:
   dedupe_deg: 45.0
   expire_s: 10.0
 
-# Enrichment after the fact (laptop/enrich/, HERE_36hr_vibecode_plan/Shared/ATTENTION.md): perception_enrichment.
+# Enrichment after the fact (laptop/enrich/, docs/ATTENTION.md): perception_enrichment.
 # Never blocks or changes the canonical sound_event / utterance / alert. `python -m laptop --no-enrich` turns it off.
 enrich:
   enabled: true
   # Attention tiers, best first; deterministic rules always come last. JEV-9B loads only with a CUDA GPU.
   # JEV-9B measured 2026-10-10 (python -m laptop.enrich.attention --bench, RTX 5000 Ada, nf4): loads in 62 s, 5.7 GB
   # (7.7 GB peak), median 496 / worst 970 ms per decision: gate 3 (<= 250 / 600 ms) FAILS; agreement 14/30 vs DeBERTa
-  # 15/30. Per ATTENTION.md ("if any gate fails, the demo uses tier 2") it is off. Its slow path is Qwen3.5's gated
+  # 15/30. Per docs/ATTENTION.md ("if any gate fails, the demo uses tier 2") it is off. Its slow path is Qwen3.5's gated
   # delta rule without flash-linear-attention, which needs a newer Triton than torch 2.5.1 allows on Windows.
   # Opt in: tiers: [autotrust/JEV-9B, MoritzLaurer/deberta-v3-base-zeroshot-v2.0]
   tiers: [MoritzLaurer/deberta-v3-base-zeroshot-v2.0]
@@ -433,7 +433,7 @@ enrich:
   queue_max: 4                         # drop the oldest
   cache_s: 5.0                         # identical states reuse the decision
   max_rate_hz: 5.0
-  # Tier-2 wording, tuned on the 30 labelled states + 5 from the fixtures (WORKLOG_A2 "attention tuning"): of 7
+  # Tier-2 wording, tuned on the 30 labelled states + 5 from the fixtures: of 7
   # attention wordings this one had the most right (17/35, obvious 11/15) and the fewest confidently wrong (5).
   # JEV-9B keeps the option lines in laptop/enrich/states.py.
   zeroshot_template: "This is {}."

@@ -1,4 +1,4 @@
-"""HERE hearing module (README §6): python -m laptop --real | --mock | --replay fixtures/<name>
+"""HERE hearing module (SPEC §6): python -m laptop --real | --mock | --replay fixtures/<name>
 
     python -m laptop --real                        ReSpeaker directions + audio -> relay
     python -m laptop --real --record hall_test     ...and save fixtures/hall_test/
@@ -36,7 +36,7 @@ def build_inputs(args, cfg):
             from .audio.odas import OdasSource
             ears = ReSpeaker(args.offset, args.ccw, args.device, capture="beams" if odas_audio == "beams" else "processed")
             if ears.raw is None:
-                raise SystemExit("ODAS needs the raw mics: the 6-channel firmware (laptop/audio/SPIKE.md)")
+                raise SystemExit("ODAS needs the raw mics: the 6-channel firmware")
             src = OdasSource(args.offset, args.ccw, ears=ears, audio=odas_audio)
             return src, (src if src.own_audio else ears)
         from .audio.builtin_doa import ReSpeaker
@@ -172,7 +172,7 @@ def main():
             shared["classifier"] = Classifier()
         pipeline = SoundPipeline(shared["classifier"], app.stream_history(stream), client.send, app.alerts,
                                  locate=locate, verbose=args.verbose)
-        if getattr(app, "onsets", None) is not None:     # K1's onset candidates (INTEGRATION_CONTRACT §5.1)
+        if getattr(app, "onsets", None) is not None:     # the laptop's onset candidates (docs/INTEGRATION.md §5.1)
             app.onsets.subscribe(pipeline.on_onset)
         return pipeline
 

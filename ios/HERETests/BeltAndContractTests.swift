@@ -1,7 +1,7 @@
 import XCTest
 @testable import HERE
 
-/// README §14 belt rules and §16 packet.
+/// SPEC §14 belt rules and §16 packet.
 final class BeltPolicyTests: XCTestCase {
     func testPacketLayout() {
         let cmd = BeltCommand(pattern: .speech, motor: 2, strength: 160, priority: 1)
@@ -93,7 +93,7 @@ final class BeltSixMotorTests: XCTestCase {
     }
 }
 
-/// Every contract example decodes into the right case (README §12; examples bundled from contracts/examples).
+/// Every contract example decodes into the right case (SPEC §12; examples bundled from contracts/examples).
 final class ContractTests: XCTestCase {
     func testAllExamplesDecode() throws {
         let urls = Bundle(for: Self.self).urls(forResourcesWithExtension: "json", subdirectory: nil) ?? []

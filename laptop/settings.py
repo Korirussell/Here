@@ -1,4 +1,4 @@
-"""laptop/config.yaml + secrets from the environment or laptop/.env (README §22: secrets never committed)."""
+"""laptop/config.yaml + secrets from the environment or laptop/.env (SPEC §22: secrets never committed)."""
 
 import os
 from pathlib import Path

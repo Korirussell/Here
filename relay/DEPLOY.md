@@ -1,4 +1,4 @@
-# Deploying the relay on Vultr (README §7)
+# Deploying the relay on Vultr (SPEC §7)
 
 About 15 minutes. Result: `wss://<host>/ws` with automatic HTTPS (Caddy), the relay as a systemd
 service on 127.0.0.1:8080, a firewall that only opens SSH/HTTP/HTTPS, and `/health` to check it.
@@ -23,7 +23,7 @@ The manual steps below are what it runs.
 
 ## 1. Create the server
 
-Vultr → Deploy → **Cloud Compute, Shared CPU**, location **Atlanta** (closest to Alabama, README §5),
+Vultr → Deploy → **Cloud Compute, Shared CPU**, location **Atlanta** (closest to Alabama, SPEC §5),
 image **Ubuntu 24.04 LTS**, the cheapest plan (1 vCPU / 1 GB is plenty: the relay forwards small JSON).
 Add your SSH key. Note the public IPv4, e.g. `203.0.113.7`.
 
@@ -34,7 +34,7 @@ iOS refuses plain `ws://` to internet hosts, so we need TLS, so we need a name:
 - **No domain:** use sslip.io: `203-0-113-7.sslip.io` resolves to `203.0.113.7`. Nothing to set up.
 - **Your own domain:** add an `A` record `here.example.com -> 203.0.113.7`.
 
-Below, `HOST` is that name. (TODO: write the chosen one into README §27 / laptop/.env / the app.)
+Below, `HOST` is that name. (TODO: write the chosen one into SPEC §27 / laptop/.env / the app.)
 
 ## 3. Packages and firewall
 
@@ -109,7 +109,7 @@ The first request takes a few seconds while Caddy gets the certificate.
 - **Phone:** Settings → Relay → `wss://HOST/ws`, token, session `demo`. The status pill turns green.
 - **Watch traffic:** `python tools/relay_tap.py` (from the laptop), or on the server
   `tail -f /var/log/here/relay.jsonl`.
-- **Round-trip time:** README §21 spike: the app's debug overlay shows `clock rtt`.
+- **Round-trip time:** SPEC §21 spike: the app's debug overlay shows `clock rtt`.
 
 ## 8. Memory service (optional, never on the live path)
 
@@ -133,7 +133,7 @@ curl -s https://HOST/api/health                   # through Caddy; other /api en
 Paste the Neon connection string into `NEON_DATABASE_URL` (then `systemctl restart here-memory`); empty = SQLite.
 Logs: `journalctl -u here-memory -f`.
 
-## 9. Server status and session bundles (optional, TASKS A3 H)
+## 9. Server status and session bundles (optional)
 
 - **Status:** `https://HOST/api/status.html?token=<token>` (JSON at `/api/status`): relay health, message rates
   and laptop -> relay ages from the relay log, memory database, which insights are served. Needs the memory service
@@ -148,7 +148,7 @@ Logs: `journalctl -u here-memory -f`.
 From the laptop checkout: the same `git archive ... | ssh ...` line as step 4, then
 `systemctl restart here-relay here-memory`.
 
-## Local fallback relay (README §7 backups)
+## Local fallback relay (SPEC §7 backups)
 
 Internet down but the devices can see each other on the same network: on the laptop,
 

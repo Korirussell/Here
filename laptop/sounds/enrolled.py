@@ -1,4 +1,4 @@
-"""Enrolled sounds: "teach HERE your doorbell" (README §15 doorbell, made robust for a loud hall).
+"""Enrolled sounds: "teach HERE your doorbell" (SPEC §15 doorbell, made robust for a loud hall).
 
 A general classifier (PANNs) hears a doorbell under crowd babble only weakly (tools/stress_test.py:
 score 0.26 at +10 dB SNR, 0.05 at 0 dB). A doorbell, though, is one specific sound per home (and per

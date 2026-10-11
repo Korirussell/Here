@@ -1,6 +1,6 @@
 """Inputs that need no ReSpeaker: fixture replay, a WAV, the laptop mic, and a direction slider.
 
-A fixture is a folder (README §22 fixtures/):
+A fixture is a folder (SPEC §22 fixtures/):
     audio.wav        16 kHz mono s16le, the array's processed output
     sources.jsonl    {"t": seconds_from_start, "sources": [Source, ...]} per line
     meta.json        name, notes, calibration, anything else (optional)

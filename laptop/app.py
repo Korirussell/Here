@@ -33,7 +33,7 @@ from .settings import ROOT
 
 
 class Recorder:
-    """--record NAME: writes fixtures/NAME/{audio.wav, sources.jsonl, meta.json} (README §20 test sessions),
+    """--record NAME: writes fixtures/NAME/{audio.wav, sources.jsonl, meta.json} (SPEC §20 test sessions),
     plus raw.wav (the 4 raw mics, USB order, int16, x raw_gain) when the input has them (6-channel firmware)."""
 
     def __init__(self, folder, meta, channels=1, raw_channels=0, raw_gain=1.0):
@@ -117,7 +117,7 @@ class Laptop:
         a = cfg["audio"]
         self.throttle = SourcesThrottle(a["sources_idle_change_deg"], a["sources_keepalive_s"])
         self.tracker = SourceTracker.from_config(a)    # raw readings -> the wire `sources` (stable ids, expiry)
-        self.onsets = OnsetDetector.from_config(a)      # per-stream onset candidates (INTEGRATION_CONTRACT §5.1)
+        self.onsets = OnsetDetector.from_config(a)      # per-stream onset candidates (docs/INTEGRATION.md §5.1)
         self.onsets.where = self.onset_where
         self.onsets.subscribe(lambda c: self.tracker.note_onset(c.source_id, c.t))   # non-speech tracks
         self.fanout = AudioFanout()                    # the input as delivered (recorder)

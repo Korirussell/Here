@@ -1,4 +1,4 @@
-# extras/cloud: Databricks insights (TASKS A3 F) and other cloud roles
+# extras/cloud: Databricks insights and other cloud roles
 
 **Never blocks the dashboard:** the memory API serves Databricks insights when a run has been stored and the
 precomputed ones (`extras/memory/seed/insights.json`, `source: "precomputed"`) otherwise.
@@ -30,7 +30,7 @@ Databricks setup (Free Edition, approved 2026-10-10): schema `workspace.here` (F
 code is uploaded by `--create-job` (re-run it after changing the notebook or `insights_core.py`). Serverless
 compute runs the notebook.
 
-## Session bundles to Vultr Object Storage (TASKS A3 H)
+## Session bundles to Vultr Object Storage
 
 ```powershell
 python -m extras.cloud.export_bundle                    # every live session -> logs/exports/<session>/<stamp>/

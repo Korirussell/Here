@@ -1,10 +1,10 @@
 import Foundation
 
-/// Everything the Settings screen edits (README §14), persisted to UserDefaults as JSON.
+/// Everything the Settings screen edits (SPEC §14), persisted to UserDefaults as JSON.
 /// The `config` contract message is built from it (and applied from it when another phone,
 /// e.g. the presenter's remote, changes settings through the relay).
 struct Settings: Codable, Equatable {
-    // Relay (README §7)
+    // Relay (SPEC §7)
     var relayURL = "wss://YOUR-RELAY-HOST/ws"      // primary: the laptop's local relay, ws://<laptop-ip>:8080/ws
     var relayFallbackURL = ""                      // optional fallback: Vultr, wss://<host>/ws ("" = none)
     var relayToken = ""
@@ -24,7 +24,7 @@ struct Settings: Codable, Equatable {
     var wearerBearingDeg = 0.0                     // direction from the array to the wearer, array frame
     var sourceRadiusM = Tunables.assumedSourceRadiusM
 
-    // Modes (README §14)
+    // Modes (SPEC §14)
     var focusMode = false
     var beltOnlyMode = false
     var features = Features()
@@ -56,9 +56,9 @@ struct Settings: Codable, Equatable {
     /// "" = real ProcessInfo.thermalState; else "nominal"|"fair"|"serious"|"critical". ProcessInfo's
     /// thermal state is read-only and the Simulator rarely reports anything but nominal, so this is how
     /// the .serious/.critical paths (halved detection rate, simplified glass) get rehearsed without a
-    /// hot phone (Task 7, prompts/IOS_AGENT.md).
+    /// hot phone.
     var debugThermalOverride = ""
-    /// On-device testing only (production is always the back camera, README §5/§14): use the front
+    /// On-device testing only (production is always the back camera, SPEC §5/§14): use the front
     /// camera so you can see yourself and the screen at once with no mount or second person.
     var debugFrontCamera = false
     var sendScene = false                          // extras: attribution + scene to the relay

@@ -4,7 +4,7 @@ The XVF3800's 4 mics sit on a square (AEC_MIC_ARRAY_GEO: -45/45/135/-135 deg). A
 +90 deg reaches geometry mic i exactly as it reached mic i-1, so permuting the raw channels of ONE real recording
 of the laptop speaker at world 180 gives real sources at -90, 0 and +90 too (the room isn't rotated: its
 reflections turn with the source; acceptable). Summing two pieces of the recording (different content, different
-rotation) gives a two-source scene with known truth (DOA_VS_ODAS.md "shared infrastructure" 2).
+rotation) gives a two-source scene with known truth.
 
 Only raw-mic consumers can use these (our SRP, ODAS): the XVF3800's beams can't be simulated this way.
 

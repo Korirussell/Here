@@ -1,4 +1,4 @@
-"""A2 enrichment: attention tiers, JEV-9B prompt/probabilities, worker bounds, Gemini, perception_enrichment.
+"""Enrichment: attention tiers, JEV-9B prompt/probabilities, worker bounds, Gemini, perception_enrichment.
 Fakes only: pytest never downloads a model or calls Gemini."""
 
 import io

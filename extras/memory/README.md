@@ -1,7 +1,7 @@
-# extras/memory: HERE's long-term memory (README §17.1, TASKS A3 B-E, G)
+# extras/memory: HERE's long-term memory (SPEC §17.1)
 
 A relay client with role `memory` that stores canonical events in **Neon Postgres** (local **SQLite** when Neon is
-missing or fails), plus the HTTP **memory API** K2's dashboard consumes (`Shared/INTEGRATION_CONTRACT.md` §5.3).
+missing or fails), plus the HTTP **memory API** the dashboard consumes (`docs/INTEGRATION.md` §5.3).
 **Never on the live path:** the phone, the laptop and the relay don't wait for it, and LIVE works with it off.
 
 ```
@@ -19,7 +19,7 @@ python -m extras.memory --no-relay           # API only, over the seeded day
 python -m extras.memory ask "What did my professor say about the exam?"
 python -m extras.memory replay lunch --sensitivity 0.9 --no-crowd-filter
 python -m extras.memory export logs/events_export.jsonl     # flat export for Databricks
-python -m extras.memory forget <session>     # README §25: delete a session now
+python -m extras.memory forget <session>     # SPEC §25: delete a session now
 python -m pytest extras                      # seed shapes, ingest, Ask, replay, API, relay link, fallbacks
 $env:HERE_TEST_MODEL="1"; python -m pytest extras -k relevance_model   # + the real zero-shot model (~15 s)
 ```
@@ -40,7 +40,7 @@ Config: `extras/memory/.env` (template `.env.example`): `HERE_RELAY_URL`, `HERE_
 | `GET /api/insights` | `{insights:[{id, category, title, text, score, evidence_ids, source, data}], source}`: `databricks` rows when a Databricks run has been stored, else `precomputed` |
 | `POST /api/replay {segment_id, policy}` | `{segment_id, policy, surfaced, suppressed, kept_important, missed_important, by_category:{cat:{surfaced, suppressed}}, decisions:[{event_id, type, category, t, text, surfaced, important, reason, score, model_score?}]}` |
 | `GET /api/segments` | every segment: the seeded day's seven + one `live-<session>` per live session |
-| `GET /api/status` | server status (TASKS A3 H, `status.py`): `{ok, t, relay:{health, log:{ok, window_s, messages, by_type:{type:{count, per_s}}, by_role, laptop_age_ms:{p50, p95, n}, events_in_tail:{connect, disconnect, bad_message}, last_message_s_ago}}, memory:<health>, insights:{serving, by_source:{source:{count, computed_at}}}}`. Each part fails alone (`{ok: false, reason}`); cached 2 s |
+| `GET /api/status` | server status (`status.py`): `{ok, t, relay:{health, log:{ok, window_s, messages, by_type:{type:{count, per_s}}, by_role, laptop_age_ms:{p50, p95, n}, events_in_tail:{connect, disconnect, bad_message}, last_message_s_ago}}, memory:<health>, insights:{serving, by_source:{source:{count, computed_at}}}}`. Each part fails alone (`{ok: false, reason}`); cached 2 s |
 | `GET /api/status.html` | the same as a small page that refreshes every 5 s (`https://<host>/api/status.html?token=<token>` on Vultr) |
 
 Ask answers are cached per question for `ASK_CACHE_S` (30 s; live ingest no longer empties the cache) and the five demo
@@ -53,11 +53,11 @@ the server's `retryDelay` (capped at 10 min): answers use the template meanwhile
 Policy: `{sensitivity 0..1, crowd_filter, focus_mode, hazard_priority, speech_priority}` (defaults 0.5, true,
 false, true, false).
 
-**Model relevance (optional, `HERE_REPLAY_MODEL=1`):** the Shared/ATTENTION.md zero-shot model
+**Model relevance (optional, `HERE_REPLAY_MODEL=1`):** the docs/ATTENTION.md zero-shot model
 (`MoritzLaurer/deberta-v3-base-zeroshot-v2.0`, CPU, `relevance.py`) scores each utterance as 1 - P("casual small
 talk"); replay blends it in at 30 % and reports it per decision as `model_score`, plus a `model` block
 (`utterances_scored` / `utterances_unscored`). Replay never waits for it: unscored texts are queued for a background
-thread (~0.5 s each on Adil's CPU; the seeded day's 51 utterances take ~40 s once) and cached in
+thread (~0.5 s each on a laptop CPU; the seeded day's 51 utterances take ~40 s once) and cached in
 `data/relevance_cache.json`. `"use_model": false` in the request turns it off. Sound events stay rules-only (the
 model's scores on one-word labels were meaningless). Never causes an important event to be missed on the seeded
 day; it does hide some lines a person would keep ("No, Wednesday!"), which is why it's opt-in. Segment ids: `morning, commute, lecture, lunch, meeting, hackathon, evening, live-<session>`.
@@ -76,7 +76,7 @@ person_label, location_id, event_time, ingest_time`. Indexes on `event_time`, `t
 over final utterances (Postgres `tsvector` + GIN, SQLite FTS5). Migrations run on start (`CREATE ... IF NOT
 EXISTS`). Writes are batched (one transaction per second or per 200 rows) from a bounded queue that drops the
 oldest. Neon is reached directly (psycopg, port 5432) when that port is open, otherwise over HTTPS (Neon's SQL
-API on 443, `neon_http.py`): some networks, including Adil's Wi-Fi, block 5432. A Neon error at any point switches to SQLite for the rest of the run and `/api/health` says
+API on 443, `neon_http.py`): some networks, including campus Wi-Fi, block 5432. A Neon error at any point switches to SQLite for the rest of the run and `/api/health` says
 `db: "local"` with the reason.
 
 What is stored: final utterances (partials skipped), every `sound_event` / `alert` update (same id = same row, so
@@ -94,7 +94,7 @@ lunch marked ambient, varied tones. `segments.json` holds the scenes, locations 
 `"seeded": true`. **It is a seeded demonstration, never live capture.** Rebuild: `python -m
 extras.memory.seed.build_seed`.
 
-## Privacy (README §25)
+## Privacy (SPEC §25)
 
 Text and metadata only; no audio ever reaches this service. Person labels only (`Person 2`); roles like
 "professor" are seed metadata, never face recognition. Live memory auto-deletes after 7 days

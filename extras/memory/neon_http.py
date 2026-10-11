@@ -1,4 +1,4 @@
-"""Neon over HTTPS (port 443) for networks that block Postgres' port 5432 (Adil's Wi-Fi does; campus may too).
+"""Neon over HTTPS (port 443) for networks that block Postgres' port 5432 (campus Wi-Fi does).
 
 Neon serves SQL at https://<endpoint-host>/sql (the transport its serverless driver uses). This is a tiny DB-API
 style shim so `store.Store` runs unchanged: SELECTs run immediately; writes are queued and sent at `commit()` as

@@ -1,4 +1,4 @@
-# Fixtures: recorded sessions (README §20, §21)
+# Fixtures: recorded sessions (SPEC §20, §21)
 
 A fixture is a folder the laptop can replay as if the ReSpeaker were live:
 
@@ -11,7 +11,7 @@ fixtures/<name>/
 
 `mock_scene/` is synthetic (Windows text-to-speech + a synthesized doorbell, `tools/make_mock_scene.py`)
 and is committed: it's what `python -m laptop --mock` plays. Real recordings stay local unless the team
-decides to commit them (they're voices of people who agreed to be recorded; README §25).
+decides to commit them (they're voices of people who agreed to be recorded; SPEC §25).
 
 ## Event scenes (`fixtures/events/`)
 
@@ -54,7 +54,7 @@ python -m laptop --replay fixtures/hall_two_people          # into the relay, in
 python tools/replay.py hall_two_people --loop --speed 1.5
 ```
 
-## Sessions to record (README §20 day 2, §21 spikes)
+## Sessions to record (SPEC §20 day 2, §21 spikes)
 
 Mark the array, wearer and speaker positions with floor tape first and calibrate the array.
 
@@ -66,6 +66,6 @@ Mark the array, wearer and speaker positions with floor tape first and calibrate
 | `name_called` | the wearer's name from 4 directions, plus near-misses ("Cory", "sorry") | name-called tuning |
 | `crowd_noise` | crowd noise loud, both speakers talking | false alerts, DoA in noise |
 | `overlap` | both speakers at once, short bursts | overlap flag |
-| `angles` | one speaker at 0, 45, ... 315 deg at 1 m and 1.5 m, 10 s each, with crowd noise | DoA accuracy table (audio SPIKE.md) |
+| `angles` | one speaker at 0, 45, ... 315 deg at 1 m and 1.5 m, 10 s each, with crowd noise | DoA accuracy table (tools/doa_accuracy.py) |
 
-Write the positions and anything odd in `meta.json`'s notes, or in the session list in `laptop/audio/SPIKE.md`.
+Write the positions and anything odd in `meta.json`'s notes.

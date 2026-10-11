@@ -1,1 +1,1 @@
-"""K1 event engine: source state (tracker.py) and onset candidates (onsets.py)."""
+"""Event engine: source state (tracker.py) and onset candidates (onsets.py)."""

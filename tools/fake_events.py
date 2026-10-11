@@ -1,9 +1,9 @@
 """Scripted laptop events through the relay, for building the phone, the dashboard and the cloud without any
-audio hardware (README §14, HERE_36hr_vibecode_plan/Shared/INTEGRATION_CONTRACT.md §9).
+audio hardware (SPEC §14, docs/INTEGRATION.md §9).
 
 Two kinds of script:
 
-* **Moments** (README §4's three core moments, with realistic timing): directions (`sources`) at 20 Hz while
+* **Moments** (SPEC §4's three core moments, with realistic timing): directions (`sources`) at 20 Hz while
   someone talks, `speech_start` at onset, word-by-word `utterance` partials, then the final.
 
       Person 1   front-right  +35 deg   "Hey, did you see the email about the internship fair?"
@@ -236,7 +236,7 @@ class Script:
         return aid
 
     def enrich(self, ref, attention, conf, directed=None):
-        """perception_enrichment as the rules fallback produces it (A2 replaces the model id)."""
+        """perception_enrichment as the rules fallback produces it (the classifier replaces the model id)."""
         self.c.send(PerceptionEnrichment(src="laptop", t=self.now(), ref=ref, attention=attention,
                                          attention_confidence=conf, attention_model="rules",
                                          directed_at_user=directed))
@@ -319,7 +319,7 @@ class Script:
                                t_end=self.now(), count=1, source_id=sid, model=model))
 
     async def doorbell(self, bearing):
-        """The README §4 moment-3 doorbell (one source, id 0), kept as it was for --moment 3."""
+        """The SPEC §4 moment-3 doorbell (one source, id 0), kept as it was for --moment 3."""
         await self.sound("doorbell", bearing, 0.6 + TICK, sid=0, beam=bearing, alert=2, model="enrolled")
 
     # ---- moments ----------------------------------------------------------------
@@ -341,7 +341,7 @@ SOUND_LABELS = {"doorbell": ("alert", "🔔", "Doorbell"), "unknown": ("other", 
                 "baby_crying": ("alert", "👶", "Baby crying")}
 
 
-# ---- scenes (INTEGRATION_CONTRACT §9; beams mode, fixed beams 0 / 180) ------------------------------------
+# ---- scenes (docs/INTEGRATION.md §9; beams mode, fixed beams 0 / 180) ------------------------------------
 
 async def scene_front_speech(s):
     await s.sleep(0.5)

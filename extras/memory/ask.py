@@ -1,4 +1,4 @@
-"""Ask HERE (TASKS A3 E): a question in, an answer plus evidence events out.
+"""Ask HERE: a question in, an answer plus evidence events out.
 
 1. Understand the question with plain rules: who (Person N, or a role such as "professor" from the segment's
    roles), when (a segment: lunch, lecture...), what kind (name called, behind me, summary).

@@ -1,1 +1,1 @@
-"""HERE relay (README §7)."""
+"""HERE relay (SPEC §7)."""

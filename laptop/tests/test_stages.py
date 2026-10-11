@@ -1,4 +1,4 @@
-"""Stage timings (K1 D): logged per message, merged into utterance.stage_ms, never on the wire; dashboard lines."""
+"""Stage timings: logged per message, merged into utterance.stage_ms, never on the wire; dashboard lines."""
 
 import asyncio
 import contextlib

@@ -1,4 +1,4 @@
-"""ReSpeaker XVF3800 over its USB control interface, plus a live direction readout (README §11, §21).
+"""ReSpeaker XVF3800 over its USB control interface, plus a live direction readout (SPEC §11, §21).
 
 `XVF3800` (register reads/writes) and `sample()` are what laptop/audio/builtin_doa.py uses.
 Run directly for a standalone compass readout with no relay and no models:
@@ -8,7 +8,7 @@ Requires: pip install pyusb libusb-package pyyaml
 
     python laptop/audio/xvf3800.py                       # live printout at 20 Hz
     python laptop/audio/xvf3800.py --log doa_log.jsonl   # also log raw readings
-    python laptop/audio/xvf3800.py --offset 190 --ccw    # override the saved calibration (README §8)
+    python laptop/audio/xvf3800.py --offset 190 --ccw    # override the saved calibration (SPEC §8)
     python laptop/audio/xvf3800.py --dump                # print every raw register once, then exit
 
 (Formerly audio_here/respeaker_probe.py. Its v1 `--hub` publishing is gone: `python -m laptop --real`

@@ -1,4 +1,4 @@
-"""Run the Databricks insights job end to end from the memory server (TASKS A3 F), with REST only (no SDK):
+"""Run the Databricks insights job end to end from the memory server, with REST only (no SDK):
 
 1. export the memory store (python -m extras.memory export) and upload it to the Unity Catalog volume;
 2. trigger the `here-insights` job (extras/cloud/databricks/job.json) and wait for it;

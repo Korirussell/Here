@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Top-right panel (README §14): icon + label ("Doorbell", "Name called") + direction ring +
+/// Top-right panel (SPEC §14): icon + label ("Doorbell", "Name called") + direction ring +
 /// "behind you / to your left". Fades after a few seconds; repeats stack as ×N.
 struct SoundPanel: View {
     @EnvironmentObject private var model: AppModel
@@ -62,7 +62,7 @@ struct AlertCard: View {
     }
 }
 
-/// Toggleable debug layer (README §14): face boxes + bearings, source markers, latency, heading.
+/// Toggleable debug layer (SPEC §14): face boxes + bearings, source markers, latency, heading.
 struct DebugOverlay: View {
     @EnvironmentObject private var model: AppModel
     @EnvironmentObject private var settings: SettingsStore

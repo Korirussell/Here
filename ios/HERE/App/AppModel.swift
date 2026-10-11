@@ -77,7 +77,7 @@ final class Locked<T> {
     func set(_ v: T) { lock.lock(); value = v; lock.unlock() }
 }
 
-/// The phone app's state and wiring (README §6 "iPhone": camera, faces, heading, attribution, AR, belt).
+/// The phone app's state and wiring (SPEC §6 "iPhone": camera, faces, heading, attribution, AR, belt).
 /// Everything @Published is touched on the main thread only.
 final class AppModel: ObservableObject {
     // Sensors
@@ -164,7 +164,7 @@ final class AppModel: ObservableObject {
     /// World bearing the wearer faces. Belt-only mode locks it to 0 (judge faces the array's front).
     /// Simulated faces (no CoreMotion in the Simulator): driven by Settings > Developer's heading slider,
     /// so the turn-around ("someone behind -> turn -> caption slides onto their face") can be rehearsed
-    /// without a phone (Task 3, prompts/IOS_AGENT.md).
+    /// without a phone.
     var headingDeg: Double {
         if let scenarioHeading { return scenarioHeading }
         if settings.value.beltOnlyMode { return 0 }
@@ -383,7 +383,7 @@ final class AppModel: ObservableObject {
         relay.send(settings.value.configMessage(now: Date().timeIntervalSince1970))
     }
 
-    /// README §8: wearer at the tape mark facing the array's front, presenter taps Calibrate.
+    /// SPEC §8: wearer at the tape mark facing the array's front, presenter taps Calibrate.
     func calibrate() {
         settings.value.headingOffset = headingRaw          // heading = wrap(raw - offset) -> 0 facing the array
         headingBox.set(headingDeg)
@@ -498,7 +498,7 @@ final class AppModel: ObservableObject {
     var attributionDecision: Attributor.Decision? { attributor.lastDecision }
 
     /// The laptop's source ids only identify anything with ODAS; the built-in DoA calls every source 0
-    /// (README §12.5). With meaningless ids, continuity falls back to time and bearing, with confidence.
+    /// (SPEC §12.5). With meaningless ids, continuity falls back to time and bearing, with confidence.
     var sourceIdsMeaningful: Bool { laptopDoaSource == .odas }
 
     /// Faces whose person is already known to own this audio source: attribution trusts them further.
@@ -782,7 +782,7 @@ final class AppModel: ObservableObject {
 
     private func thermalChanged() {
         thermal = Self.thermalState(override: settings.value.debugThermalOverride) ?? ProcessInfo.processInfo.thermalState
-        // README §14 heat: serious -> halve the detection rate.
+        // SPEC §14 heat: serious -> halve the detection rate.
         tracker.detectEvery = thermal == .serious || thermal == .critical
             ? Tunables.detectEveryFramesHot : Tunables.detectEveryFrames
     }
@@ -798,8 +798,8 @@ final class AppModel: ObservableObject {
     }
 
     /// Liquid Glass (`hereGlass`) falls back to a flat plate one thermal tier earlier than detection
-    /// slows down -- cheap insurance against the 20-minute-with-AirPlay thermal risk (README §24, the
-    /// on-device checklist in SPIKE.md) that's unverified on hardware. A plate under "serious" is a
+    /// slows down -- cheap insurance against the 20-minute-with-AirPlay thermal risk (SPEC §24, the
+    /// on-device checklist) that's unverified on hardware. A plate under "serious" is a
     /// small, reversible fidelity trade for headroom before anything visibly degrades.
     var simplifyGlass: Bool { thermal == .serious || thermal == .critical }
 
@@ -958,7 +958,7 @@ final class AppModel: ObservableObject {
                                    updated: now, lastBuzz: now, refUttId: a.ref?.uttId, refEventId: a.ref?.eventId)
             alerts.append(state)
             buzzForAlert(state)
-            // A phone-side nudge independent of the belt (README §23 backup: belt can disconnect) --
+            // A phone-side nudge independent of the belt (SPEC §23 backup: belt can disconnect) --
             // the wearer's pocket buzzes even if BLE drops or Settings > Belt is off.
             UINotificationFeedbackGenerator().notificationOccurred(.warning)
         }
@@ -974,7 +974,7 @@ final class AppModel: ObservableObject {
         buzzForEnrichment(state, uttId: e.ref.uttId, eventId: e.ref.eventId)
     }
 
-    // MARK: belt (README §14 belt logic, on the phone)
+    // MARK: belt (SPEC §14 belt logic, on the phone)
 
     /// important = full card plus belt; urgent = interrupt. At most once per referenced event. An alert about
     /// the same event already buzzed by the rules, so it buzzes again only when urgent lifts it to the

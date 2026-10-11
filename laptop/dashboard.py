@@ -173,7 +173,7 @@ class Dashboard:
         return ring, info
 
     def pipeline_lines(self):
-        """Stage latency p50/p95 (ms), dropped / suppressed counts, queue depth, onsets (K1 D)."""
+        """Stage latency p50/p95 (ms), dropped / suppressed counts, queue depth, onsets."""
         from .events.stats import STATS
         out = [f"latency    {STATS.line()}  (ms p50/p95)"]
         app = self.app

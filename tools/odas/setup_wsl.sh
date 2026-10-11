@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build ODAS (github.com/introlab/odas, MIT) inside WSL2 Ubuntu at a pinned commit (README §11, DOA_VS_ODAS.md).
+# Build ODAS (github.com/introlab/odas, MIT) inside WSL2 Ubuntu at a pinned commit (SPEC §11).
 #
 #   wsl -d Ubuntu -- bash tools/odas/setup_wsl.sh          # from the repo root on Windows
 #

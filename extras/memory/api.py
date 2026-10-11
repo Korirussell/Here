@@ -1,4 +1,4 @@
-"""Memory API over HTTP (INTEGRATION_CONTRACT §5.3): :8790 locally, behind Caddy at /api on Vultr.
+"""Memory API over HTTP (docs/INTEGRATION.md §5.3): :8790 locally, behind Caddy at /api on Vultr.
 
     GET  /api/health                  {ok, db: "neon" | "local", events, sessions, ...}
     GET  /api/day?date=YYYY-MM-DD     {date, seeded, segments:[...], events:[canonical + person_label, location_id]}
@@ -9,17 +9,22 @@
     GET  /api/segments                every known segment (seeded + live sessions)
     GET  /api/status                  relay health + message rates/ages from its log, memory, insights (status.py)
     GET  /api/status.html             the same as a small self-refreshing page
+    GET  /api/integrations            each sponsor technology: configured or on its fallback, and where it lives
+    POST /api/insights/refresh        Databricks job when DATABRICKS_* is set, else recompute locally (202, background)
+    POST /api/export {session}        session bundle (text + metadata, never audio) -> Vultr Object Storage if VULTR_S3_*
 
 Stdlib only (ThreadingHTTPServer). CORS is open (the dashboard runs on another port).
 
 Auth: requests that come through a proxy (Caddy on Vultr adds X-Forwarded-For) must carry the relay token
-(`?token=` or `Authorization: Bearer`), because memory holds transcripts (README §25). Direct local requests
+(`?token=` or `Authorization: Bearer`), because memory holds transcripts (SPEC §25). Direct local requests
 (the dashboard on the demo laptop) need none. `/api/health` is always open.
 """
 
 import hmac
-
 import json
+import subprocess
+import sys
+import threading
 import time
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -42,6 +47,70 @@ def insights(memory):
     keys = ("id", "category", "title", "text", "score", "evidence_ids", "source", "data")
     return {"insights": [{k: r.get(k) for k in keys} for r in chosen],
             "source": chosen[0]["source"] if chosen else None}
+
+
+def _set(*names):
+    return all(config.env(n) for n in names)
+
+
+def integrations(memory):
+    """Which sponsor technologies are live on this server, and which are on their fallback (SPEC §17)."""
+    return {"integrations": [
+        {"name": "elevenlabs", "role": "Scribe v2 Realtime speech-to-text, failover to local Whisper",
+         "where": "laptop/speech/transcriber.py", "configured": None, "note": "runs on the laptop, not this server"},
+        {"name": "vultr", "role": "WebSocket relay behind Caddy + Object Storage session export",
+         "where": "relay/, tools/deploy_vultr.py, extras/cloud/s3.py",
+         "configured": _set("VULTR_S3_ENDPOINT", "VULTR_S3_BUCKET", "VULTR_S3_ACCESS_KEY", "VULTR_S3_SECRET_KEY"),
+         "endpoints": ["wss://<host>/ws", "GET /health", "GET /api/status.html", "POST /api/export"]},
+        {"name": "huggingface", "role": "JEV-9B attention, DeBERTa zero-shot, Whisper, CED / AST / CLAP / PANNs",
+         "where": "laptop/enrich/attention.py, laptop/sounds/models.py, extras/memory/relevance.py",
+         "configured": True, "endpoints": ["POST /api/replay (use_model)"]},
+        {"name": "databricks", "role": "Spark job over the event log -> Delta tables -> ranked insights",
+         "where": "extras/cloud/databricks/, extras/cloud/databricks_sync.py",
+         "configured": _set("DATABRICKS_HOST", "DATABRICKS_TOKEN"),
+         "endpoints": ["GET /api/insights", "POST /api/insights/refresh"]},
+        {"name": "neon", "role": "Postgres memory: sessions, events, full-text utterances, insights",
+         "where": "extras/memory/store.py, extras/memory/neon_http.py",
+         "configured": memory.health().get("db") == "neon", "endpoints": ["GET /api/day", "POST /api/ask"]},
+        {"name": "gemini", "role": "one-line caption context, phrases Ask HERE answers from evidence",
+         "where": "laptop/enrich/gemini.py, extras/memory/ask.py",
+         "configured": _set("GEMINI_API_KEY"), "endpoints": ["POST /api/ask"]},
+    ]}
+
+
+def refresh_insights(memory):
+    """Databricks when configured, otherwise the same metrics computed here. Runs in a thread; returns at once."""
+    backend = "databricks" if _set("DATABRICKS_HOST", "DATABRICKS_TOKEN") else "precomputed"
+
+    def run():
+        try:
+            if backend == "databricks":
+                subprocess.run([sys.executable, "-m", "extras.cloud.databricks_sync"], cwd=config.ROOT, timeout=900)
+            else:
+                from extras.cloud.insights_local import compute, labels_of
+                from .export import rows_for_export
+                ins = compute(list(rows_for_export(memory)), "precomputed", labels_of(memory),
+                              config.env("HERE_USER_NAME", ""))
+                memory.store.put_insights(ins, "precomputed")
+        except Exception as e:                             # the old insights stay in place
+            memory.log(f"[memory api] insights refresh ({backend}): {type(e).__name__}: {e}")
+
+    threading.Thread(target=run, daemon=True).start()
+    return {"ok": True, "started": True, "backend": backend}
+
+
+def export_session(memory, session):
+    from extras.cloud.export_bundle import build_bundle, upload_bundle
+    from extras.cloud.s3 import S3
+    if not session:
+        raise ValueError("session is required")
+    folder, manifest = build_bundle(memory, session)
+    out = {"ok": True, "session": session, "events": manifest["events"], "local": str(folder), "uploaded": False}
+    s3 = S3.from_env()
+    if s3 is not None:
+        keys = upload_bundle(s3, folder, session)
+        out.update(uploaded=True, bucket=s3.bucket, prefix=keys[-1].rsplit("/", 1)[0])
+    return out
 
 
 def make_handler(memory, asker):
@@ -127,6 +196,12 @@ def make_handler(memory, asker):
                 return HTTPStatus.OK, status.status(memory)
             if method == "GET" and path == "/insights":
                 return HTTPStatus.OK, insights(memory)
+            if method == "GET" and path == "/integrations":
+                return HTTPStatus.OK, integrations(memory)
+            if method == "POST" and path == "/insights/refresh":
+                return HTTPStatus.ACCEPTED, refresh_insights(memory)
+            if method == "POST" and path == "/export":
+                return HTTPStatus.OK, export_session(memory, str(self.body().get("session") or "").strip())
             if method == "POST" and path == "/ask":
                 text = str(self.body().get("q") or "").strip()
                 if not text:

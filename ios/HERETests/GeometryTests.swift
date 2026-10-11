@@ -1,7 +1,7 @@
 import XCTest
 @testable import HERE
 
-/// README §8 geometry. Mirrors laptop/tests geometry cases so both sides agree.
+/// SPEC §8 geometry. Mirrors laptop/tests geometry cases so both sides agree.
 final class GeometryTests: XCTestCase {
     func testWrap() {
         XCTAssertEqual(Geo.wrap(180), 180)
@@ -33,7 +33,7 @@ final class GeometryTests: XCTestCase {
     func testMotorForRelativeBearing() {
         let rels: [Double] = [0, 45, 90, 135, 180, -135, -90, -45, 20, -20, 22, 23, -179]
         XCTAssertEqual(rels.map(Geo.motor(forRelative:)), [1, 2, 3, 4, 5, 6, 7, 8, 1, 1, 1, 2, 5])
-        // README §12.11 example: relative ~39 deg -> motor 2
+        // SPEC §12.11 example: relative ~39 deg -> motor 2
         XCTAssertEqual(Geo.motor(forRelative: 39), 2)
     }
 
@@ -67,7 +67,7 @@ final class GeometryTests: XCTestCase {
         XCTAssertEqual(Frames.topLeft(CGRect(x: 0, y: 0.1, width: 0.2, height: 0.3)).minY, 0.6, accuracy: 1e-9)
     }
 
-    /// Any mount orientation (README §8's "works for any mount" promise on the heading side) needs
+    /// Any mount orientation (SPEC §8's "works for any mount" promise on the heading side) needs
     /// the matching promise on the bearing-from-pixel side: landscape (0/180) keeps the camera's
     /// native horizontal FOV; portrait (90/270, where `sensorRect` swaps width/height) must switch to
     /// the vertical FOV, not silently keep using the (wrong, usually wider) horizontal one.

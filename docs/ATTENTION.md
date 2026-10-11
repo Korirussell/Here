@@ -8,7 +8,7 @@ Hugging Face is then our provider for both sound classification and attention.
 
 | Tier | Model | Where | Why |
 |---|---|---|---|
-| **1. Demo** | [`autotrust/JEV-9B`](https://huggingface.co/autotrust/JEV-9B), **quantized to 4-bit or 8-bit** | Kori's laptop GPU | An open "System One" model (Apache-2.0, AutoTrust AI Lab, built on Qwen3.5-9B plus a 40M decision head) distilled to behave like TypeSafe's Jev: typed choice / yes-no / rating answers with calibrated probabilities. About 90 ms per decision on a B200; on its benchmark it's close to hosted Jev 1.13 (0.868 vs 0.890 at 2 options). |
+| **1. Demo** | [`autotrust/JEV-9B`](https://huggingface.co/autotrust/JEV-9B), **quantized to 4-bit or 8-bit** | the demo laptop's GPU | An open "System One" model (Apache-2.0, AutoTrust AI Lab, built on Qwen3.5-9B plus a 40M decision head) distilled to behave like TypeSafe's Jev: typed choice / yes-no / rating answers with calibrated probabilities. About 90 ms per decision on a B200; on its benchmark it's close to hosted Jev 1.13 (0.868 vs 0.890 at 2 options). |
 | **2. Development and fallback** | [`MoritzLaurer/deberta-v3-base-zeroshot-v2.0`](https://huggingface.co/MoritzLaurer/deberta-v3-base-zeroshot-v2.0) | CPU anywhere (Adil's machine), or GPU | A small (184M) zero-shot classifier with the same label-plus-probabilities output. About 1 s per 4-label decision on CPU. |
 | **3. Always available** | Deterministic rules | Anywhere | `alert` priority 3 → urgent; priority 2 → important; known label → notice; `unknown` with low energy → ambient. |
 
@@ -27,7 +27,7 @@ apply the decision head to the last hidden state), with `bitsandbytes` for the q
 needs Linux or WSL. The card doesn't say whether the published quantized variants keep the decision head. Load the
 BF16 repo and quantize at load time instead.
 
-## Gates for tier 1 (measured on Kori's laptop before the demo relies on it)
+## Gates for tier 1 (measured on the demo laptop before the demo relies on it)
 
 1. **VRAM:** JEV-9B (quantized), whisper and PANNs all loaded, with headroom: `nvidia-smi` under 14.5 GB of 16.
 2. **Whisper unaffected:** golden still 7/7; first-partial and final latency within 10% of baseline with JEV-9B loaded and answering.
@@ -44,7 +44,7 @@ Each question works the same way: build one short **state** from the event, and 
 |---|---|---|---|
 | How much attention does this sound or caption deserve for a deaf wearer right now? | `choice` | `ambient`, `notice`, `important`, `urgent` (with one-line descriptions) | `perception_enrichment.attention` = top option; `attention_confidence` = its probability |
 | Is this speech addressed to the wearer? | yes/no | | `perception_enrichment.directed_at_user` = P(yes) |
-| (Cloud, A3) Is this event relevant under these replay settings? | rating or yes/no | | `/api/replay` `decisions[].model_score`. On Vultr this uses tier 2 on CPU, since there's no GPU there. |
+| (Cloud, cloud) Is this event relevant under these replay settings? | rating or yes/no | | `/api/replay` `decisions[].model_score`. On Vultr this uses tier 2 on CPU, since there's no GPU there. |
 
 **Example state:** *"Sound: doorbell (confidence 0.71, energy 0.6). The wearer was in a conversation. No repeats in the last minute. Focus mode off."*
 

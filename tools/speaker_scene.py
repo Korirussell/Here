@@ -1,6 +1,6 @@
 """Record a scripted scene through the REAL array, played from a loudspeaker (no people needed).
 
-Plays the README §4 lines (Windows TTS), the enrolled doorbell and the user's name from one loudspeaker
+Plays the SPEC §4 lines (Windows TTS), the enrolled doorbell and the user's name from one loudspeaker
 (the laptop's own speakers, or a Bluetooth speaker you place somewhere), while the ReSpeaker records
 exactly what `python -m laptop --real --record` records: the processed audio plus the built-in DoA.
 Then it finds every clip in the recording by cross-correlation (playback start-up latency on Windows

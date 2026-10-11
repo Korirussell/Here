@@ -311,7 +311,7 @@ function renderLatency() {
   }).join('') + `<div class="stat"><span class="k">Onset → words</span><span class="v">${fmtMs(median(fw))}<small>ms</small></span><span class="p">p95 ${fmtMs(p95(fw))}</span></div>` + latencyReference()
 }
 /** The hero number on Live: the fast path (direction, laptop → relay → this screen). Live p50 only with a fresh
- *  laptop heartbeat (the real array); otherwise K1's measured reference, labelled as such, never passed off as live. */
+ *  laptop heartbeat (the real array); otherwise the laptop's measured reference, labelled as such, never passed off as live. */
 function renderHero() {
   const el = $('hero'), r = cfg.page.latency_reference, xs = S.lag.get('sources') || []
   let ms, line, tag
@@ -331,7 +331,7 @@ function renderHero() {
     <div class="hero-sub">${esc(line)}</div>`
 }
 
-/** K1's measured real-array numbers against the target: a labelled reference, never mixed into the live stats. */
+/** the laptop's measured real-array numbers against the target: a labelled reference, never mixed into the live stats. */
 function latencyReference() {
   const r = cfg.page.latency_reference
   if (!r) return ''

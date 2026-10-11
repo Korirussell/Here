@@ -696,8 +696,8 @@ final class PresentationTests: XCTestCase {
                                      width: Layout.boxWidth, height: Layout.boxHeight) }
         XCTAssertEqual(boxes.count, 2)
         for box in boxes {
-            XCTAssertFalse(box.intersects(r1), "README §14: never cover a mouth")
-            XCTAssertFalse(box.intersects(r2), "README §14: never cover a mouth")
+            XCTAssertFalse(box.intersects(r1), "SPEC §14: never cover a mouth")
+            XCTAssertFalse(box.intersects(r2), "SPEC §14: never cover a mouth")
         }
         XCTAssertFalse(boxes[0].intersects(boxes[1]))
     }

@@ -41,7 +41,7 @@ get a relative bearing, and compared it with face and object bearings that reall
 from the wearer.
 
 Frames B and C have **different origins**. The comparison is only valid when the wearer stands at
-the array. README section 5 says as much ("Wearer stays within ~0.5 m of the array... Error ~
+the array. SPEC section 5 says as much ("Wearer stays within ~0.5 m of the array... Error ~
 atan(wearer_offset / speaker_distance)"), but nothing enforced or corrected it.
 
 Size of the error (computed, `RoomGeometryTests`):

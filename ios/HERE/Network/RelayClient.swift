@@ -1,6 +1,6 @@
 import Foundation
 
-/// Which relay the phone is on (IOS_INTEGRATION "Two relays, one stream"): the primary (the laptop's
+/// Which relay the phone is on ("two relays, one stream"): the primary (the laptop's
 /// local relay, ws://<laptop-ip>:8080/ws) or the fallback (Vultr, wss://<host>/ws). Same stream on both.
 enum RelayRoute: Equatable { case primary, fallback }
 
@@ -37,18 +37,18 @@ struct RelayFailover: Equatable {
     var primaryHasDeadline: Bool { hasFallback && route == .primary }
 }
 
-/// The phone's connection to the relay (README §7, §12):
+/// The phone's connection to the relay (SPEC §7, §12):
 ///
 ///     wss://<host>/ws?session=<session>&role=phone&token=<token>
 ///
-/// Sends `hello` (role phone, README §12.10 subscriptions) and the current `config`, a heartbeat
+/// Sends `hello` (role phone, SPEC §12.10 subscriptions) and the current `config`, a heartbeat
 /// every 2 s with the thermal state, and a `clock_ping` burst every 10 s for latency measurement.
 /// Reconnects automatically (500 ms doubling to 5 s). Decoded messages are delivered on the main queue.
 /// With a fallback URL it fails over and back (see `RelayFailover`); `onRoute` says which relay is in use.
 final class RelayClient: NSObject {
     /// `rejected`: the server answered the handshake with 401/403 before the WebSocket opened (relay.py:
     /// wrong or missing token). Retrying with the same token can never succeed, so this stops the backoff
-    /// loop instead of looping forever behind an indistinguishable "offline" (Task 8, prompts/IOS_AGENT.md).
+    /// loop instead of looping forever behind an indistinguishable "offline".
     enum Status: Equatable { case disconnected, connecting, connected, rejected(Int) }
 
     var onMessage: ((HereMessage) -> Void)?
@@ -144,7 +144,7 @@ final class RelayClient: NSObject {
 
     // MARK: connection
 
-    /// hello first on every connection (README §12.1).
+    /// hello first on every connection (SPEC §12.1).
     private func helloText() -> String? {
         let hello = Hello(t: Date().timeIntervalSince1970, role: .phone,
                           subscribe: HereContract.defaultSubscribe["phone"] ?? [],

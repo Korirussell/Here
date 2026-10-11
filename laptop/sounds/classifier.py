@@ -1,15 +1,15 @@
-"""Sound classification: audio in, `sound_event` (+ `alert`) out (README §10, §12.7, §15).
+"""Sound classification: audio in, `sound_event` (+ `alert`) out (SPEC §10, §12.7, §15).
 
-Two triggers, both cheap to skip (README §10, INTEGRATION_CONTRACT §5.1, §6):
+Two triggers, both cheap to skip (SPEC §10, docs/INTEGRATION.md §5.1, §6):
 - the sliding window: the newest WINDOW_S every HOP_S (drop, don't queue);
-- K1's onset candidates (`app.onsets`): the window starting just before the onset, from a bounded queue that
+- the laptop's onset candidates (`app.onsets`): the window starting just before the onset, from a bounded queue that
   drops the oldest.
 
 The model is `sounds.model` (a Hugging Face AudioSet tagger, chosen by tools/sound_bench.py) with PANNs CNN14 as
 the fallback, at load and if it fails mid-session (models.py). Scores map onto contract SoundLabels; repeats merge
 (events.py). Labels in `sounds.publish` become `sound_event`s with a bearing; alerting labels also raise an `alert`.
 
-`unknown` (INTEGRATION_CONTRACT §4): an onset with real energy that lasts, where no label (published or not) reaches
+`unknown` (docs/INTEGRATION.md §4): an onset with real energy that lasts, where no label (published or not) reaches
 its threshold, becomes `unknown` with the onset's bearing. It is never forced into a known label. If a known label
 crosses its threshold within `unknown.upgrade_s`, the same `event_id` is re-sent with that label. Steady ambience
 (the same stream firing again and again) merges into the open unknown instead of spamming new ones.
@@ -189,7 +189,7 @@ class SoundPipeline:
         i = max(0, min(i, len(pcm) - n))
         return pcm[i:i + n], start_t + i / C.SAMPLE_RATE
 
-    # ---- onset candidates (K1, INTEGRATION_CONTRACT §5.1) ---------------------------------------
+    # ---- onset candidates (docs/INTEGRATION.md §5.1) ---------------------------------------
 
     def onset_span(self):
         pre = float(getattr(C, "ONSET_PRE_S", 0.1))
@@ -271,7 +271,7 @@ class SoundPipeline:
         if self.verbose:
             print(f"[sounds] {w1:.1f}{' onset' if onset else ''} " + top_scores(scores), flush=True)
         if self.arbiter is not None:
-            # Onset and early windows count too (K1 proposal b2): before, only regular windows were recorded, so a
+            # Onset and early windows count too (array tuning proposal b2): before, only regular windows were recorded, so a
             # beam's onset-path doorbell was compared with the other beam's regular windows and never published
             # (real array, two beams: "doorbell (recognised, not published)", alert 2.3 s later instead of ~0.5 s).
             for label in self.publish:

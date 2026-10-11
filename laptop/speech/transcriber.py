@@ -1,4 +1,4 @@
-"""Speech-to-text engines behind one interface (README §3, §14, §18: Scribe first, whisper as fallback).
+"""Speech-to-text engines behind one interface (SPEC §3, §14, §18: Scribe first, whisper as fallback).
 
 The pipeline re-decodes the growing utterance every partial_every_s and once more for the final, so the
 interface is one blocking call (run in the pipeline's worker thread), plus an optional session lifecycle:
@@ -242,7 +242,7 @@ class ScribeSession:
 class ScribeRealtimeTranscriber:
     """ElevenLabs Scribe v2 Realtime: streaming partials, committed finals, one WebSocket per live utterance.
 
-    Only utterance audio goes out (what the VAD and the array kept), never the room in between (README §25).
+    Only utterance audio goes out (what the VAD and the array kept), never the room in between (SPEC §25).
     Connections are kept warm in a small pool so an utterance doesn't pay the TLS handshake; a session is
     reused after its commit and thrown away after anything odd (timeouts, errors, a dropped utterance), so a
     late answer can never land in the next utterance. Any failure raises: FallbackTranscriber hands the whole

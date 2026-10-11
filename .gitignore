@@ -6,14 +6,11 @@ __pycache__/
 logs/
 node_modules/
 
-# secrets (README §22): only the .env.example files are committed
+# secrets (SPEC §22): only the .env.example files are committed
 .env
 *.env
 !.env.example
 
-# external projects for reading only (README §2: Ranger has no license; never copied)
-reference/*
-!reference/README.md
 
 # downloaded models
 *.pt
@@ -34,9 +31,3 @@ fixtures/*/
 # canonical-message event scenes (no audio, tools/fake_events.py --scene): everyone builds against them
 !fixtures/events/
 
-# Private team strategy doc (never commit)
-HACKATHON_WINNERS.md
-
-# Private sponsor-prize notes (kept local, never public)
-/AWARD_CHASING.md
-/OVERHAUL_PROMPT.md

@@ -1,4 +1,4 @@
-"""Source state between the direction input and the wire `sources` (README §12.5, K1 B).
+"""Source state between the direction input and the wire `sources` (SPEC §12.5).
 
 The direction input (ReSpeaker beams / DoA, ODAS, a fixture) reports raw readings every tick. `SourceTracker`
 turns them into what the phone sees:
@@ -76,7 +76,7 @@ class SourceTracker:
         self.onset_t: dict[int, float] = {}          # source id -> newest onset candidate time that counted
         # A busy room (chatter, music) throws an onset every few seconds on every beam (real array 2026-10-10:
         # 125 in 5 min, both beams listed 93 % of the time). More than ambience_max in ambience_window_s on a
-        # stream = ambience: those onsets don't make a track (A2 still gets every candidate).
+        # stream = ambience: those onsets don't make a track (the classifier still gets every candidate).
         self.ambience_window_s, self.ambience_max = ambience_window_s, ambience_max
         self.onset_times: dict[int, list[float]] = {}
         self.tracks: dict[int, Track] = {}

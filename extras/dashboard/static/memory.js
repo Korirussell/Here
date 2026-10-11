@@ -1,4 +1,4 @@
-// MEMORY: the day (A3's /api/day, or the seeded day), Ask HERE, insights, things you may have missed.
+// MEMORY: the day (the memory service's /api/day, or the seeded day), Ask HERE, insights, things you may have missed.
 import { esc, fmtBearing, dirWord, fmtClock, getJSON, insightProvider, storageProvider, refId } from './core.js'
 import { openInspector } from './inspector.js'
 

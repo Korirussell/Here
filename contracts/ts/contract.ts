@@ -1,4 +1,4 @@
-// HERE contract v3 for TypeScript (README §12). Mirrors contracts/schemas/*.schema.json.
+// HERE contract v3 for TypeScript (SPEC §12). Mirrors contracts/schemas/*.schema.json.
 // Used by the extras (dashboard, memory page). Type-checked against contracts/examples by
 // contracts/tests/test_contracts.py (tsc --noEmit on a generated examples.ts).
 

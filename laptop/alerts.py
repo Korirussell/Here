@@ -1,4 +1,4 @@
-"""Alerts (README §15): sound alerts and name called, deduplicated and expired here, shown and felt on the phone.
+"""Alerts (SPEC §15): sound alerts and name called, deduplicated and expired here, shown and felt on the phone.
 
 Same kind from a similar direction within dedupe_s updates the existing alert (same alert_id).
 An alert ends (`active: false`) expire_s after its last detection. The phone's `config` can switch

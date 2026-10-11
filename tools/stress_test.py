@@ -1,13 +1,13 @@
 """Stress lab: the laptop pipeline in a simulated loud hall, scored against the scene's ground truth.
 
-Two parts (README §21 spikes, §24 risks):
+Two parts (SPEC §21 spikes, §24 risks):
 
 1. Audio: fixtures/mock_scene mixed with synthetic crowd babble (Windows TTS voices talking over each
    other) at falling SNRs, run through the real pipeline (Silero + faster-whisper + PANNs) in real time.
    Scores per condition: caption word error rate, phantom captions (babble transcribed as speech),
    speech_start / final latency, utterance bearing error, doorbell hit/false alarms, name-called hit/false alarms.
 2. Directions (no models, fast): how much DoA jitter and how many stray readings the utterance bearing
-   survives before attribution (face within 15 deg, README §13) picks the wrong person.
+   survives before attribution (face within 15 deg, SPEC §13) picks the wrong person.
 
     python tools/stress_test.py                 # both parts (~4 min on the RTX)
     python tools/stress_test.py --doa-only      # part 2 only (seconds)
@@ -405,7 +405,7 @@ BABY = ("baby", 180.0, 2.0, 14.0)          # (who, bearing, start, end): crying 
 
 
 def two_source_scene(kind, leak_db=-9.0, beams=True):
-    """A scene the README §3 'not doing' list used to skip: two sources at once.
+    """A scene the SPEC §3 'not doing' list used to skip: two sources at once.
 
     kind "baby": Person 1 at +35 talks while a baby cries at 180 for 12 s. kind "talkers": Person 1 at +35
     and Person 2 at -35 with overlapping lines. Beams mode: one WAV channel per focused beam, each carrying
@@ -533,8 +533,8 @@ def two_source_part(leaks=(-9.0, -6.0), sets=None):
 # ---- golden: pass/fail regression gate ----------------------------------------------------------
 
 # (fixture, babble SNR or None, thresholds). array_tts is the real XVF3800 (tools/speaker_scene.py).
-# Limits sit just outside what the branch measured (CHANGELOG 2026-10-08 night), so a regression fails.
-NAME_BEARING_MAX_DEG = 25.0      # two talkers: name_called must point at the caller (README §13 face window ~15)
+# Limits sit just outside what the branch measured, so a regression fails.
+NAME_BEARING_MAX_DEG = 25.0      # two talkers: name_called must point at the caller (SPEC §13 face window ~15)
 CLEAN = {"wer": 0.05, "phantoms": 0, "door_hit": True, "name_hit": True, "door_false": 0, "name_false": 0,
          "final_lag": 1.3}
 NOISY = {"wer": 0.10, "phantoms": 0, "door_hit": True, "name_hit": True, "door_false": 0, "name_false": 0,
@@ -613,7 +613,7 @@ def golden(sets=None):
 def doa_part(trials=400, seed=1):
     """Utterance bearing under DoA noise -> does attribution still pick the right person?
 
-    Person 1 at +35, Person 2 at -35 (README §4 positions), faces exactly there. Each trial: a 2.5 s
+    Person 1 at +35, Person 2 at -35 (SPEC §4 positions), faces exactly there. Each trial: a 2.5 s
     utterance; DoA at 20 Hz = truth + gaussian jitter, and with probability `stray` a reading from a
     random direction (babble pulling the array), with lower confidence. Correct = the face within 15 deg
     of the bearing and nearest to it is the true speaker. Also checks the speech_start bearing (first

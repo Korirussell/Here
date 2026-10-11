@@ -1,4 +1,4 @@
-"""Cross-language consistency the compilers can't check for us (README §12, §13, §14, §16).
+"""Cross-language consistency the compilers can't check for us (SPEC §12, §13, §14, §16).
 
 Swift and the ESP32 sketch aren't built on the laptop, so this reads their sources and checks they
 agree with the contract and with each other.
@@ -50,7 +50,7 @@ def test_belt_pattern_ids_match():
     camel = {"STOP": "stop", "SPEECH": "speech", "NAME_CALLED": "nameCalled", "ALERT": "alert",
              "EMERGENCY": "emergency", "TICK": "tick", "TEST": "test"}
     assert {camel[k]: v for k, v in fw.items()} == sw
-    # README §16 table
+    # SPEC §16 table
     assert sw == {"stop": 0, "speech": 1, "nameCalled": 2, "alert": 3, "emergency": 4, "tick": 5, "test": 6}
 
 
@@ -88,7 +88,7 @@ def test_nothing_outside_reference_mentions_ranger_code():
     hits = []
     for p in ROOT.rglob("*"):
         rel = p.relative_to(ROOT).as_posix()
-        if (not p.is_file() or rel.startswith((".git/", ".venv/", "reference/", "legacy/OVERHAUL"))
+        if (not p.is_file() or rel.startswith((".git/", ".venv/"))
                 or p.suffix not in {".py", ".swift", ".ts", ".tsx", ".ino", ".h", ".js"}):
             continue
         text = p.read_text(encoding="utf-8", errors="ignore")

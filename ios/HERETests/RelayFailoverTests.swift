@@ -1,7 +1,7 @@
 import XCTest
 @testable import HERE
 
-/// IOS_INTEGRATION "Two relays, one stream": primary (local) first, fallback (Vultr) on failure,
+/// Two relays, one stream: primary (local) first, fallback (Vultr) on failure,
 /// back to the primary when a background probe connects. Timers and sockets live in RelayClient;
 /// the decisions are here.
 final class RelayFailoverTests: XCTestCase {

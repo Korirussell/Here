@@ -1,4 +1,4 @@
-# XcodeGen spec for the HERE iPhone app (README §14). Generate the project on the Mac:
+# XcodeGen spec for the HERE iPhone app (SPEC §14). Generate the project on the Mac:
 #   brew install xcodegen      (once)
 #   cd ios && xcodegen generate && open HERE.xcodeproj
 name: HERE
@@ -22,7 +22,7 @@ targets:
     platform: iOS
     sources:
       - path: HERE
-      - path: ../contracts/swift       # the one copy of the contract (README §12)
+      - path: ../contracts/swift       # the one copy of the contract (SPEC §12)
         group: Contract
     info:
       path: HERE/Info.plist
@@ -39,6 +39,7 @@ targets:
           - UIInterfaceOrientationLandscapeRight
           - UIInterfaceOrientationLandscapeLeft
         NSCameraUsageDescription: "HERE uses the camera as the glasses' view: it finds faces on the phone so captions can sit above the person who spoke. Video never leaves the phone."
+        NSMicrophoneUsageDescription: "HERE listens on the phone only to confirm sounds the hearing module reports (a doorbell, a car horn). Audio never leaves the phone."
         NSBluetoothAlwaysUsageDescription: "HERE drives the haptic belt over Bluetooth so you can feel which way to turn."
         NSLocalNetworkUsageDescription: "HERE can connect to a relay running on a laptop on the same network (backup when the internet is down)."
         NSAppTransportSecurity:

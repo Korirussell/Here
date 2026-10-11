@@ -1,4 +1,4 @@
-"""Memory service checks (TASKS A3 B-E, G): seed shapes, ingest rules, Ask HERE, replay, the HTTP API, the relay
+"""Memory service checks : seed shapes, ingest rules, Ask HERE, replay, the HTTP API, the relay
 link and the Neon -> SQLite fallback. Run: python -m pytest extras"""
 
 import asyncio
@@ -326,6 +326,27 @@ def test_http_api(mem):
         assert ins and {"id", "category", "title", "text", "score", "evidence_ids", "source"} <= set(ins[0])
         r = call(port, "/api/replay", {"segment_id": "lunch", "policy": {"sensitivity": 0.9}})
         assert {"surfaced", "suppressed", "kept_important", "by_category", "decisions"} <= set(r)
+    finally:
+        server.shutdown()
+
+
+def test_integration_endpoints(mem, monkeypatch, tmp_path):
+    for k in ("DATABRICKS_HOST", "DATABRICKS_TOKEN", "VULTR_S3_ENDPOINT", "GEMINI_API_KEY"):
+        monkeypatch.delenv(k, raising=False)
+    monkeypatch.setattr("extras.cloud.export_bundle.OUT_DIR", tmp_path)
+    monkeypatch.setattr("extras.cloud.export_bundle.build_bundle.__defaults__", (tmp_path, None))
+    server = make_server(mem, "127.0.0.1", 0)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    port = server.server_address[1]
+    try:
+        names = {i["name"]: i for i in call(port, "/api/integrations")["integrations"]}
+        assert set(names) == {"elevenlabs", "vultr", "huggingface", "databricks", "neon", "gemini"}
+        assert names["databricks"]["configured"] is False and names["neon"]["configured"] is False
+        assert call(port, "/api/insights/refresh", {"go": 1}) == {"ok": True, "started": True, "backend": "precomputed"}
+        session = mem.store.sessions()[0]["id"]
+        out = call(port, "/api/export", {"session": session})
+        assert out["ok"] and out["uploaded"] is False and out["events"] > 0
+        assert str(tmp_path) in out["local"]
     finally:
         server.shutdown()
 

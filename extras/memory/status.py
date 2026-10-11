@@ -1,4 +1,4 @@
-"""Server status for Vultr (TASKS A3 H): one read-only view of the relay, the memory store and the insights job.
+"""Server status for Vultr: one read-only view of the relay, the memory store and the insights job.
 
     GET /api/status        {ok, t, relay:{health, log}, memory:{...}, insights:{...}}
     GET /api/status.html   the same, as a small self-refreshing page

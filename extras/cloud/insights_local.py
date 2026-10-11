@@ -1,4 +1,4 @@
-"""Compute insights without Databricks (the fallback, TASKS A3 F): same metrics + wording as the notebook,
+"""Compute insights without Databricks (the fallback): same metrics + wording as the notebook,
 tagged `source: "precomputed"`.
 
     python -m extras.cloud.insights_local                       # from the memory store (seeds if empty)

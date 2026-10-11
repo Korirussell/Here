@@ -5,7 +5,7 @@ The screen judges look at while the iPhone shows the wearer's view. It has three
 - **Memory:** what HERE remembers from the day.
 - **Replay lab:** what it would have surfaced under different attention settings.
 
-It's never on the live reaction path (README §17): the core demo works with it closed.
+It's never on the live reaction path (SPEC §17): the core demo works with it closed.
 
 ```powershell
 python -m relay                                   # local relay on :8080 (or use the Vultr one)
@@ -21,7 +21,7 @@ Options: `--relay ws://host:8080/ws`, `--session demo`, `--memory http://127.0.0
 
 ```text
 relay --(role dashboard, subscribe *)--> server.py --(/live WebSocket)--> page
-memory API :8790 (A3, §5.3) --(HTTP)--> server.py /api/* --> page     (falls back to demo_data/*.json)
+memory API :8790 (§5.3) --(HTTP)--> server.py /api/* --> page     (falls back to demo_data/*.json)
 page /dash/demo?moment=2 --> server.py starts tools/fake_events.py against the same relay
 ```
 
@@ -66,7 +66,7 @@ the semantic colours keep their meaning in every theme. Remembered per browser, 
 - **The rail:**
   - live captions: who (the phone's `attribution`, else "Voice N": one number per direction, held 10 min), direction,
     tone, engine, and **what HERE surfaced**: `important → card + belt`, `notice → small cue` (the phone's mapping in
-    IOS_INTEGRATION.md, from `perception_enrichment` or else the rules); pending words in grey;
+    from `perception_enrichment` or else the rules); pending words in grey;
   - alerts, with direction rings;
   - latency: per-type median and p95 laptop → dashboard, and onset → first words;
   - the event stream.
@@ -89,7 +89,7 @@ the semantic colours keep their meaning in every theme. Remembered per browser, 
 
 ## Memory and Replay lab
 
-- **Seeded fallback:** `/api/*` tries A3's API first. If it doesn't answer, the server falls back to `demo_data/` (or `extras/memory/seed/*.json` when A3 ships those). Every reply carries `_source: "api" | "seed"`, and the page labels seeded data **SEEDED**. A seed reply given because the API failed also carries `_fallback_reason` (e.g. `memory API slow (>4 s)`). One slow answer doesn't mark the API down: only a second timeout in a row, a refusal or a connection error skips it for `MEMORY_RETRY_S`.
+- **Seeded fallback:** `/api/*` tries the memory service's API first. If it doesn't answer, the server falls back to `demo_data/` (or `extras/memory/seed/*.json` when A3 ships those). Every reply carries `_source: "api" | "seed"`, and the page labels seeded data **SEEDED**. A seed reply given because the API failed also carries `_fallback_reason` (e.g. `memory API slow (>4 s)`). One slow answer doesn't mark the API down: only a second timeout in a row, a refusal or a connection error skips it for `MEMORY_RETRY_S`.
 - **Rebuilding the seed:** `demo_data/make_day.py` rebuilds `day.json`, `ask.json` and `insights.json` deterministically.
   - The day has 206 events in the canonical v3 shapes, plus §5.3 metadata (`person_label`, `location_id`, `seeded`), over six places.
   - `pytest` validates every event against the schemas.
@@ -102,7 +102,7 @@ the semantic colours keep their meaning in every theme. Remembered per browser, 
   - insights, labelled Databricks or Precomputed;
   - important moments.
 - **Replay lab:** pick a place; set the sliders (sensitivity, crowd filtering, speech priority, hazard priority, focus mode) or a preset. You see actual vs alternative counts, by-category bars, and a per-event list with the reason for each decision.
-  - When A3's `/api/replay` is down, `fallback.replay` decides. It's deterministic, built on the stored `perception_enrichment` attention, and falls back to the ATTENTION.md tier-3 rules.
+  - When the memory service's `/api/replay` is down, `fallback.replay` decides. It's deterministic, built on the stored `perception_enrichment` attention, and falls back to the docs/ATTENTION.md tier-3 rules.
   - Priority ≥ 2 alerts and `urgent` are always kept. A suppressed `unknown` stays ambient with its direction.
 
 ## Demo keys
@@ -151,7 +151,7 @@ just happened, on Live, without a click. Turn it on before judging starts; it su
   becomes a name call restarts its hold. The logic is `static/moment.js` (pure, tested under node).
 - Click the panel for the full inspector. With no moment yet, the usual headline stays.
 - The **Sound → wearer** card (direction latency) stays on Live in both views: **live** only with a fresh laptop
-  heartbeat, otherwise K1's measured real-array number (`settings.PAGE.latency_reference`), labelled **measured**
+  heartbeat, otherwise the laptop's measured real-array number (`settings.PAGE.latency_reference`), labelled **measured**
   (and **now scripted** while `fake_events` runs).
 
 ## Judge tour (`T`)
@@ -203,14 +203,14 @@ Options: `--no-scene` (Settings › Send scene off), `--camera-error`, `--therma
 
 ## Memory API through a proxy
 
-A3's API wants the relay token on proxied (Vultr) requests. The server sends it as a Bearer header to non-local memory URLs only; it never reaches the page. A 401 shows up as "memory API refused the token".
+the memory service's API wants the relay token on proxied (Vultr) requests. The server sends it as a Bearer header to non-local memory URLs only; it never reaches the page. A 401 shows up as "memory API refused the token".
 
 ## When the relay is gone (booth Wi-Fi)
 
 The dashboard never needs the relay to put a demo on screen:
 
 - **No relay reachable:** the page says so ("Press S to play the recorded scenes here"). Run demo, `S`, `1`-`3`, `L` or
-  a scene button plays K1's `fixtures/events` scenes **from the dashboard server itself**. Times are rebased onto now
+  a scene button plays the laptop's `fixtures/events` scenes **from the dashboard server itself**. Times are rebased onto now
   and ids are fresh per playback; the core moments map onto scenes in `settings.LOCAL_MOMENTS`.
 - **The relay drops mid-demo:** the same request carries on as a local replay by itself.
 - **The laptop is live:** while a fresh heartbeat from src `laptop` is on the relay, Run demo, `S`, `1`-`3` and the scene

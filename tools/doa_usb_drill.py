@@ -8,7 +8,7 @@ Watches a running `--real` laptop through the relay (role tool): the laptop hear
     python tools/doa_usb_drill.py --inject --relay ws://localhost:18082/ws --session k1gate
 
 `--inject` needs the laptop to run from this checkout (it watches `audio.drill_file` relative to its working
-directory). Exit 0 = recovered within --budget seconds. K3: `run_drill(...)` returns the same numbers as a dict
+directory). Exit 0 = recovered within --budget seconds. `run_drill(...)` returns the same numbers as a dict
 for tools/drills.py.
 """
 

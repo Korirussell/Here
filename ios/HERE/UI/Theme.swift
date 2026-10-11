@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Colors, type and the glass treatment (README §14 accessibility rules).
+/// Colors, type and the glass treatment (SPEC §14 accessibility rules).
 enum Palette {
     /// Person 1, 2, 3... fixed colors. Identity is never color alone: always "Person N" too.
     static let people: [Color] = [
@@ -32,7 +32,7 @@ enum Palette {
 }
 
 /// All fixed-pixel `.system(size:...)` before this was never affected by the user's preferred text size
-/// at all -- a real gap given captions are the product (README §14's legibility rules say nothing about
+/// at all -- a real gap given captions are the product (SPEC §14's legibility rules say nothing about
 /// type size, but a user who needs Larger Text needs it here most of all). Built on `Font.TextStyle`
 /// instead: every size here scales with Dynamic Type automatically. The `TextStyle` argument picks
 /// which built-in style to scale *from* -- chosen to sit close to this call site's old fixed size, not
@@ -44,7 +44,7 @@ enum Typeface {
     static func small(_ style: Font.TextStyle = .caption) -> Font { .system(style, design: .rounded).weight(.medium) }
 }
 
-/// Tone chip content: how it *sounded*, emoji and word (README §14).
+/// Tone chip content: how it *sounded*, emoji and word (SPEC §14).
 enum ToneStyle {
     static func emoji(_ t: Tone) -> String {
         switch t {
@@ -67,7 +67,7 @@ enum ToneStyle {
 }
 
 extension View {
-    /// Liquid Glass with a darker tint for legibility over bright scenes (README §14). Under thermal
+    /// Liquid Glass with a darker tint for legibility over bright scenes (SPEC §14). Under thermal
     /// pressure (`simple`) it falls back to a flat dark plate, which is cheaper to render.
     @ViewBuilder
     func hereGlass(cornerRadius: CGFloat = 18, tint: Color = .black.opacity(0.94), simple: Bool = false) -> some View {
@@ -79,7 +79,7 @@ extension View {
     }
 
     /// Spatial V2 caption plate: translucent enough that the room stays visible through it, without
-    /// giving up README §14's contrast floor. The black layer sits *on top of* the glass, so whatever
+    /// giving up SPEC §14's contrast floor. The black layer sits *on top of* the glass, so whatever
     /// the glass does with the scene behind it (at most: white), text is read against
     /// black at `captionPlateOpacity` over that -- >= 4.5:1 for committed and pending words alike
     /// (PresentationTests.testCaptionPlateContrast). Under thermal pressure the glass is dropped.

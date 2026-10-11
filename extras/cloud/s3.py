@@ -1,4 +1,4 @@
-"""Minimal S3 client for Vultr Object Storage (TASKS A3 H): AWS Signature V4 PUT/GET, stdlib only, path-style URLs.
+"""Minimal S3 client for Vultr Object Storage: AWS Signature V4 PUT/GET, stdlib only, path-style URLs.
 
     VULTR_S3_ENDPOINT    https://ewr1.vultrobjects.com   (the hostname Vultr shows for the bucket's region)
     VULTR_S3_BUCKET      here-exports

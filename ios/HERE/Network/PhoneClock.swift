@@ -5,7 +5,7 @@ import Foundation
 /// are mach-absolute-time based, i.e. the same domain as
 /// `ProcessInfo.processInfo.systemUptime`) — into phone wall-clock Unix
 /// epoch seconds, so they can be compared with `Date()` and shifted into
-/// laptop time by `ClockSync`'s offset (README §9).
+/// laptop time by `ClockSync`'s offset (SPEC §9).
 ///
 /// This is a best-effort conversion recomputed per call rather than cached
 /// once at launch, since `systemUptime` and `Date()` can drift slightly

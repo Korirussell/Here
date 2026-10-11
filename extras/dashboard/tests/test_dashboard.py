@@ -20,11 +20,11 @@ STORED = {"person_label", "location_id", "seeded"}     # §5.3 stored-event meta
 
 @pytest.fixture(scope="module")
 def seed():
-    return fallback.Seed(S.DEMO_DATA)                  # ours, pinned: A3's bundle wins by default once merged
+    return fallback.Seed(S.DEMO_DATA)                  # ours, pinned: the memory service's bundle wins by default once merged
 
 
 def a3_bundle(folder):
-    """Our seed rewritten in A3's snapshot shapes (extras/memory/seed/api/): location ids + names, Ask keyed by
+    """Our seed rewritten in the memory service's snapshot shapes (extras/memory/seed/api/): location ids + names, Ask keyed by
     question with full evidence, `note` instead of `label`."""
     ours = fallback.Seed(S.DEMO_DATA)
     raw = json.loads((S.DEMO_DATA / "day.json").read_text(encoding="utf-8"))
@@ -109,7 +109,7 @@ def test_seed_bundle_is_never_mixed(tmp_path, monkeypatch):
     monkeypatch.setattr(S, "MEMORY_SEED", tmp_path / "memory_seed")
     (tmp_path / "memory_seed").mkdir()
     (tmp_path / "memory_seed" / "insights.json").write_text('{"insights": [{"evidence_ids": ["seed-x"]}]}')
-    assert fallback.seed_folder() == S.DEMO_DATA      # A3's loose insights.json alone doesn't count
+    assert fallback.seed_folder() == S.DEMO_DATA      # the memory service's loose insights.json alone doesn't count
     a3_bundle(tmp_path / "memory_seed" / "api")
     assert fallback.seed_folder() == tmp_path / "memory_seed" / "api"
 
@@ -141,7 +141,7 @@ def test_a3_replay_is_joined_with_its_own_day(seed):
                                       "hazard_priority": True, "speech_priority": False}
 
 
-@pytest.mark.skipif(not (S.MEMORY_SEED / "api" / "day.json").exists(), reason="A3's snapshots not merged yet")
+@pytest.mark.skipif(not (S.MEMORY_SEED / "api" / "day.json").exists(), reason="the memory service's snapshots not merged yet")
 def test_a3_snapshots_are_coherent_for_the_page():
     a3 = fallback.Seed(S.MEMORY_SEED / "api")
     assert a3.questions and all(g["location"] for g in a3.day["segments"])
@@ -355,7 +355,7 @@ def test_memory_status_and_token_stay_server_side():
     st = local.call("status", {})
     assert st["ok"] is False and st["where"] == "local" and st["reason"] and "secret" not in json.dumps(st)
     remote = fallback.Memory("https://here.example.org", token="secret-xyz")
-    assert remote.remote and remote.token == "secret-xyz"      # proxied A3 API wants the relay token (Bearer)
+    assert remote.remote and remote.token == "secret-xyz"      # proxied memory API wants the relay token (Bearer)
     cleaned = fallback.scrub({"relay": {"token": "x", "health": {"ok": True, "clients": [{"role": "laptop", "api_key": "k"}]}}})
     assert cleaned == {"relay": {"health": {"ok": True, "clients": [{"role": "laptop"}]}}}
 

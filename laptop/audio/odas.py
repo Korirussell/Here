@@ -1,4 +1,4 @@
-"""ODAS on the raw mics -> contract `sources` (README §11, laptop/audio/DOA_VS_ODAS.md Track B). Opt-in:
+"""ODAS on the raw mics -> contract `sources` (SPEC §11). Opt-in:
 `audio.doa_source: odas` or `python -m laptop --real --odas`.
 
     raw mics (ReSpeaker 6-ch firmware, or a raw fixture on replay)

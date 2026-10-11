@@ -1,9 +1,9 @@
-"""One-command demo stack (HERE_36hr_vibecode_plan/Kori/TASKS.md K3 E): bring up, reset, tear down.
+"""One-command demo stack: bring up, reset, tear down.
 
     python tools/demo.py up                       # local relay + scripted events (fake) + dashboard + memory API
-    python tools/demo.py up --source real         # ReSpeaker instead of the script (only when K1 isn't running it)
+    python tools/demo.py up --source real         # ReSpeaker instead of the script (only when nothing else is using the array)
     python tools/demo.py up --source replay --fixture mock_scene
-    python tools/demo.py up --scene all           # K1's scripted scenes (fixtures/events) on a loop
+    python tools/demo.py up --scene all           # the laptop's scripted scenes (fixtures/events) on a loop
     python tools/demo.py up --cloud               # no local relay: everything talks to laptop/.env HERE_RELAY_URL
     python tools/demo.py up --no-mirror           # local relay only, even when laptop/.env names a cloud relay
 
@@ -16,7 +16,7 @@ extras see the same stream, but the cloud being down or slow never touches the l
     python tools/demo.py down
 
 Children run detached with their output in logs/demo/<name>.log; their pids are in logs/demo/pids.json.
-The dashboard (K2) and memory API (A3) start only when their module exists (`python -m extras.dashboard`,
+The dashboard and memory API start only when their module exists (`python -m extras.dashboard`,
 `python -m extras.memory`). After stopping a `--source real` laptop, the array's volatile settings are reset
 (`laptop/audio/xvf3800.py --reset`). The relay token is passed to children through the environment, never printed.
 """
@@ -39,7 +39,7 @@ from laptop import settings  # noqa: E402
 # ---- tunables ---------------------------------------------------------------------------------------------
 LOCAL_RELAY_PORT = 8080         # --relay-port
 DASHBOARD_PORT = 8780           # --dashboard-port (passed to the dashboard as HERE_DASH_PORT)
-MEMORY_PORT = 8790              # --memory-port: A3's memory API (INTEGRATION_CONTRACT 5.3), HERE_MEMORY_PORT/_URL
+MEMORY_PORT = 8790              # --memory-port: the memory API (docs/INTEGRATION.md §5.3), HERE_MEMORY_PORT/_URL
 DEFAULT_FIXTURE = "mock_scene"
 RESET_BUDGET_S = 30.0
 START_TIMEOUT_S = 15.0         # relay /health up, or a client joined the session
@@ -58,7 +58,7 @@ def module_exists(dotted):
 
 
 def scene_exists(scene, root=ROOT):
-    """K1's fixtures/events/<scene>.jsonl, or 'all' when there is at least one."""
+    """the laptop's fixtures/events/<scene>.jsonl, or 'all' when there is at least one."""
     events = root / "fixtures" / "events"
     return any(events.glob("*.jsonl")) if scene == "all" else (events / f"{scene}.jsonl").exists()
 
@@ -83,7 +83,7 @@ def commands(args, relay_url, session, mirror=None):
         cmds["dashboard"] = [PY, "-m", "extras.dashboard"]
     link = ["--relay", relay_url, "--session", session] + (["--mirror", mirror] if mirror else [])
     if args.source == "fake":
-        scene = ["--scene", args.scene] if args.scene else []          # K1's fixtures/events scenes, or 'all'
+        scene = ["--scene", args.scene] if args.scene else []          # the laptop's fixtures/events scenes, or 'all'
         cmds["source"] = [PY, "tools/fake_events.py", *scene, "--loop", *link]
     elif args.source == "replay":
         cmds["source"] = [PY, "-m", "laptop", "--replay", f"fixtures/{args.fixture}", "--loop", *link]
@@ -284,7 +284,7 @@ def main():
 
     if args.verb == "up":
         if args.scene and args.source == "fake" and not scene_exists(args.scene):
-            print(f"  source    no scene '{args.scene}' in fixtures/events (K1's scenes). Drop --scene for the core moments")
+            print(f"  source    no scene '{args.scene}' in fixtures/events (the laptop's scenes). Drop --scene for the core moments")
             sys.exit(1)
         if args.cloud and get_json(health_url(relay_url), timeout=5) is None:
             print(f"  relay     cloud relay UNREACHABLE ({health_url(relay_url)}). Fallback: `.\\tasks.ps1 demo-up` "

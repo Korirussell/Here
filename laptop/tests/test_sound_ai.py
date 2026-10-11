@@ -1,4 +1,4 @@
-"""A2 sound AI: onset windows, honest unknowns, upgrades, ambience, model fallback. Fake models only."""
+"""Sound AI: onset windows, honest unknowns, upgrades, ambience, model fallback. Fake models only."""
 
 import asyncio
 from dataclasses import dataclass
@@ -245,7 +245,7 @@ def test_new_labels_have_display_rows(label):
 
 
 def test_an_onset_window_counts_for_its_beam_in_the_arbiter():
-    """K1 proposal (b2): two beams share an arbiter. Before, only regular windows were recorded, so beam 1's onset
+    """Array tuning proposal (b2): two beams share an arbiter. Before, only regular windows were recorded, so beam 1's onset
     window (doorbell 0.95) was compared with beam 0's last regular window (0.9) against its own stale 0.8 and never
     published (real array: "doorbell (recognised, not published)", alert from the regular windows 2.3 s later)."""
     arbiter = {}

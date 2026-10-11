@@ -1,4 +1,4 @@
-"""Gemini context (README §18): one narrow prompt, a strict JSON schema, on meaningful events only.
+"""Gemini context (SPEC §18): one narrow prompt, a strict JSON schema, on meaningful events only.
 
 Input: the event's label and confidence, energy, a transcript snippet, a short summary of recent events. Never audio,
 never a direction relative to the wearer. Output: a richer label, a semantic category, directed-at-user, a one-line

@@ -1,7 +1,7 @@
 import AVFoundation
 import UIKit
 
-/// The glasses' camera (README §14 pipeline): back ultrawide, landscape, 30 fps, 1080p or 720p.
+/// The glasses' camera (SPEC §14 pipeline): back ultrawide, landscape, 30 fps, 1080p or 720p.
 /// The preview layer shows video directly (frames never pass through our code for display); the data
 /// output hands upright pixel buffers to Vision on its own queue, dropping late frames.
 ///
@@ -35,7 +35,7 @@ final class CameraController: NSObject, ObservableObject {
     private var observations: [NSKeyValueObservation] = []
     private weak var previewLayer: AVCaptureVideoPreviewLayer?
     var quality: Quality = .hd1080
-    /// Production is always `.back` (the chest-mounted "glasses" camera, README §5/§14). `.front` exists
+    /// Production is always `.back` (the chest-mounted "glasses" camera, SPEC §5/§14). `.front` exists
     /// only for solo on-device testing (Settings > Developer > "Use front camera"), so you can see
     /// yourself and the screen at the same time without a mount or a second person.
     var position: AVCaptureDevice.Position = .back

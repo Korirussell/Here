@@ -23,7 +23,7 @@ struct CameraPreview: UIViewRepresentable {
     func updateUIView(_ uiView: PreviewView, context: Context) {}
 }
 
-/// Maps between the camera's upright frame, world bearings and screen points (README §8, §14).
+/// Maps between the camera's upright frame, world bearings and screen points (SPEC §8, §14).
 struct Projector {
     weak var layer: AVCaptureVideoPreviewLayer?
     var captureAngle: Double

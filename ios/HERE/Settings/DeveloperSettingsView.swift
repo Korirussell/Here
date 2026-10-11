@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Debug/rehearsal-only controls (README §14's "Developer" settings) -- simulated inputs, the raw
+/// Debug/rehearsal-only controls (SPEC §14's "Developer" settings) -- simulated inputs, the raw
 /// overlay, BLE UUIDs, and no-laptop test triggers. Split out of the main Settings screen so a judge
 /// or demo viewer paging through Settings never lands on "inject test caption" by accident; everything
 /// here is for solo rehearsal, not the live demo.

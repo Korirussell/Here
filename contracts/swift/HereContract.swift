@@ -1,6 +1,6 @@
 import Foundation
 
-// HERE contract v3 for Swift (README §12). Mirrors contracts/schemas/*.schema.json.
+// HERE contract v3 for Swift (SPEC §12). Mirrors contracts/schemas/*.schema.json.
 // Compiled straight into the iOS app (ios/project.yml lists this folder as a source),
 // so there is exactly one copy. Explicit CodingKeys everywhere: no key strategies,
 // which would also rewrite the keys of `alerts_enabled` / `stage_ms`.

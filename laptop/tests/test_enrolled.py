@@ -1,7 +1,7 @@
 
 
 def test_head_template_matches_the_start_of_the_sound_early():
-    """K1 proposal (b): the first 0.5 s of the enrolled doorbell, matched ~0.4 s after its onset, alerts at ~0.4-0.55 s
+    """Array tuning proposal (b): the first 0.5 s of the enrolled doorbell, matched ~0.4 s after its onset, alerts at ~0.4-0.55 s
     from onset on the real array (fixtures/array_tts 920 -> 389 ms, k1_room_live2 1128 -> 555 ms), never on
     220 s of real chatter (fixtures/k1_positions: head score <= 0.17, threshold 0.25)."""
     import numpy as np

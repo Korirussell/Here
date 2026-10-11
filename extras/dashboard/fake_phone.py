@@ -3,7 +3,7 @@
     python -m extras.dashboard.fake_phone --relay ws://127.0.0.1:8080/ws --session demo
     python -m extras.dashboard.fake_phone --people "Person 1:35,Person 2:-35" --heading 0 --thermal fair
 
-It sends what the app sends (ios/CLAUDE.md, ios/HERE/App/AppModel.swift), and nothing else:
+It sends what the app sends (ios/HERE/App/AppModel.swift), and nothing else:
 - `hello` as role `phone`, with the phone's default subscriptions;
 - `heartbeat` every 2 s, with `thermal` (and status `degraded` + `detail` with `--camera-error`);
 - with Settings > "Send scene" (on here unless --no-scene): `scene` at 5 Hz (heading + the people it sees,
@@ -32,7 +32,7 @@ from contracts.python.here_contract import (  # noqa: E402
 from laptop.settings import read_dotenv  # noqa: E402
 
 ENV_FILE = ROOT / "laptop" / ".env"
-ATTRIBUTE_DEG = 20.0          # README section 13: a voice belongs to the face it points at
+ATTRIBUTE_DEG = 20.0          # SPEC section 13: a voice belongs to the face it points at
 SCENE_HZ = 5.0
 HEARTBEAT_S = 2.0
 

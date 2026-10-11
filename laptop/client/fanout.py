@@ -1,4 +1,4 @@
-"""The laptop on several relays at once: the local relay (the reflex path) plus mirrors such as Vultr (README §7).
+"""The laptop on several relays at once: the local relay (the reflex path) plus mirrors such as Vultr (SPEC §7).
 
     FanoutClient([local_url, vultr_url], session, token, role="laptop", log_path=...)
 

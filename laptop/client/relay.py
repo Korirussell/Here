@@ -1,4 +1,4 @@
-"""The laptop's one connection to the relay (README §7, §12.1).
+"""The laptop's one connection to the relay (SPEC §7, §12.1).
 
     wss://<host>/ws?session=<session>&role=laptop&token=<token>
 

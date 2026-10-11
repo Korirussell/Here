@@ -102,7 +102,7 @@ def test_update_laptop_env_creates_from_example(tmp_path):
 
 
 def test_update_without_memory_flag_still_updates_an_installed_memory_service():
-    # ADIL_TODO documents `deploy_vultr.py --ip X update` (no --memory): a memory service deployed earlier must get
+    # `deploy_vultr.py --ip X update` (no --memory): a memory service deployed earlier must get
     # its requirements and a restart too, or it keeps serving the old code.
     venv, restart = dv.plan("update", "h", memory=False)[1:]
     assert "here-memory" in venv.script and "extras/memory/requirements.txt" in venv.script

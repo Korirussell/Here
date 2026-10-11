@@ -1,4 +1,4 @@
-"""Attention judgments in three tiers (HERE_36hr_vibecode_plan/Shared/ATTENTION.md), behind one `Decider` interface.
+"""Attention judgments in three tiers (docs/ATTENTION.md), behind one `Decider` interface.
 
 1. `JevDecider`: autotrust/JEV-9B (Apache-2.0), System 1 path from the model card: transformers + peft (adapter
    merged), the 24-slot decision head on the last token's hidden state, per-kind temperatures. Quantized to 4-bit
@@ -11,7 +11,7 @@
 drops the oldest, a 5 s cache for identical states and at most `max_rate_hz` decisions per second.
 
     python -m laptop.enrich.attention --states              # tier 2 + rules on the labelled demo states (CPU)
-    python -m laptop.enrich.attention --bench               # K3, Kori's GPU: JEV-9B 4-bit, the four ATTENTION.md gates
+    python -m laptop.enrich.attention --bench               # on the RTX laptop: JEV-9B 4-bit, the four docs/ATTENTION.md gates
 """
 
 import argparse
@@ -68,7 +68,7 @@ class Decider:
 
 
 class RulesDecider(Decider):
-    """ATTENTION.md tier 3: alert priority 3 -> urgent, 2 -> important; known label -> notice; quiet unknown -> ambient."""
+    """docs/ATTENTION.md tier 3: alert priority 3 -> urgent, 2 -> important; known label -> notice; quiet unknown -> ambient."""
     name = "rules"
     AMBIENT_LABELS = {"music", "tv", "laughter", "speech", "other"}
 
@@ -413,7 +413,7 @@ def main():
     p = argparse.ArgumentParser(prog="python -m laptop.enrich.attention", description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--states", action="store_true", help="tier 2 (+ rules) on the labelled demo states")
-    p.add_argument("--bench", action="store_true", help="GPU: JEV-9B quantized, the ATTENTION.md gates")
+    p.add_argument("--bench", action="store_true", help="GPU: JEV-9B quantized, the docs/ATTENTION.md gates")
     p.add_argument("--quant", default=None, help="nf4 (default) | int8 | bf16")
     p.add_argument("--device", default=None)
     a = p.parse_args()
@@ -428,7 +428,7 @@ def main():
 
 
 def bench_jev(quant, rows):
-    """Gates 1, 3, 4 of ATTENTION.md on Kori's laptop (gate 2 = golden + whisper latency with this loaded)."""
+    """Gates 1, 3, 4 of docs/ATTENTION.md on the demo laptop (gate 2 = golden + whisper latency with this loaded)."""
     import torch
     print(f"=== JEV-9B ({quant}) on {torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'NO GPU'}")
     t0 = time.perf_counter()

@@ -1,4 +1,4 @@
-r"""perception_enrichment (README §12.7): watches what the laptop sends, judges it afterwards, sends the judgment.
+r"""perception_enrichment (SPEC §12.7): watches what the laptop sends, judges it afterwards, sends the judgment.
 
     client.send(sound_event / utterance final)  ->  Enricher.observe  ->  AttentionWorker (tiers) ---\
                                                                      \-> GeminiContext (meaningful) --> PerceptionEnrichment(ref)

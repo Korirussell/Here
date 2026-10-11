@@ -1,9 +1,9 @@
-"""Every scripted scene (fixtures/events/*.jsonl, K1) through the local relay to a phone, a dashboard and a memory
-client at once (TASKS.md K3 B). Each role gets every event message of the scene that its subscription covers,
+"""Every scripted scene (fixtures/events/*.jsonl) through the local relay to a phone, a dashboard and a memory
+client at once. Each role gets every event message of the scene that its subscription covers,
 valid v3, in order; enrichments arrive after their event; and each scene shows what it's for (the turn-around is
 behind, two talkers give two tracks, the unknown sound keeps its direction...).
 
-Skips until K1's scenes and `fake_events.play_scene` are on this branch.
+Skips until the laptop's scenes and `fake_events.play_scene` are on this branch.
 """
 
 import asyncio
@@ -27,7 +27,7 @@ EVENT_TYPES = {"speech_start", "utterance", "sound_event", "alert", "perception_
 SCENES = sorted(p.stem for p in (ROOT / "fixtures" / "events").glob("*.jsonl"))
 
 pytestmark = pytest.mark.skipif(not SCENES or not hasattr(fake_events, "play_scene"),
-                                reason="needs K1's fixtures/events scenes and fake_events.play_scene")
+                                reason="needs the laptop's fixtures/events scenes and fake_events.play_scene")
 
 
 def play(name):
@@ -110,7 +110,7 @@ def test_scene_through_the_relay(name):
 
 
 def test_every_planned_scene_exists():
-    """INTEGRATION_CONTRACT §9 / TASKS K1 E: the seven scenes everyone builds against."""
+    """docs/INTEGRATION.md §9 / the seven scenes everyone builds against."""
     assert set(SCENES) >= {"front_speech", "rear_speech", "doorbell_rear", "name_called_rear", "unknown_sound",
                            "two_speakers", "crowd_noise"}
 

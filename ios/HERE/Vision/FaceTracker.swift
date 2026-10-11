@@ -5,7 +5,7 @@ import Vision
 /// One tracked face in a frame.
 struct TrackedFace: Identifiable, Equatable {
     let id: Int              // tracker id
-    let label: String        // "Person 1", "Person 2"... (first-appearance order, README §13)
+    let label: String        // "Person 1", "Person 2"... (first-appearance order, SPEC §13)
     let colorIndex: Int
     let box: CGRect          // Vision normalized, upright buffer, bottom-left origin
     let bearing: Double      // world degrees at this frame's heading
@@ -26,7 +26,7 @@ struct TrackerDiagnostics: Equatable {
     var lastDrop = ""                // why the most recent track ended
 }
 
-/// Face detection every few frames + Vision object tracking in between (README §14 pipeline).
+/// Face detection every few frames + Vision object tracking in between (SPEC §14 pipeline).
 /// Runs on its own serial queue; drops frames while busy (the camera discards late frames too).
 ///
 /// Identity is not decided here. A track is a temporary Vision observation; who it belongs to is
@@ -514,10 +514,10 @@ final class FaceTracker {
 }
 
 /// Simulator / no-camera stand-in: Person 1 front-right, Person 2 front-left, Person 3 (Speaker B,
-/// README §4/§19) directly behind (README §4 positions), placed by bearing so fake_events.py lands
+/// SPEC §4/§19) directly behind (SPEC §4 positions), placed by bearing so fake_events.py lands
 /// captions on them. Person 3 only appears once the wearer turns far enough toward them, same as a
 /// real person stepping into frame -- drag Settings > Developer > Simulated heading to rehearse the
-/// turn-around without a phone (Task 3, prompts/IOS_AGENT.md).
+/// turn-around without a phone.
 enum SimulatedFaces {
     static func faces(heading: Double, hfovDeg: Double, now: Double) -> [TrackedFace] {
         let people: [(String, Double)] = [("Person 1", 35), ("Person 2", -35), ("Person 3", 180)]

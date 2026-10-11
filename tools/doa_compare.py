@@ -1,4 +1,4 @@
-"""Built-in DoA vs ODAS vs hybrid on the same audio (laptop/audio/DOA_VS_ODAS.md, README §11).
+"""Built-in DoA vs ODAS vs hybrid on the same audio (SPEC §11).
 
 One scorer for any `sources` stream against ground truth: localization error, detection, two-source detection,
 track id stability, ghost sources per minute, onset latency.

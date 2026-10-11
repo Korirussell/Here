@@ -42,7 +42,7 @@ test('a retracted talker gives back its voice number; real speech keeps its card
 
 test('a jittery doorbell is steadied for display, and every raw report is kept', () => {
   resetLive()
-  const raw = [28.8, 27.8, 0.8, 24.8, 24.8, 24.8, 0.8, 24.8, 24.8]      // K1's Gate 2 run, one press, one event_id
+  const raw = [28.8, 27.8, 0.8, 24.8, 24.8, 24.8, 0.8, 24.8, 24.8]      // the laptop's Gate 2 run, one press, one event_id
   raw.forEach((b, i) => ingest(bell(b, i), T0 + i))
   assert.equal(S.sounds.size, 1)                                         // one sound, updated in place
   assert.equal(steadyBearing('ev:s-19', 24.8), 24.8)

@@ -28,7 +28,7 @@ from laptop.app import Laptop  # noqa: E402
 from laptop.geometry import angdiff, circular_mean  # noqa: E402
 
 SR = 16000
-TRUTH_BEARING = 180.0       # where Kori put the laptop speakers (nominal; SRP/device say ~174-178)
+TRUTH_BEARING = 180.0       # where the laptop speakers sit (nominal; SRP/device say ~174-178)
 
 
 def live_scene():

@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Guided walkthrough of README §23's 2-minute setup checklist, one step at a time, so the presenter
+/// Guided walkthrough of SPEC §23's 2-minute setup checklist, one step at a time, so the presenter
 /// doesn't have to hold the five steps (and their order) in their head under a judging-table clock.
 /// Steps 2 and 4 trigger the same actions Settings already exposes (Calibrate, belt test); step 3 shows
 /// a live readout (relay, faces tracked, newest caption) so "check" landing on Person 1 is confirmable

@@ -1,4 +1,4 @@
-// HERE haptic belt: ESP32 BLE peripheral driving 8 coin motors through a ULN2803 (README §16).
+// HERE haptic belt: ESP32 BLE peripheral driving 8 coin motors through a ULN2803 (SPEC §16).
 //
 // The phone (BLE central) writes 6-byte packets; this sketch owns all pattern timing so BLE
 // jitter can't smear the rhythm:
@@ -21,7 +21,7 @@
 #include "belt_config.h"
 #include "belt_types.h"   // types live in a header: Arduino generates prototypes above the sketch body
 
-// ---- patterns (README §16) ------------------------------------------------------------------
+// ---- patterns (SPEC §16) ------------------------------------------------------------------
 
 static const Step P_SPEECH[]      = {{80, 80}, {80, 0}};                                  // buzz-buzz
 static const Step P_NAME_CALLED[] = {{100, 80}, {100, 80}, {100, 0}};                     // buzz-buzz-buzz
@@ -84,7 +84,7 @@ static void setMotors(const Command& c, bool on) {
   if (c.motor2 >= 1 && c.motor2 <= 8 && c.motor2 != c.motor) motorWrite(c.motor2, s);
 }
 
-// ---- LED ring (README §16: green connected, blue speech, yellow alert, red emergency, dim white waiting)
+// ---- LED ring (SPEC §16: green connected, blue speech, yellow alert, red emergency, dim white waiting)
 
 static uint32_t colorForPattern(uint8_t p) {
   switch (p) {

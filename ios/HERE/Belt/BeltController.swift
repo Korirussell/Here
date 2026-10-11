@@ -1,11 +1,11 @@
 import CoreBluetooth
 import Foundation
 
-/// CoreBluetooth central for the ESP32 belt (README §16): scan by service UUID, connect, find the
+/// CoreBluetooth central for the ESP32 belt (SPEC §16): scan by service UUID, connect, find the
 /// command characteristic, write the 6-motor firmware's timed commands (BeltSixMotor), reconnect automatically.
 ///
 /// `lastCommand` is published whether or not the belt is connected, so the on-screen belt
-/// indicator shows what the wearer *would* feel (README §23 backup: "app shows the intended motor").
+/// indicator shows what the wearer *would* feel (SPEC §23 backup: "app shows the intended motor").
 final class BeltController: NSObject, ObservableObject {
     enum State: String { case off = "Bluetooth off", unauthorized = "Bluetooth not allowed",
                          scanning = "searching", connecting = "connecting", ready = "connected" }
@@ -24,7 +24,7 @@ final class BeltController: NSObject, ObservableObject {
     private var wanted = false
     /// Guards against getting stuck in "connecting" forever: `didConnect` can fire at the BLE link
     /// layer and then service/characteristic discovery can just silently never finish (wrong firmware,
-    /// a UUID mismatch, a flaky discovery in a crowded room -- README §16/§24's own stated BLE risk).
+    /// a UUID mismatch, a flaky discovery in a crowded room -- SPEC §16/§24's own stated BLE risk).
     /// Without a deadline, `peripheral` stays non-nil and `scanIfPossible`'s `peripheral == nil` guard
     /// blocks any retry forever, with no automatic way out short of the peripheral itself dropping the
     /// link. Cancelled the moment the real characteristic is found.
@@ -145,7 +145,7 @@ extension BeltController: CBCentralManagerDelegate, CBPeripheralDelegate {
         peripheral = nil
         command = nil
         DispatchQueue.main.async { self.peripheralName = nil }
-        // Reconnect automatically after a short pause (README §24: BLE flaky in crowded rooms).
+        // Reconnect automatically after a short pause (SPEC §24: BLE flaky in crowded rooms).
         queue.asyncAfter(deadline: .now() + 0.5) { self.scanIfPossible() }
         if !wanted { publish(.off) }
     }

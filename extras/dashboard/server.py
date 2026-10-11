@@ -5,10 +5,10 @@
 
 - Joins the relay as role `dashboard` (subscribes to `*`) and fans every message out to the open pages over
   `/live`, wrapped as {"k": "msg", "rx": <receive time>, "m": <message unchanged>}. The relay token stays here.
-- Serves the page (`static/`), and `/api/*`: A3's memory API (§5.3) when it answers, otherwise the seeded
+- Serves the page (`static/`), and `/api/*`: the memory service's memory API (§5.3) when it answers, otherwise the seeded
   JSON in `demo_data/` (every reply says which: `_source: "api" | "seed"`).
 - `/dash/demo?...` starts `tools/fake_events.py` against the same relay (the one-button scripted scene). With no
-  relay reachable (or `local=1`) it plays K1's `fixtures/events` scenes itself, straight to the pages, labelled
+  relay reachable (or `local=1`) it plays the laptop's `fixtures/events` scenes itself, straight to the pages, labelled
   as a local replay: the booth demo survives the venue Wi-Fi. While a laptop is live on the relay (a fresh
   heartbeat from src "laptop"), Run demo is always a local replay too, so a stray click or `S` never puts
   scripted captions or buzzes on the wearer's phone; `force_relay=1` overrides that on purpose.

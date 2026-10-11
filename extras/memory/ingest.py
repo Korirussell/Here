@@ -1,4 +1,4 @@
-"""Turn canonical relay messages into memory rows (TASKS A3 B).
+"""Turn canonical relay messages into memory rows.
 
 Stored unchanged as `payload`, plus normalized columns. What is kept:
 - `utterance`: finals only (partials are a streaming UI detail); also indexed for full-text search.
@@ -6,7 +6,7 @@ Stored unchanged as `payload`, plus normalized columns. What is kept:
 - `perception_enrichment`, `attribution`: one row per referenced event; attribution also sets `person_label` on the
   utterance or sound it refers to (whichever arrives first).
 - `scene`: never stored; only the wearer's latest heading per session, so `rel_bearing` (and "behind me") can be
-  computed server-side from the phone's own data (INTEGRATION_CONTRACT §3).
+  computed server-side from the phone's own data (docs/INTEGRATION.md §3).
 
 `accept()` is cheap and never blocks; `flush()` does one batched write. The queue is bounded and drops the oldest.
 """

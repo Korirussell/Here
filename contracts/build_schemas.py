@@ -1,4 +1,4 @@
-"""Generates contracts/schemas/*.schema.json from README §12 (contract v3).
+"""Generates contracts/schemas/*.schema.json from SPEC §12 (contract v3).
 
 This file is the one place the wire shapes are written down in code. After editing it:
 
@@ -6,7 +6,7 @@ This file is the one place the wire shapes are written down in code. After editi
     python -m pytest contracts               # examples, Python/Swift/TS mirrors, drift check
 
 Then update contracts/python/here_contract.py, contracts/swift/HereContract.swift and
-contracts/ts/contract.ts to match. Contract changes go through the integrator (README §12).
+contracts/ts/contract.ts to match. Contract changes go through the integrator (SPEC §12).
 """
 
 import json
@@ -160,7 +160,7 @@ def envelope_schema():
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "$id": "https://here.local/contracts/envelope.schema.json",
         "title": "envelope",
-        "description": "Common fields of every message (README §12.2). Receivers ignore unknown types.",
+        "description": "Common fields of every message (SPEC §12.2). Receivers ignore unknown types.",
         "type": "object",
         "properties": {**ENVELOPE, "type": {"enum": list(MESSAGES)}},
         "required": ENVELOPE_REQUIRED,

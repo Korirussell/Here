@@ -2,7 +2,7 @@ import CoreMotion
 import Foundation
 
 /// The world bearing the back camera points at, in the phone's own arbitrary
-/// zero. The app applies the Calibrate offset: heading = wrap(raw - offset) (README §8 step 4).
+/// zero. The app applies the Calibrate offset: heading = wrap(raw - offset) (SPEC §8 step 4).
 struct HeadingSample {
     let headingRawDeg: Double
     let quality: String // "good" | "settling" | "bad"
@@ -10,7 +10,7 @@ struct HeadingSample {
 }
 
 /// Reads device orientation at ~60 Hz and turns it into a heading, following
-/// README §8 exactly: **not** `attitude.yaw`, because Euler angles
+/// SPEC §8 exactly: **not** `attitude.yaw`, because Euler angles
 /// gimbal-lock with the phone upright in the chest harness. Instead we take
 /// the attitude as a rotation matrix, rotate the back camera's look vector
 /// `(0, 0, -1)` (device −Z) into the `.xArbitraryZVertical` reference frame,
@@ -48,7 +48,7 @@ final class HeadingProvider {
         let r = motion.attitude.rotationMatrix
 
         // Back camera looks along device -Z. Rotate (0, 0, -1) into the
-        // reference frame: v = (-R.m31, -R.m32, -R.m33) (README §8). Works for any mount, landscape included.
+        // reference frame: v = (-R.m31, -R.m32, -R.m33) (SPEC §8). Works for any mount, landscape included.
         let vx = -r.m31
         let vy = -r.m32
         // (vertical component -r.m33 is dropped; horizontalMagnitude below

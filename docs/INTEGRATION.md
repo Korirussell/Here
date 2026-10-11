@@ -1,33 +1,17 @@
-# HERE: shared integration contract (the wall between the two lanes)
+# HERE: internal interfaces
 
 > **The wire contract is `contracts/`**: the JSON Schemas, the Python/Swift/TS mirrors and one example per type.
-> This file explains how the lanes use it, and adds the internal interfaces between our workers. If anything here
-> disagrees with `contracts/`, `contracts/` wins. Contract history and known drift: `contracts/CHANGES.md`.
-
-## Who owns what
-
-| Lane | Owns | Machine |
-|---|---|---|
-| **Kori** (integrator, contract owner) | The ReSpeaker and the event engine (sound in → canonical events out), the dashboard, integration, the demo harness, `contracts/` | The demo laptop, which has the array |
-| **Adil** | Speech (ElevenLabs Scribe + whisper fallback, name called), sound AI (Hugging Face classifier + attention model, `unknown`, Gemini), the cloud (Vultr relay, Neon, Databricks, Ask HERE, Replay Lab backend) | His own machine, working from recordings. No array. |
-| **iOS team** (separate) | `ios/` | Mac |
-
-We don't edit `ios/`. Anything that changes what the phone receives or how it connects gets a row in
-`IOS_INTEGRATION.md` (repo root) in the same commit.
-
-**Contract changes are approved by Kori only.** To ask for one, add a "Proposed" entry to `contracts/CHANGES.md`:
-the exact fields, who consumes them, and why the current types can't do it. Don't ship it until it's approved. The
-K3 worker implements approved changes the standard way: `build_schemas.py`, then regenerate, then the three
-mirrors, the examples, README §12, `CHANGES.md` and `IOS_INTEGRATION.md`, all in one commit.
+> This file adds the internal interfaces between components (onsets, speech, the memory API, failure behaviour).
+> If anything here disagrees with `contracts/`, `contracts/` wins.
 
 ---
 
 ## 1. Critical path
 
 ```text
-ReSpeaker -> laptop (K1 directions + A1 speech + A2 sounds) -> relay (A3 deploys) -> iPhone (iOS team) -> belt
-                                                            \-> dashboard (K2, role "dashboard": sees everything)
-                                                            \-> memory service (A3, role "memory") -> Neon -> Ask HERE / insights / replay
+ReSpeaker -> laptop (laptop directions + speech speech + sound AI sounds) -> relay (cloud deploys) -> iPhone (iOS team) -> belt
+                                                            \-> dashboard (dashboard, role "dashboard": sees everything)
+                                                            \-> memory service (cloud, role "memory") -> Neon -> Ask HERE / insights / replay
 ```
 
 **The cloud must never be on the path for any of these:** the first direction cue, `speech_start`, live caption
@@ -78,25 +62,25 @@ bearing; uncertainty lowers how specific the label is and never hides the sound.
 - optionally `directed_at_user` (same model) and `context` (Gemini).
 
 Phone, memory and dashboard receive it. It never decides whether an event exists or where it is.
-Decision record: `Shared/ATTENTION.md`.
+Decision record: `docs/ATTENTION.md`.
 
-## 5. Internal interfaces between our workers (not on the wire)
+## 5. Internal interfaces (not on the wire)
 
-These seams let six workers build in parallel. Changing one needs both owners to agree.
+These seams let each component be built and tested alone.
 
-### 5.1 Laptop: onset candidates (K1 → A2)
-K1's event engine publishes non-speech **onset candidates**: `(t, bearing_deg, energy, source_id)` whenever a track
-appears or its energy jumps. A2 subscribes, classifies that window, and emits a `sound_event`: a real label above
-threshold, or `unknown` when the sound has enough energy and persistence but no confident label. A2 never drops a
+### 5.1 Laptop: onset candidates (laptop → sound AI)
+the laptop's event engine publishes non-speech **onset candidates**: `(t, bearing_deg, energy, source_id)` whenever a track
+appears or its energy jumps. sound AI subscribes, classifies that window, and emits a `sound_event`: a real label above
+threshold, or `unknown` when the sound has enough energy and persistence but no confident label. sound AI never drops a
 candidate silently; at most it merges repeats or applies a cooldown.
 
-### 5.2 Laptop: speech (A1 → K1)
-`laptop/speech/` owns `speech_start`, `utterance` and the name-called alert. It reads bearings from K1's
+### 5.2 Laptop: speech (speech → laptop)
+`laptop/speech/` owns `speech_start`, `utterance` and the name-called alert. It reads bearings from the laptop's
 `DirectionHistory` (`laptop/audio/base.py`) and doesn't change it. Transcription providers implement the
 `Transcriber` protocol in `laptop/speech/transcriber.py`.
 
-### 5.3 Memory API (A3 → K2)
-A3 serves this over HTTP: locally on `:8790`, and on Vultr behind Caddy at `/api`. K2's dashboard consumes it and
+### 5.3 Memory API (cloud → dashboard)
+cloud serves this over HTTP: locally on `:8790`, and on Vultr behind Caddy at `/api`. the dashboard consumes it and
 falls back to the seeded JSON in `extras/memory/seed/` when the API is down. The endpoints:
 
 | Endpoint | Returns |
@@ -132,7 +116,7 @@ The synthetic day uses the same shapes as live data.
 - `clock_ping` / `clock_pong` give the phone the clock offset.
 - The dashboard has a demo latency panel; don't instrument every UI element.
 
-## 8. Failure behaviour (each one tested by K3)
+## 8. Failure behaviour (each one tested in `tests/`)
 
 | If this fails | Then |
 |---|---|
@@ -146,19 +130,3 @@ The synthetic day uses the same shapes as live data.
 | Belt | On-screen direction indicator (iOS). |
 | No live sound | Scripted fixtures (`fixtures/events/`, `tools/fake_events.py`). |
 
-## 9. Integration-ready
-
-**From Kori's lane (K1):**
-- One command gives a representative live stream, from the real array (`python -m laptop --real`) or from fixtures, with the same messages either way.
-- Scripted scenes, playable through the relay:
-  1. front speaker;
-  2. rear speaker (the turn-around);
-  3. doorbell and name called from the rear;
-  4. an unknown sound;
-  5. two talkers at once;
-  6. crowd noise.
-
-**From Adil's lane:**
-- **A1:** `engine: scribe_realtime` captions with automatic whisper fallback, demonstrated by pulling the network.
-- **A2:** Hugging Face labels plus `unknown` on the fixture sounds, with the model id in `sound_event.model`.
-- **A3:** a relay on `wss://<host>/ws` with the URL and token handed over (never in git), plus the memory API answering from the seeded day.

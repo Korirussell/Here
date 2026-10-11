@@ -40,7 +40,7 @@ export function liveStates() {
   const engine = lastOf('utterance')?.engine || (laptopLive() ? hb?.engine : null)
   let relay = S.status.relay?.connected || localReplay() ? from(transportProvider()) : { state: 'off', provider: 'not connected', note: 'no relay reachable' }
   const sr = serverRelay()
-  if (sr?.where === 'vultr') {                         // A3's status from the Vultr box: is the laptop's mirror there?
+  if (sr?.where === 'vultr') {                         // the memory service's status from the Vultr box: is the laptop's mirror there?
     relay = !sr.ok ? { state: relay.state === 'off' ? 'off' : relay.state, provider: relay.provider, note: `Vultr: ${sr.reason}` }
       : sr.roles.has('laptop') ? { state: 'live', provider: 'Vultr relay', note: `${[...sr.roles].sort().join(' · ')}${sr.rate !== null ? ` · ${sr.rate.toFixed(1)} msg/s` : ''}` }
         : { state: relay.state === 'live' ? 'live' : 'fallback', provider: relay.provider, note: 'Vultr up, laptop mirror not connected' }

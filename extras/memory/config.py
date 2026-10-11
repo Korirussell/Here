@@ -1,4 +1,4 @@
-"""Tunables for the memory service (README §17.1, Shared/INTEGRATION_CONTRACT.md §5.3). One file, env overrides.
+"""Tunables for the memory service (SPEC §17.1, docs/INTEGRATION.md §5.3). One file, env overrides.
 
 Secrets (NEON_DATABASE_URL, HERE_RELAY_TOKEN, GEMINI_API_KEY) come from the environment or extras/memory/.env,
 never from here.
@@ -37,7 +37,7 @@ def env(name, default=""):
 RELAY_URL = "ws://127.0.0.1:8080/ws"          # HERE_RELAY_URL overrides; wss://<host>/ws on Vultr
 SESSION = "demo"                              # HERE_SESSION overrides
 # role `memory` defaults (contract DEFAULT_SUBSCRIBE) plus `scene`, used only to know the wearer's heading so
-# "behind me" can be answered server-side (Shared/INTEGRATION_CONTRACT.md §3). Never stored per frame.
+# "behind me" can be answered server-side (docs/INTEGRATION.md §3). Never stored per frame.
 EXTRA_SUBSCRIBE = ["scene"]
 RECONNECT_MIN_S, RECONNECT_MAX_S = 0.5, 5.0
 
@@ -51,7 +51,7 @@ LIVE_LOCATION = "hackathon_hall"              # HERE_LOCATION overrides; where l
 # --- storage -------------------------------------------------------------------------------------------
 SQLITE_PATH = DATA_DIR / "memory.sqlite"
 NEON_CONNECT_TIMEOUT_S = 5
-RETENTION_DAYS = 7.0                          # README §25 (HERE_RETENTION_DAYS overrides); seeded data is exempt
+RETENTION_DAYS = 7.0                          # SPEC §25 (HERE_RETENTION_DAYS overrides); seeded data is exempt
 PURGE_EVERY_S = 3600
 
 # --- seed ----------------------------------------------------------------------------------------------
@@ -72,11 +72,11 @@ ASK_CACHE_S = 30.0                            # an answer is reused this long (l
 SESSIONS_CACHE_S = 5.0                        # the session list (segments) is re-read at most this often
 
 # --- replay --------------------------------------------------------------------------------------------
-ZERO_SHOT_MODEL = "MoritzLaurer/deberta-v3-base-zeroshot-v2.0"   # Shared/ATTENTION.md tier 2
+ZERO_SHOT_MODEL = "MoritzLaurer/deberta-v3-base-zeroshot-v2.0"   # docs/ATTENTION.md tier 2
 REPLAY_MODEL_SCORES = False                   # HERE_REPLAY_MODEL=1 adds zero-shot relevance (CPU, cached)
 REPLAY_MODEL_THREADS = 4                      # more threads were far slower on the i7-1250U (P+E cores)
 
-# --- server status (TASKS A3 H, status.py) -------------------------------------------------------------
+# --- server status (status.py) -------------------------------------------------------------
 RELAY_HEALTH_URL = "http://127.0.0.1:8080/health"   # HERE_RELAY_HEALTH overrides (same box on Vultr)
 RELAY_LOG = ROOT / "logs" / "relay.jsonl"     # HERE_RELAY_LOG overrides; /var/log/here/relay.jsonl on Vultr
 STATUS_WINDOW_S = 300                         # message rates and ages over the last 5 minutes

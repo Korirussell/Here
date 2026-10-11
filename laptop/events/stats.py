@@ -1,4 +1,4 @@
-"""Rolling stage timings (K1 D, Shared/INTEGRATION_CONTRACT.md §7): capture, doa, serialize, socket_send.
+"""Rolling stage timings (docs/INTEGRATION.md §7): capture, doa, serialize, socket_send.
 
     capture      audio: ADC time of a block's first sample -> the driver callback (the device + WASAPI buffer)
     doa          direction: one USB DoA poll (sample + ring flush) on the control pipe

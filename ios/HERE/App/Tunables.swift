@@ -1,11 +1,11 @@
 import CoreGraphics
 import Foundation
 
-/// Every (tune) number in the app, in one place (README §22: tunables in one config file).
+/// Every (tune) number in the app, in one place (SPEC §22: tunables in one config file).
 enum IndicatorPlacement { case corner, perimeter }
 
 enum Tunables {
-    // Attribution (README §13)
+    // Attribution (SPEC §13)
     static let matchDeg = 15.0            // face within this of the speech bearing
     static let tieDeg = 5.0               // two faces this close in distance: prefer the recent speaker
     static let moveDeg = 30.0             // re-attribute if the bearing moves this far...
@@ -18,7 +18,7 @@ enum Tunables {
     static let relabelDeg = 25.0          // ...if it reappears this close to where it was
     static let faceLostHoldS = 0.5        // a tracked face gone this long -> caption falls back to off-camera
 
-    // Faces (README §14 pipeline)
+    // Faces (SPEC §14 pipeline)
     static let detectEveryFrames = 6      // detection 5 Hz at 30 fps, Vision tracking in between
     static let detectEveryFramesHot = 12  // thermal .serious: halve the detection rate
     // (tune) widened from 0.3: VNTrackObjectRequest(.fast) drops a track the instant one frame's
@@ -52,7 +52,7 @@ enum Tunables {
     // Alerts panel
     static let alertFadeS = 4.0           // ended alerts fade out after this
 
-    // Belt (README §14 belt logic)
+    // Belt (SPEC §14 belt logic)
     static let beltFrontDeg = 30.0        // speech in front within this: no buzz
     static let beltSamePersonS = 5.0      // don't re-buzz the same person within this
     static let beltNonAlertGapS = 1.5     // at most one non-alert pattern per this

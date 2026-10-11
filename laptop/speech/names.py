@@ -1,4 +1,4 @@
-"""Name-called detection: fuzzy match of the user's name and aliases in transcripts (README §13, §15).
+"""Name-called detection: fuzzy match of the user's name and aliases in transcripts (SPEC §13, §15).
 
 Two checks per word, either is enough:
 - spelling: difflib ratio >= name_match_ratio ("Korri" ~ "Kori")

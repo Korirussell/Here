@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// README §14 settings: relay URL + token + session, user name + aliases, HFOV, Calibrate,
+/// SPEC §14 settings: relay URL + token + session, user name + aliases, HFOV, Calibrate,
 /// focus mode, belt-only mode, belt strength, belt connect/test, feature toggles.
 /// Changes save immediately; transport changes apply when the sheet closes.
 struct SettingsView: View {
@@ -31,7 +31,7 @@ struct SettingsView: View {
                     Button { showDemoSetup = true } label: {
                         Label("Demo Setup", systemImage: "checklist")
                     }
-                    Text("Walks through README §23's 2-minute checklist, one step at a time: array, "
+                    Text("Walks through SPEC §23's 2-minute checklist, one step at a time: array, "
                          + "calibrate, speaker check, belt test, mirror.")
                         .font(.footnote).foregroundStyle(.secondary)
                 }
@@ -54,7 +54,7 @@ struct SettingsView: View {
                             .foregroundStyle(.secondary)
                     }
                     Slider(value: $store.value.hfovOverride, in: 0...130, step: 1) { Text("HFOV") }
-                    Text("0 = use the camera's reported FOV. Measure in the harness and set it here (README §8).")
+                    Text("0 = use the camera's reported FOV. Measure in the harness and set it here (SPEC §8).")
                         .font(.footnote).foregroundStyle(.secondary)
                 } header: { Label("Calibrate (every demo)", systemImage: "scope") }
 
@@ -137,7 +137,7 @@ struct SettingsView: View {
                     }
                     Text("Primary = the laptop's local relay, fallback = Vultr; same stream on both. If the primary "
                          + "doesn't connect within \(Int(Tunables.relayPrimaryConnectS)) s or drops, HERE uses the "
-                         + "fallback and retries the primary every \(Int(Tunables.relayPrimaryRetryS)) s (README §7).")
+                         + "fallback and retries the primary every \(Int(Tunables.relayPrimaryRetryS)) s (SPEC §7).")
                         .font(.footnote).foregroundStyle(.secondary)
                 } header: { Label("Relay", systemImage: "antenna.radiowaves.left.and.right") }
 

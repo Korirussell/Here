@@ -1,6 +1,6 @@
 import Foundation
 
-/// Tracks the phone→laptop clock offset (README §9: latency measurement only; display never needs it).
+/// Tracks the phone→laptop clock offset (SPEC §9: latency measurement only; display never needs it).
 ///
 /// `RelayClient` sends a burst of `clock_ping` on connect and every 10 s;
 /// for each `clock_pong` reply, call `recordPong`. We keep the sample with
@@ -22,7 +22,7 @@ final class ClockSync {
 
     /// - Parameters:
     ///   - tPhoneSent: the `t_phone` this ping was sent with (phone epoch seconds).
-    ///   - tLaptop: the laptop's `t_laptop` from the matching `clock_pong` (README §12.4).
+    ///   - tLaptop: the laptop's `t_laptop` from the matching `clock_pong` (SPEC §12.4).
     func recordPong(tPhoneSent: TimeInterval, tLaptop: TimeInterval) {
         let now = PhoneClock.nowEpoch
         let rtt = now - tPhoneSent

@@ -1,4 +1,4 @@
-"""Contract checks across Python, TypeScript and Swift (README §12). Run: python -m pytest contracts"""
+"""Contract checks across Python, TypeScript and Swift (SPEC §12). Run: python -m pytest contracts"""
 
 import copy
 import json
@@ -116,8 +116,8 @@ def test_typescript_accepts_every_example(tmp_path):
     assert r.returncode == 0, r.stdout + r.stderr
 
 
-def test_examples_cover_readme_12_11():
-    readme = (ROOT.parent / "README.md").read_text(encoding="utf-8")
+def test_examples_cover_spec_12_11():
+    readme = (ROOT.parent / "docs" / "SPEC.md").read_text(encoding="utf-8")
     block = readme.split("### 12.11 Example", 1)[1].split("```json", 1)[1].split("```", 1)[0]
     for line in filter(None, (l.strip() for l in block.splitlines())):
         d = json.loads(line)

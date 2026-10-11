@@ -1,4 +1,4 @@
-"""Pre-demo check for the laptop: GPU stack, model speed, the ReSpeaker, and the relay (README §23 setup).
+"""Pre-demo check for the laptop: GPU stack, model speed, the ReSpeaker, and the relay (SPEC §23 setup).
 
     python tools/check_gpu.py
     python tools/check_gpu.py --skip-respeaker
@@ -243,7 +243,7 @@ def attention_tiers_possible():
 
 
 def check_attention():
-    """The demo must never be silently rules-only (Shared/ATTENTION.md tiers)."""
+    """The demo must never be silently rules-only (docs/ATTENTION.md tiers)."""
     running = attention_tiers_running()
     if running is not None:
         models = [t for t in running if t != "rules"]

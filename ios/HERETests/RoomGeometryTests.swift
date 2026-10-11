@@ -20,7 +20,7 @@ final class RoomGeometryTests: XCTestCase {
         let fromWearer = room.listenerBearing(micBearing: 0)
         XCTAssertEqual(fromWearer, -33.7, accuracy: 0.1, "the wearer sees them well to the left, not straight ahead")
         XCTAssertEqual(room.parallaxError(micBearing: 0, sourceDistance: 1.5), 33.7, accuracy: 0.1)
-        // README §5: 0.5 m off, speaker 1.5 m away -> atan(0.5 / 1.5) = 18.4 deg, more than the 15 deg match angle.
+        // SPEC §5: 0.5 m off, speaker 1.5 m away -> atan(0.5 / 1.5) = 18.4 deg, more than the 15 deg match angle.
         let near = RoomGeometry(wearerDistanceM: 0.5, wearerBearingDeg: 90)
         XCTAssertEqual(near.parallaxError(micBearing: 0, sourceDistance: 1.5), 18.4, accuracy: 0.1)
         XCTAssertGreaterThan(near.parallaxError(micBearing: 0, sourceDistance: 1.5), Tunables.matchDeg)

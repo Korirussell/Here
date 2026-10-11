@@ -17,7 +17,7 @@ enum BeltUUID {
     }
 }
 
-/// Patterns timed on the ESP32 (README §16). Raw values are the packet's pattern_id.
+/// Patterns timed on the ESP32 (SPEC §16). Raw values are the packet's pattern_id.
 enum BeltPattern: UInt8, CaseIterable {
     case stop = 0, speech = 1, nameCalled = 2, alert = 3, emergency = 4, tick = 5, test = 6
 
@@ -115,7 +115,7 @@ enum BeltSixMotor {
     }
 }
 
-/// When to buzz (README §14 "Belt logic"). Pure; unit-tested in BeltPolicyTests.
+/// When to buzz (SPEC §14 "Belt logic"). Pure; unit-tested in BeltPolicyTests.
 ///
 /// - Speech: `speech` when someone *starts* talking and |relative bearing| > 30 deg;
 ///   not again for the same person within 5 s.

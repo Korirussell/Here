@@ -1,4 +1,4 @@
-"""Would-be early directional cues from K1's onset candidates (contracts/CHANGES.md "Early directional cue").
+"""Would-be early directional cues from the laptop's onset candidates.
 
     python tools/doa_cues.py fixtures/k1_positions      # real chatter: how many cues a rule would send per minute
     python tools/doa_cues.py fixtures/array_tts         # a scene with a doorbell: is it cued, how fast

@@ -1,4 +1,4 @@
-"""Zero-shot relevance scores for the Replay Lab (TASKS A3 G, Shared/ATTENTION.md tier 2), on CPU.
+"""Zero-shot relevance scores for the Replay Lab (docs/ATTENTION.md tier 2), on CPU.
 
 score(text) = 1 - P("casual small talk") among RELEVANCE_LABELS, from MoritzLaurer/deberta-v3-base-zeroshot-v2.0's
 entailment logits (one premise/hypothesis pair per label, softmax across labels). Utterances only: on one-word sound
@@ -7,7 +7,7 @@ labels ("Speech", "Vehicle") the model's scores were meaningless, and the rules 
 Labels chosen 2026-10-10 on the seeded day's 51 utterances against its hand-set attention (weak ground truth):
 AUC 0.73 with mean 0.79 important vs 0.58 casual. "hazard / talking to me / important / background noise" ranked
 about as well (0.75) but squeezed everything into 0.82-0.94; plain "important / not important" was worst (0.68). Called on the model directly, with
-a few threads: the transformers pipeline with its default thread count took 10-20 s per text on Adil's
+a few threads: the transformers pipeline with its default thread count took 10-20 s per text on a laptop
 i7-1250U (2 performance + 8 efficiency cores); this takes ~0.3 s.
 
 Replay never waits for the model: `cached(text)` returns a score or None, and `request(texts)` queues the missing

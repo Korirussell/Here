@@ -1,7 +1,7 @@
 # Laptop: the hearing module (Windows)
 
 `python -m laptop` reads the ReSpeaker XVF3800 (directions + processed audio), transcribes speech,
-detects the doorbell and name called, and sends contract v3 messages to the relay (README §6). No audio
+detects the doorbell and name called, and sends contract v3 messages to the relay (SPEC §6). No audio
 or video leaves the laptop. Verified on the demo laptop: RTX 5000 Ada, NVIDIA driver 538.18.
 
 ```
@@ -66,7 +66,7 @@ Only one program can use the array's control interface at a time (stop `python -
 | Command | What |
 |---|---|
 | `python laptop\audio\xvf3800.py` | standalone live compass readout (`--log f.jsonl`, `--dump` every register) |
-| `python -m laptop.audio.calibrate` | **array forward + rotation direction** -> `laptop/config.yaml` (README §8; once) |
+| `python -m laptop.audio.calibrate` | **array forward + rotation direction** -> `laptop/config.yaml` (SPEC §8; once) |
 | `python -m laptop.audio.calibrate --wearer` | **the wearer's own voice**: wearer talks 5 s from their mark -> `audio.wearer_bearing_deg`; their speech is never captioned and never buzzes the belt (every new rig layout) |
 | `python -m laptop.audio.ring --follow` | the ring lights toward the device's DoA; tune `ring_led0_deg` / `ring_led_step` |
 | `python -m laptop.audio.localize --check` | fit `aec_to_device_*` (beam/SRP angles -> device angle) |
@@ -77,7 +77,7 @@ Only one program can use the array's control interface at a time (stop `python -
 |---|---|
 | `python -m laptop --real` | ReSpeaker -> relay (the demo) |
 | `python -m laptop --real --record hall_test` | ...and save `fixtures/hall_test/` (audio.wav, sources.jsonl, meta.json) |
-| `python -m laptop --mock` | synthetic scene (`fixtures/mock_scene`, README §4 moments) through the real models |
+| `python -m laptop --mock` | synthetic scene (`fixtures/mock_scene`, SPEC §4 moments) through the real models |
 | `python -m laptop --mock --mic` | laptop mic + a direction slider window |
 | `python -m laptop --replay fixtures/<name>` | a recorded session in real time (`--loop`, `--speed`) |
 | `... --offline` | print messages instead of sending them (no relay needed) |
@@ -89,7 +89,7 @@ Every option: `python -m laptop --help`. Tunables: `laptop/config.yaml`. Logs: `
 (every message sent). Each part (speech, sounds, directions, relay) is supervised: a crash is logged and
 that part restarts; the others keep running.
 
-## 7. What it sends (README §12)
+## 7. What it sends (SPEC §12)
 
 | Message | When |
 |---|---|
@@ -124,7 +124,7 @@ window; 3.2 GB of GPU memory with both models loaded.
 | babble only (nobody talking) | 0 captions, 0 alerts | | | | | |
 
 "Real-array" = `fixtures/array_tts` (TTS from a loudspeaker through the XVF3800, `tools/speaker_scene.py`)
-with the same babble mixed in. Before/after for each change: CHANGELOG.md (2026-10-08 night).
+with the same babble mixed in.
 Synthetic babble isn't the hall: confirm with real recordings (fixtures/README.md).
 
 ## 9. Two sources at once (beams mode)

@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Mock data for SwiftUI previews (README §14 dev tips: iterate on captions, rings and the panel
+/// Mock data for SwiftUI previews (SPEC §14 dev tips: iterate on captions, rings and the panel
 /// without a camera, a relay or the laptop).
 enum PreviewData {
     static func caption(_ text: String, pending: String = "", tone: Tone? = nil, final: Bool = false,
