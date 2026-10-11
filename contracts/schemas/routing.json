@@ -1,0 +1,34 @@
+{
+  "version": 3,
+  "default_subscribe": {
+    "phone": [
+      "sources",
+      "speech_start",
+      "utterance",
+      "sound_event",
+      "alert",
+      "perception_enrichment",
+      "config",
+      "clock_pong",
+      "heartbeat"
+    ],
+    "laptop": [
+      "config",
+      "clock_ping"
+    ],
+    "dashboard": [
+      "*"
+    ],
+    "memory": [
+      "utterance",
+      "alert",
+      "sound_event",
+      "perception_enrichment",
+      "attribution",
+      "search_request"
+    ],
+    "tool": [
+      "*"
+    ]
+  }
+}

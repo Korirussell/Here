@@ -1,0 +1,1 @@
+{"type":"heartbeat","v":3,"src":"laptop","t":1760000000.0,"seq":12,"session":"demo","status":"degraded","detail":"scribe offline -> whisper","engine":"faster_whisper","doa_source":"builtin"}

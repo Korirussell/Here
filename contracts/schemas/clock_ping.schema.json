@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://here.local/contracts/clock_ping.schema.json",
+  "title": "clock_ping",
+  "description": "Phone -> laptop, for latency measurement.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "const": "clock_ping"
+    },
+    "v": {
+      "const": 3
+    },
+    "src": {
+      "enum": [
+        "laptop",
+        "phone",
+        "relay",
+        "dashboard",
+        "memory",
+        "tool"
+      ]
+    },
+    "t": {
+      "type": "number",
+      "description": "observation time, laptop clock, unix seconds"
+    },
+    "seq": {
+      "type": "integer"
+    },
+    "session": {
+      "type": "string",
+      "description": "set by the relay"
+    },
+    "t_phone": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "type",
+    "v",
+    "src",
+    "t",
+    "t_phone"
+  ],
+  "additionalProperties": false
+}

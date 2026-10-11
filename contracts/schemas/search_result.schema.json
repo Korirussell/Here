@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://here.local/contracts/search_result.schema.json",
+  "title": "search_result",
+  "description": "",
+  "type": "object",
+  "properties": {
+    "type": {
+      "const": "search_result"
+    },
+    "v": {
+      "const": 3
+    },
+    "src": {
+      "enum": [
+        "laptop",
+        "phone",
+        "relay",
+        "dashboard",
+        "memory",
+        "tool"
+      ]
+    },
+    "t": {
+      "type": "number",
+      "description": "observation time, laptop clock, unix seconds"
+    },
+    "seq": {
+      "type": "integer"
+    },
+    "session": {
+      "type": "string",
+      "description": "set by the relay"
+    },
+    "query_id": {
+      "type": "string"
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "t": {
+            "type": "number"
+          },
+          "kind": {
+            "enum": [
+              "utterance",
+              "alert"
+            ]
+          },
+          "person_label": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "tone": {
+            "anyOf": [
+              {
+                "enum": [
+                  "neutral",
+                  "excited",
+                  "laughing",
+                  "shouting",
+                  "whispering",
+                  "questioning",
+                  "sad"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "bearing_deg": {
+            "type": "number",
+            "exclusiveMinimum": -180,
+            "maximum": 180,
+            "description": "degrees, world frame (0 = array forward), clockwise positive, (-180, 180]"
+          },
+          "score": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "t",
+          "kind",
+          "text",
+          "score"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "type",
+    "v",
+    "src",
+    "t",
+    "query_id",
+    "results"
+  ],
+  "additionalProperties": false
+}

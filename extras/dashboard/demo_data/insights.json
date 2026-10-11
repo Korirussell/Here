@@ -1,0 +1,72 @@
+{
+ "insights": [
+  {
+   "id": "i-partner",
+   "category": "people",
+   "title": "Maya is today's main conversation partner",
+   "text": "Maya spoke 5 times across lecture, lunch, library and the hackathon, usually in front of you.",
+   "score": 0.91,
+   "evidence_ids": [
+    "u-0016",
+    "u-0032",
+    "u-0034",
+    "u-0037",
+    "u-0058"
+   ],
+   "source": "precomputed"
+  },
+  {
+   "id": "i-behind",
+   "category": "attention",
+   "title": "Most name calls came from behind",
+   "text": "3 of 5 name calls came from behind you (more than 150° off your front). The belt cue mattered most for these.",
+   "score": 0.86,
+   "evidence_ids": [
+    "u-0002",
+    "u-0008",
+    "u-0017",
+    "u-0036",
+    "u-0060"
+   ],
+   "source": "precomputed"
+  },
+  {
+   "id": "i-noise",
+   "category": "environment",
+   "title": "The café and the hackathon were the loudest places",
+   "text": "Both had overlapping crowd speech for most of the visit; the crowd filter hid 30+ background lines while keeping your name and your order.",
+   "score": 0.78,
+   "evidence_ids": [],
+   "source": "precomputed"
+  },
+  {
+   "id": "i-hvac",
+   "category": "unknown",
+   "title": "A recurring unknown sound on your left in the library",
+   "text": "7 low-confidence unknown sounds, all from about -90°, every ~15 min. Likely the air handler: HERE kept them as ambient with their direction.",
+   "score": 0.64,
+   "evidence_ids": [
+    "s-0022",
+    "s-0023",
+    "s-0024",
+    "s-0025",
+    "s-0026",
+    "s-0027",
+    "s-0028"
+   ],
+   "source": "precomputed"
+  },
+  {
+   "id": "i-deadline",
+   "category": "routine",
+   "title": "Lecture is where deadlines happen",
+   "text": "Both of today's deadlines were spoken in CS 341 from the front. Prof. Lee also moved office hours.",
+   "score": 0.7,
+   "evidence_ids": [
+    "u-0011",
+    "u-0014"
+   ],
+   "source": "precomputed"
+  }
+ ]
+}

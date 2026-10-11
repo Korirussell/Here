@@ -1,0 +1,80 @@
+# XcodeGen spec for the HERE iPhone app (README §14). Generate the project on the Mac:
+#   brew install xcodegen      (once)
+#   cd ios && xcodegen generate && open HERE.xcodeproj
+name: HERE
+options:
+  bundleIdPrefix: com.here
+  deploymentTarget:
+    iOS: "26.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"            # Swift 6 toolchain, Swift 5 language mode (no strict-concurrency errors)
+    DEVELOPMENT_TEAM: ""            # set your team in Xcode (Signing & Capabilities) on first run
+    IPHONEOS_DEPLOYMENT_TARGET: "26.0"
+    MARKETING_VERSION: "0.3.0"
+    CURRENT_PROJECT_VERSION: "1"
+
+targets:
+  HERE:
+    type: application
+    platform: iOS
+    sources:
+      - path: HERE
+      - path: ../contracts/swift       # the one copy of the contract (README §12)
+        group: Contract
+    info:
+      path: HERE/Info.plist
+      properties:
+        CFBundleDisplayName: HERE
+        UILaunchScreen:
+          UIColorName: LaunchBackground
+          UIImageName: LaunchLogo
+          UIImageRespectsSafeAreaInsets: true
+        UIRequiresFullScreen: true
+        UIStatusBarHidden: true
+        UIViewControllerBasedStatusBarAppearance: false
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationLandscapeRight
+          - UIInterfaceOrientationLandscapeLeft
+        NSCameraUsageDescription: "HERE uses the camera as the glasses' view: it finds faces on the phone so captions can sit above the person who spoke. Video never leaves the phone."
+        NSBluetoothAlwaysUsageDescription: "HERE drives the haptic belt over Bluetooth so you can feel which way to turn."
+        NSLocalNetworkUsageDescription: "HERE can connect to a relay running on a laptop on the same network (backup when the internet is down)."
+        NSAppTransportSecurity:
+          NSAllowsLocalNetworking: true   # ws:// to the local fallback relay; the Vultr relay is wss://
+        ITSAppUsesNonExemptEncryption: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.here.app
+        PRODUCT_NAME: HERE
+        TARGETED_DEVICE_FAMILY: "1"
+        GENERATE_INFOPLIST_FILE: false
+        ENABLE_PREVIEWS: true
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+
+  HERETests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: HERETests
+      - path: ../contracts/examples      # every contract example must decode (ContractTests)
+        buildPhase: resources
+        group: ContractExamples
+    dependencies:
+      - target: HERE
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: true
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/HERE.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/HERE"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+
+schemes:
+  HERE:
+    build:
+      targets:
+        HERE: all
+        HERETests: [test]
+    test:
+      targets:
+        - HERETests

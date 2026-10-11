@@ -1,0 +1,297 @@
+{
+ "What did my professor say about the exam?": {
+  "answer": "Your professor (Person 1) said in signals lecture at 9:35 am: \"Quick reminder about the exam before I forget.\" \"The midterm exam is next Thursday, October 15th, here in this room.\" \"It covers chapters four through seven, and you can bring one page of handwritten notes.\" In short: Deadline: midterm exam Thu Oct 15 in Shelby 1103; Exam scope: chapters 4-7, one page of notes allowed; Deadline: project report Fri Oct 16, 11:59 pm.",
+  "evidence": [
+   {
+    "utt_id": "seed-u-0013",
+    "type": "utterance",
+    "t": 1791556500.345,
+    "text": "Quick reminder about the exam before I forget.",
+    "person_label": "Person 1",
+    "bearing_deg": 6.0,
+    "rel_bearing": 4.8,
+    "location_id": "shelby_1103"
+   },
+   {
+    "utt_id": "seed-u-0014",
+    "type": "utterance",
+    "t": 1791556520.06,
+    "text": "The midterm exam is next Thursday, October 15th, here in this room.",
+    "person_label": "Person 1",
+    "bearing_deg": 8.2,
+    "rel_bearing": 7.0,
+    "location_id": "shelby_1103"
+   },
+   {
+    "utt_id": "seed-u-0015",
+    "type": "utterance",
+    "t": 1791556545.412,
+    "text": "It covers chapters four through seven, and you can bring one page of handwritten notes.",
+    "person_label": "Person 1",
+    "bearing_deg": 2.4,
+    "rel_bearing": 1.2,
+    "location_id": "shelby_1103"
+   },
+   {
+    "utt_id": "seed-u-0017",
+    "type": "utterance",
+    "t": 1791556600.21,
+    "text": "And the project report is due Friday, October 16th at 11:59 pm on Canvas.",
+    "person_label": "Person 1",
+    "bearing_deg": 8.9,
+    "rel_bearing": 1.5,
+    "location_id": "shelby_1103"
+   }
+  ],
+  "cached": true,
+  "phrased_by": "template"
+ },
+ "What happened at lunch?": {
+  "answer": "Noisy lunch, 12:05 pm-12:50 pm with Person 2 and Person 3. 🗣️ Name called behind you at 12:07 pm. 💥 Loud bang behind you to the right at 12:18 pm. HERE surfaced 11 events and kept 35 quiet, including 35 crowd sounds.",
+  "evidence": [
+   {
+    "event_id": "seed-a-0007",
+    "type": "alert",
+    "t": 1791565633.173,
+    "text": "Name called",
+    "person_label": null,
+    "bearing_deg": 167.1,
+    "rel_bearing": 163.5,
+    "location_id": "dining_hall"
+   },
+   {
+    "event_id": "seed-a-0008",
+    "type": "alert",
+    "t": 1791566301.37,
+    "text": "Loud bang",
+    "person_label": null,
+    "bearing_deg": 141.8,
+    "rel_bearing": 136.3,
+    "location_id": "dining_hall"
+   },
+   {
+    "utt_id": "seed-u-0022",
+    "type": "utterance",
+    "t": 1791565630.323,
+    "text": "Kori! Over here, we saved you a seat.",
+    "person_label": null,
+    "bearing_deg": 167.1,
+    "rel_bearing": 163.5,
+    "location_id": "dining_hall"
+   },
+   {
+    "utt_id": "seed-u-0023",
+    "type": "utterance",
+    "t": 1791565740.001,
+    "text": "Okay so the internship fair is Wednesday in the student center.",
+    "person_label": "Person 2",
+    "bearing_deg": 28.0,
+    "rel_bearing": 26.8,
+    "location_id": "dining_hall"
+   },
+   {
+    "utt_id": "seed-u-0031",
+    "type": "utterance",
+    "t": 1791567600.562,
+    "text": "I'll grab more fries, do you want anything?",
+    "person_label": "Person 2",
+    "bearing_deg": 28.2,
+    "rel_bearing": 23.0,
+    "location_id": "dining_hall"
+   }
+  ],
+  "cached": true,
+  "phrased_by": "template"
+ },
+ "When did someone call my name?": {
+  "answer": "Your name was called 5 times: 7:58 am (morning at home), someone behind you: \"Kori, your phone is buzzing on the counter!\"; 9:20 am (signals lecture), Person 1 in front of you: \"Kori, can you tell us what the steering vector represents?\"; 12:07 pm (noisy lunch), someone behind you: \"Kori! Over here, we saved you a seat.\"; 2:22 pm (team meeting in the lab), Person 5 to your right: \"Kori, can you own the memory dashboard demo?\"; 7:42 pm (evening at home), someone behind you to the right: \"Kori, dinner's ready!\".",
+  "evidence": [
+   {
+    "utt_id": "seed-u-0004",
+    "type": "utterance",
+    "t": 1791550695.871,
+    "text": "Kori, your phone is buzzing on the counter!",
+    "person_label": null,
+    "bearing_deg": 170.6,
+    "rel_bearing": -173.8,
+    "location_id": "home_kitchen"
+   },
+   {
+    "utt_id": "seed-u-0012",
+    "type": "utterance",
+    "t": 1791555605.77,
+    "text": "Kori, can you tell us what the steering vector represents?",
+    "person_label": "Person 1",
+    "bearing_deg": 4.9,
+    "rel_bearing": 2.1,
+    "location_id": "shelby_1103"
+   },
+   {
+    "utt_id": "seed-u-0022",
+    "type": "utterance",
+    "t": 1791565630.323,
+    "text": "Kori! Over here, we saved you a seat.",
+    "person_label": null,
+    "bearing_deg": 167.1,
+    "rel_bearing": 163.5,
+    "location_id": "dining_hall"
+   },
+   {
+    "utt_id": "seed-u-0038",
+    "type": "utterance",
+    "t": 1791573760.576,
+    "text": "Kori, can you own the memory dashboard demo?",
+    "person_label": "Person 5",
+    "bearing_deg": 46.0,
+    "rel_bearing": 53.6,
+    "location_id": "eng_lab_214"
+   },
+   {
+    "utt_id": "seed-u-0049",
+    "type": "utterance",
+    "t": 1791592920.566,
+    "text": "Kori, dinner's ready!",
+    "person_label": null,
+    "bearing_deg": 167.4,
+    "rel_bearing": 126.9,
+    "location_id": "home_living_room"
+   }
+  ],
+  "cached": true,
+  "phrased_by": "template"
+ },
+ "What important thing happened behind me?": {
+  "answer": "The most important: a siren behind you at 8:38 am (commute: university ave crosswalk). Also behind you: alarm at 4:18 pm (hackathon presentation); car horn at 8:31 am (commute: university ave crosswalk); loud bang at 12:18 pm (noisy lunch). 7 other things came from behind: your name x3, doorbell x2, knock x2.",
+  "evidence": [
+   {
+    "event_id": "seed-a-0004",
+    "type": "alert",
+    "t": 1791553097.512,
+    "text": "Siren",
+    "person_label": null,
+    "bearing_deg": -151.1,
+    "rel_bearing": -155.6,
+    "location_id": "university_ave_crosswalk"
+   },
+   {
+    "event_id": "seed-a-0011",
+    "type": "alert",
+    "t": 1791580722.997,
+    "text": "Alarm",
+    "person_label": null,
+    "bearing_deg": 176.3,
+    "rel_bearing": 170.6,
+    "location_id": "hackathon_hall"
+   },
+   {
+    "event_id": "seed-a-0003",
+    "type": "alert",
+    "t": 1791552702.047,
+    "text": "Car horn",
+    "person_label": null,
+    "bearing_deg": 177.4,
+    "rel_bearing": 168.6,
+    "location_id": "university_ave_crosswalk"
+   },
+   {
+    "event_id": "seed-a-0008",
+    "type": "alert",
+    "t": 1791566301.37,
+    "text": "Loud bang",
+    "person_label": null,
+    "bearing_deg": 141.8,
+    "rel_bearing": 136.3,
+    "location_id": "dining_hall"
+   },
+   {
+    "utt_id": "seed-u-0004",
+    "type": "utterance",
+    "t": 1791550695.871,
+    "text": "Kori, your phone is buzzing on the counter!",
+    "person_label": null,
+    "bearing_deg": 170.6,
+    "rel_bearing": -173.8,
+    "location_id": "home_kitchen"
+   },
+   {
+    "event_id": "seed-a-0002",
+    "type": "alert",
+    "t": 1791551552.65,
+    "text": "Doorbell",
+    "person_label": null,
+    "bearing_deg": -179.0,
+    "rel_bearing": -157.5,
+    "location_id": "home_kitchen"
+   }
+  ],
+  "cached": true,
+  "phrased_by": "template"
+ },
+ "Summarize my day.": {
+  "answer": "Your day (seeded demo day): Morning at home (7:40 am-8:20 am) with Person 3; Reminder for tonight: landlord visit at 7 pm. Commute: University Ave crosswalk (8:25 am-8:55 am); Horn from behind while crossing the street. Signals lecture (9:00 am-10:15 am) with Person 1 and Person 2; Deadline: midterm exam Thu Oct 15 in Shelby 1103. Noisy lunch (12:05 pm-12:50 pm) with Person 2 and Person 3. Team meeting in the lab (2:00 pm-3:00 pm) with Person 2 and Person 3 and Person 5; Team deadline: relay deployed by 8 pm. Hackathon presentation (4:00 pm-5:30 pm) with Person 4 and Person 2; Building alarm test behind the stage. Evening at home (6:45 pm-9:30 pm) with Person 3.",
+  "evidence": [
+   {
+    "utt_id": "seed-u-0006",
+    "type": "utterance",
+    "t": 1791551172.88,
+    "text": "Remember the landlord is coming at seven tonight to look at the sink.",
+    "person_label": "Person 3",
+    "bearing_deg": -27.2,
+    "rel_bearing": -6.4,
+    "location_id": "home_kitchen"
+   },
+   {
+    "event_id": "seed-s-0020",
+    "type": "sound_event",
+    "t": 1791552700.747,
+    "text": "Car horn",
+    "person_label": null,
+    "bearing_deg": 177.4,
+    "rel_bearing": 168.6,
+    "location_id": "university_ave_crosswalk"
+   },
+   {
+    "utt_id": "seed-u-0014",
+    "type": "utterance",
+    "t": 1791556520.06,
+    "text": "The midterm exam is next Thursday, October 15th, here in this room.",
+    "person_label": "Person 1",
+    "bearing_deg": 8.2,
+    "rel_bearing": 7.0,
+    "location_id": "shelby_1103"
+   },
+   {
+    "event_id": "seed-a-0007",
+    "type": "alert",
+    "t": 1791565633.173,
+    "text": "Name called",
+    "person_label": null,
+    "bearing_deg": 167.1,
+    "rel_bearing": 163.5,
+    "location_id": "dining_hall"
+   },
+   {
+    "utt_id": "seed-u-0037",
+    "type": "utterance",
+    "t": 1791573600.741,
+    "text": "We need the relay deployed by eight tonight, no excuses.",
+    "person_label": "Person 3",
+    "bearing_deg": 24.3,
+    "rel_bearing": 13.8,
+    "location_id": "eng_lab_214"
+   },
+   {
+    "event_id": "seed-s-0068",
+    "type": "sound_event",
+    "t": 1791580720.897,
+    "text": "Alarm",
+    "person_label": null,
+    "bearing_deg": 176.3,
+    "rel_bearing": 170.6,
+    "location_id": "hackathon_hall"
+   }
+  ],
+  "cached": true,
+  "phrased_by": "template"
+ }
+}

@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://here.local/contracts/sound_event.schema.json",
+  "title": "sound_event",
+  "description": "A classified sound; repeats merged into count. Optional: source_id (the sources track it came from), model (which classifier labelled it, e.g. panns_cnn14).",
+  "type": "object",
+  "properties": {
+    "type": {
+      "const": "sound_event"
+    },
+    "v": {
+      "const": 3
+    },
+    "src": {
+      "enum": [
+        "laptop",
+        "phone",
+        "relay",
+        "dashboard",
+        "memory",
+        "tool"
+      ]
+    },
+    "t": {
+      "type": "number",
+      "description": "observation time, laptop clock, unix seconds"
+    },
+    "seq": {
+      "type": "integer"
+    },
+    "session": {
+      "type": "string",
+      "description": "set by the relay"
+    },
+    "event_id": {
+      "type": "string"
+    },
+    "label": {
+      "enum": [
+        "speech",
+        "doorbell",
+        "dog_barking",
+        "baby_crying",
+        "knock",
+        "alarm",
+        "music",
+        "tv",
+        "laughter",
+        "phone_ringing",
+        "loud_bang",
+        "car_horn",
+        "vehicle",
+        "siren",
+        "door",
+        "other",
+        "unknown"
+      ]
+    },
+    "category": {
+      "enum": [
+        "speech",
+        "alert",
+        "animal",
+        "media",
+        "other"
+      ]
+    },
+    "emoji": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "bearing_deg": {
+      "anyOf": [
+        {
+          "type": "number",
+          "exclusiveMinimum": -180,
+          "maximum": 180,
+          "description": "degrees, world frame (0 = array forward), clockwise positive, (-180, 180]"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "t_start": {
+      "type": "number"
+    },
+    "t_end": {
+      "type": "number"
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "source_id": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "model": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "type",
+    "v",
+    "src",
+    "t",
+    "event_id",
+    "label",
+    "category",
+    "emoji",
+    "text",
+    "confidence",
+    "bearing_deg",
+    "t_start",
+    "t_end",
+    "count"
+  ],
+  "additionalProperties": false
+}

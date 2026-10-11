@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://here.local/contracts/clock_pong.schema.json",
+  "title": "clock_pong",
+  "description": "Laptop -> phone.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "const": "clock_pong"
+    },
+    "v": {
+      "const": 3
+    },
+    "src": {
+      "enum": [
+        "laptop",
+        "phone",
+        "relay",
+        "dashboard",
+        "memory",
+        "tool"
+      ]
+    },
+    "t": {
+      "type": "number",
+      "description": "observation time, laptop clock, unix seconds"
+    },
+    "seq": {
+      "type": "integer"
+    },
+    "session": {
+      "type": "string",
+      "description": "set by the relay"
+    },
+    "t_phone": {
+      "type": "number"
+    },
+    "t_laptop": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "type",
+    "v",
+    "src",
+    "t",
+    "t_phone",
+    "t_laptop"
+  ],
+  "additionalProperties": false
+}

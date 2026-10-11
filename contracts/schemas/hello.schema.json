@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://here.local/contracts/hello.schema.json",
+  "title": "hello",
+  "description": "First message from every client.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "const": "hello"
+    },
+    "v": {
+      "const": 3
+    },
+    "src": {
+      "enum": [
+        "laptop",
+        "phone",
+        "relay",
+        "dashboard",
+        "memory",
+        "tool"
+      ]
+    },
+    "t": {
+      "type": "number",
+      "description": "observation time, laptop clock, unix seconds"
+    },
+    "seq": {
+      "type": "integer"
+    },
+    "session": {
+      "type": "string",
+      "description": "set by the relay"
+    },
+    "role": {
+      "enum": [
+        "laptop",
+        "phone",
+        "dashboard",
+        "memory",
+        "tool"
+      ]
+    },
+    "subscribe": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "app_version": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "type",
+    "v",
+    "src",
+    "t",
+    "role",
+    "subscribe"
+  ],
+  "additionalProperties": false
+}

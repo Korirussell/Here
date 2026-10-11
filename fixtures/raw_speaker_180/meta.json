@@ -1,0 +1,177 @@
+{
+  "name": "raw_speaker_180",
+  "mode": "real",
+  "firmware": "2.1.1",
+  "channels": 6,
+  "capture": "beams",
+  "routing": {
+    "op_l": [
+      6,
+      0
+    ],
+    "op_r": [
+      6,
+      1
+    ]
+  },
+  "fixed_beams": [
+    0.0,
+    180.0
+  ],
+  "array_offset_deg": 356.4,
+  "array_clockwise": true,
+  "aec_to_device_offset_deg": 359.2,
+  "aec_to_device_sign": 1,
+  "mic_geometry": [
+    [
+      0.0333000011742115,
+      -0.0333000011742115,
+      0.0
+    ],
+    [
+      0.0333000011742115,
+      0.0333000011742115,
+      0.0
+    ],
+    [
+      -0.0333000011742115,
+      0.0333000011742115,
+      0.0
+    ],
+    [
+      -0.0333000011742115,
+      -0.0333000011742115,
+      0.0
+    ]
+  ],
+  "raw_mic_channels": [
+    2,
+    3,
+    4,
+    5
+  ],
+  "raw_mic_category": 3,
+  "raw_mic_order": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "mic_gain": 90.0,
+  "raw": {
+    "file": "raw.wav",
+    "channels": 4,
+    "gain": 1.0
+  },
+  "started": 1791542335.788185,
+  "ended": 1791542388.4096348,
+  "seconds": 52.4,
+  "plays": [
+    4.147,
+    8.159,
+    12.505,
+    17.134,
+    21.378,
+    26.978,
+    30.091,
+    33.763,
+    36.957
+  ],
+  "synthetic": false,
+  "user_name": "Kori",
+  "bearing_source": "measured",
+  "notes": "tools/speaker_scene.py: TTS + enrolled doorbell from one loudspeaker (laptop speakers, world 180 (behind the array)) recorded through the real XVF3800. No people's voices. Line times from envelope correlation.",
+  "lines": [
+    {
+      "who": "Person 1",
+      "bearing_deg": -179.2,
+      "text": "Hey, did you see the email about the internship fair?",
+      "t_start": 4.99,
+      "t_end": 7.85,
+      "match": 0.83,
+      "play_lag_s": 0.79,
+      "doa_readings": 83
+    },
+    {
+      "who": "Person 2",
+      "bearing_deg": -179.2,
+      "text": "Yes! It's on Friday. Are you going?",
+      "t_start": 9.0,
+      "t_end": 12.18,
+      "match": 0.87,
+      "play_lag_s": 0.78,
+      "doa_readings": 53
+    },
+    {
+      "who": "Person 1",
+      "bearing_deg": -179.2,
+      "text": "Definitely. I'm bringing twenty copies of my resume.",
+      "t_start": 13.33,
+      "t_end": 16.61,
+      "match": 0.69,
+      "play_lag_s": 0.77,
+      "doa_readings": 57
+    },
+    {
+      "who": "Speaker B",
+      "bearing_deg": -179.2,
+      "text": "Why is nobody looking at the person holding all the pizza?",
+      "t_start": 17.95,
+      "t_end": 20.54,
+      "match": 0.8,
+      "play_lag_s": 0.77,
+      "doa_readings": 52
+    },
+    {
+      "who": "doorbell",
+      "bearing_deg": -179.2,
+      "text": null,
+      "t_start": 22.13,
+      "t_end": 26.23,
+      "match": 0.88,
+      "play_lag_s": 0.75,
+      "doa_readings": 73
+    },
+    {
+      "who": "Speaker B",
+      "bearing_deg": -179.2,
+      "text": "Hey Kori, the pizza is here!",
+      "t_start": 27.78,
+      "t_end": 29.53,
+      "match": 0.84,
+      "play_lag_s": 0.74,
+      "doa_readings": 60
+    },
+    {
+      "who": "Person 1",
+      "bearing_deg": -179.2,
+      "text": "That was honestly the best pizza I have had all week.",
+      "t_start": 30.87,
+      "t_end": 33.17,
+      "match": 0.79,
+      "play_lag_s": 0.73,
+      "doa_readings": 46
+    },
+    {
+      "who": "Person 2",
+      "bearing_deg": -179.2,
+      "text": "Can somebody please open the window?",
+      "t_start": 34.54,
+      "t_end": 36.08,
+      "match": 0.84,
+      "play_lag_s": 0.73,
+      "doa_readings": 31
+    },
+    {
+      "who": "baby_cry",
+      "bearing_deg": -179.2,
+      "text": null,
+      "t_start": 37.91,
+      "t_end": 49.66,
+      "match": 0.88,
+      "play_lag_s": 0.7,
+      "doa_readings": 219
+    }
+  ],
+  "true_bearing_deg": 180.0
+}

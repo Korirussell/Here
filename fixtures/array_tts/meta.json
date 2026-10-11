@@ -1,0 +1,105 @@
+{
+  "name": "array_tts",
+  "mode": "real",
+  "array_offset_deg": 355.3,
+  "array_clockwise": true,
+  "started": 1791505567.0484185,
+  "ended": 1791505606.1900814,
+  "seconds": 38.8,
+  "plays": [
+    4.019,
+    8.031,
+    12.377,
+    17.006,
+    21.25,
+    26.85,
+    29.963,
+    33.635
+  ],
+  "synthetic": false,
+  "user_name": "Kori",
+  "bearing_source": "measured",
+  "notes": "tools/speaker_scene.py: TTS + enrolled doorbell from one loudspeaker (laptop speakers) recorded through the real XVF3800. No people's voices. Line times from envelope correlation.",
+  "lines": [
+    {
+      "who": "Person 1",
+      "bearing_deg": 132.6,
+      "text": "Hey, did you see the email about the internship fair?",
+      "t_start": 4.92,
+      "t_end": 7.78,
+      "match": 0.92,
+      "play_lag_s": 0.85,
+      "doa_readings": 57
+    },
+    {
+      "who": "Person 2",
+      "bearing_deg": 132.7,
+      "text": "Yes! It's on Friday. Are you going?",
+      "t_start": 8.93,
+      "t_end": 12.11,
+      "match": 0.94,
+      "play_lag_s": 0.84,
+      "doa_readings": 55
+    },
+    {
+      "who": "Person 1",
+      "bearing_deg": 132.7,
+      "text": "Definitely. I'm bringing twenty copies of my resume.",
+      "t_start": 13.25,
+      "t_end": 16.53,
+      "match": 0.89,
+      "play_lag_s": 0.82,
+      "doa_readings": 61
+    },
+    {
+      "who": "Speaker B",
+      "bearing_deg": 132.8,
+      "text": "Why is nobody looking at the person holding all the pizza?",
+      "t_start": 17.87,
+      "t_end": 20.46,
+      "match": 0.85,
+      "play_lag_s": 0.81,
+      "doa_readings": 52
+    },
+    {
+      "who": "doorbell",
+      "bearing_deg": 132.7,
+      "text": null,
+      "t_start": 22.06,
+      "t_end": 26.16,
+      "match": 0.83,
+      "play_lag_s": 0.81,
+      "doa_readings": 81
+    },
+    {
+      "who": "Speaker B",
+      "bearing_deg": 132.7,
+      "text": "Hey Kori, the pizza is here!",
+      "t_start": 27.71,
+      "t_end": 29.46,
+      "match": 0.92,
+      "play_lag_s": 0.8,
+      "doa_readings": 34
+    },
+    {
+      "who": "Person 1",
+      "bearing_deg": 132.7,
+      "text": "That was honestly the best pizza I have had all week.",
+      "t_start": 30.8,
+      "t_end": 33.1,
+      "match": 0.83,
+      "play_lag_s": 0.79,
+      "doa_readings": 46
+    },
+    {
+      "who": "Person 2",
+      "bearing_deg": 132.7,
+      "text": "Can somebody please open the window?",
+      "t_start": 34.47,
+      "t_end": 36.01,
+      "match": 0.87,
+      "play_lag_s": 0.78,
+      "doa_readings": 31
+    }
+  ]
+}

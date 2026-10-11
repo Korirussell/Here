@@ -1,0 +1,1 @@
+{"type":"perception_enrichment","v":3,"src":"laptop","t":1760000003.4,"ref":{"event_id":"s-0007"},"attention":"important","attention_confidence":0.86,"attention_model":"MoritzLaurer/deberta-v3-base-zeroshot-v2.0","directed_at_user":0.12,"context":"Doorbell while the wearer is in a conversation","context_model":"gemini-2.5-flash"}

@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://here.local/contracts/attribution.schema.json",
+  "title": "attribution",
+  "description": "Which person an utterance/event was put on (extras only).",
+  "type": "object",
+  "properties": {
+    "type": {
+      "const": "attribution"
+    },
+    "v": {
+      "const": 3
+    },
+    "src": {
+      "enum": [
+        "laptop",
+        "phone",
+        "relay",
+        "dashboard",
+        "memory",
+        "tool"
+      ]
+    },
+    "t": {
+      "type": "number",
+      "description": "observation time, laptop clock, unix seconds"
+    },
+    "seq": {
+      "type": "integer"
+    },
+    "session": {
+      "type": "string",
+      "description": "set by the relay"
+    },
+    "ref": {
+      "type": "object",
+      "properties": {
+        "utt_id": {
+          "type": "string"
+        },
+        "event_id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "person_label": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "method": {
+      "enum": [
+        "bearing",
+        "off_camera"
+      ]
+    },
+    "score": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "type",
+    "v",
+    "src",
+    "t",
+    "ref",
+    "person_label",
+    "method",
+    "score"
+  ],
+  "additionalProperties": false
+}

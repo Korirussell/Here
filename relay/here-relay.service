@@ -1,0 +1,19 @@
+# systemd unit for the HERE relay (relay/DEPLOY.md step 5).
+[Unit]
+Description=HERE relay (WebSocket router for laptop <-> phone)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=here
+WorkingDirectory=/opt/here
+EnvironmentFile=/opt/here/relay/.env
+ExecStart=/opt/here/.venv/bin/python -m relay --host 127.0.0.1 --port 8080 --log /var/log/here/relay.jsonl
+Restart=always
+RestartSec=1
+NoNewPrivileges=true
+ProtectSystem=full
+ReadWritePaths=/var/log/here
+
+[Install]
+WantedBy=multi-user.target

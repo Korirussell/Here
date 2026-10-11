@@ -1,0 +1,249 @@
+/* HERE World colour tokens: every colour the page (style.css) and its scripts (orb, timeline, architecture) draw
+   with. Nothing outside this file names a colour; scripts read these through theme.js `tok()`.
+
+   Cascade (the pre-paint script in index.html sets both attributes on <html> before first paint):
+     :root                                    Mono, light (the original look; literal values)
+     :root[data-mode="dark"]                  Mono, dark
+     :root[data-theme="X"]                    theme X, light: overrides the Mono-light tokens it names
+     :root[data-theme="X"][data-mode="dark"]  theme X, dark: must name every token its light block names
+   Semantic colours keep their meaning and hue family in every theme: blue speech, amber sound, violet unknown,
+   red alert; green / amber / grey = live / fallback / off. Themes change chrome, surfaces, accent and the orb.
+   extras/dashboard/tests/test_themes.py checks WCAG contrast for every theme x mode. */
+
+:root {
+  --bg: #ffffff;
+  --bg-2: #fafafa;
+  --bg-3: #f2f2f2;
+  --line: #eaeaea;
+  --line-2: #d6d6d6;
+  --text: #171717;
+  --text-2: #4d4d4d;
+  --text-3: #6b6b6b;      /* 5.3:1 on white */
+  --accent: #171717;      /* primary buttons, the active tab, pressed toggles */
+  --accent-hover: #383838;
+  --on-accent: #ffffff;
+  --kbd-on-accent-line: #555555;
+  --kbd-on-accent-text: #aaaaaa;
+
+  --blue: #0070f3;        /* speech */
+  --amber: #f5a623;       /* sound, fallback */
+  --violet: #7928ca;      /* unknown */
+  --red: #e5484d;         /* alert, hazard */
+  --green: #16a34a;       /* live */
+  --red-ink: #c4262b;     /* the same hues for small text, and as a fill under --bg text: >= 4.5:1 */
+  --green-ink: #0a7f3f;
+  --amber-ink: #8a5a00;
+  --blue-ink: #0058c2;
+  --tint-red: #fff0f0;    /* chip / badge backgrounds and borders */
+  --tint-red-line: #fcd2d3;
+  --tint-amber: #fff7e6;
+  --tint-amber-line: #fde3b5;
+  --tint-blue: #eef5ff;
+  --tint-blue-line: #cfe2ff;
+  --tint-green: #effaf3;
+  --tint-green-line: #bfe5cd;
+  --tint-p: 9%;           /* tint strength where tints are mixed (every theme but Mono light) */
+  --tint-line-p: 28%;
+
+  --off: #d4d4d4;         /* an idle dot */
+  --off-line: #8f8f8f;    /* a dashed "not connected" outline */
+  --mark-off: #a1a1a1;    /* an ended alert's ring, the ring's front mark */
+  --edge-off: #c4c4c4;    /* a not-connected arrow in How it works */
+  --halo: #ffffff;        /* the glow that keeps headline text readable over the orb */
+  --stage-a: #ffffff;     /* the orb's backdrop: centre glow, floor, edge */
+  --stage-b: #efeff3;
+  --stage-c: #fafafa;
+  --inv-bg: #111111;      /* the judge tour card (the inverse of the page) */
+  --inv-strong: #ffffff;
+  --inv-text: #ededed;
+  --inv-text-2: #a1a1a1;
+  --inv-line: #444444;
+
+  --orb-ink: #171717;     /* floor rings, ticks, FRONT/BACK, the mics, the orbit rings */
+  --orb-point: #29292e;   /* the resting point field */
+  --orb-core-a: #cce6ff;  /* the core's slow three-colour drift */
+  --orb-core-b: #eddbff;
+  --orb-core-c: #ffe0f0;
+  --orb-puck: #fcfcfc;
+  --orb-ground: #dedee6;  /* hemisphere light, ground side */
+  --orb-sky: #ffffff;
+  --orb-shadow: #171728;
+  --orb-idle: #5b8def;    /* the listening sweep */
+
+  --brand-elevenlabs: #171717;    /* provider dots: brand colours, the same in every theme */
+  --brand-hf: #ffd21e;
+  --brand-gemini: #4285f4;
+  --brand-vultr: #007bfc;
+  --brand-neon: #00e599;
+  --brand-databricks: #ff3621;
+
+  --shade: rgba(0, 0, 0, .04);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .04);
+  --shadow: 0 2px 6px rgba(0, 0, 0, .04), 0 8px 24px rgba(0, 0, 0, .06);
+  --shadow-lg: 0 8px 30px rgba(0, 0, 0, .12);
+  --shadow-xl: 0 18px 50px rgba(0, 0, 0, .28);
+  color-scheme: light;
+}
+
+/* Everywhere but Mono light, tints are mixed from the semantic colour and this theme's background. */
+:root[data-mode="dark"], :root[data-theme]:not([data-theme="mono"]) {
+  --tint-red: color-mix(in srgb, var(--red) var(--tint-p), var(--bg));
+  --tint-red-line: color-mix(in srgb, var(--red) var(--tint-line-p), var(--bg));
+  --tint-amber: color-mix(in srgb, var(--amber) var(--tint-p), var(--bg));
+  --tint-amber-line: color-mix(in srgb, var(--amber) var(--tint-line-p), var(--bg));
+  --tint-blue: color-mix(in srgb, var(--blue) var(--tint-p), var(--bg));
+  --tint-blue-line: color-mix(in srgb, var(--blue) var(--tint-line-p), var(--bg));
+  --tint-green: color-mix(in srgb, var(--green) var(--tint-p), var(--bg));
+  --tint-green-line: color-mix(in srgb, var(--green) var(--tint-line-p), var(--bg));
+}
+
+/* ---- Mono, dark ---------------------------------------------------------------------------------------- */
+:root[data-mode="dark"] {
+  --bg: #0a0a0a; --bg-2: #111111; --bg-3: #1a1a1a; --line: #262626; --line-2: #3a3a3a;
+  --text: #ededed; --text-2: #b4b4b4; --text-3: #8f8f8f;
+  --accent: #ededed; --accent-hover: #cfcfcf; --on-accent: #0a0a0a; --kbd-on-accent-line: #9a9a9a; --kbd-on-accent-text: #555555;
+  --blue: #3b8eff; --amber: #f5a623; --violet: #a970ff; --red: #ff5a5f; --green: #2fb866;
+  --blue-ink: #6cb0ff; --amber-ink: #f7b955; --red-ink: #ff7a7e; --green-ink: #4fd18b;
+  --tint-p: 14%; --tint-line-p: 36%;
+  --off: #3a3a3a; --off-line: #6b6b6b; --mark-off: #6b6b6b; --edge-off: #4a4a4a; --halo: #0a0a0a;
+  --stage-a: #1a1a1c; --stage-b: #0e0e11; --stage-c: #0a0a0a;
+  --inv-bg: #f5f5f5; --inv-strong: #000000; --inv-text: #171717; --inv-text-2: #5c5c5c; --inv-line: #d0d0d0;
+  --orb-ink: #e8e8e8; --orb-point: #d4d4dc; --orb-core-a: #2b5aa0; --orb-core-b: #5a3aa0; --orb-core-c: #a03a6e;
+  --orb-puck: #2a2a2a; --orb-ground: #1a1a22; --orb-sky: #ffffff; --orb-shadow: #000000; --orb-idle: #6d9cff;
+  --brand-elevenlabs: #ededed;
+  --shade: rgba(0, 0, 0, .4);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .5);
+  --shadow: 0 2px 6px rgba(0, 0, 0, .4), 0 8px 24px rgba(0, 0, 0, .5);
+  --shadow-lg: 0 8px 30px rgba(0, 0, 0, .6);
+  --shadow-xl: 0 18px 50px rgba(0, 0, 0, .7);
+  color-scheme: dark;
+}
+
+/* ---- Ocean: cool blue-grey surfaces, a deep teal accent (kept clear of speech blue) ---------------------- */
+:root[data-theme="ocean"] {
+  --amber: #d48806;        /* a deeper amber: a sound mark still reads on this tinted stage */
+  --bg: #fbfdff; --bg-2: #f3f8fc; --bg-3: #e8f0f7; --line: #dbe6ef; --line-2: #c3d3e0;
+  --text: #0f2233; --text-2: #3c5468; --text-3: #536b80;
+  --accent: #0e5e6f; --accent-hover: #0b4b59; --on-accent: #ffffff; --kbd-on-accent-line: #4f8a96; --kbd-on-accent-text: #bfe1e7;
+  --off: #c3d3e0; --off-line: #7d93a6; --mark-off: #93a8ba; --edge-off: #b4c6d4; --halo: #fbfdff;
+  --stage-a: #ffffff; --stage-b: #e3eef7; --stage-c: #f3f8fc;
+  --inv-bg: #0f2233; --inv-strong: #ffffff; --inv-text: #e6f1f8; --inv-text-2: #9fb6c8; --inv-line: #2c4a63;
+  --orb-ink: #0f2233; --orb-point: #1f3a52; --orb-core-a: #c8f0ff; --orb-core-b: #cfe0ff; --orb-core-c: #d9fff4;
+  --orb-puck: #fbfdff; --orb-ground: #d6e4ee; --orb-sky: #ffffff; --orb-shadow: #0f2233; --orb-idle: #3aa0c8;
+  --brand-elevenlabs: #0f2233;
+}
+:root[data-theme="ocean"][data-mode="dark"] {
+  --amber: #f5a623;
+  --bg: #07121c; --bg-2: #0c1a27; --bg-3: #122435; --line: #1c3247; --line-2: #2a4660;
+  --text: #e3eef6; --text-2: #a9c0d2; --text-3: #849eb2;
+  --accent: #5ec8d8; --accent-hover: #84d7e3; --on-accent: #07121c; --kbd-on-accent-line: #2f7f8c; --kbd-on-accent-text: #0b3a44;
+  --off: #2a4660; --off-line: #5a7790; --mark-off: #5a7790; --edge-off: #34536e; --halo: #07121c;
+  --stage-a: #10263a; --stage-b: #081521; --stage-c: #07121c;
+  --inv-bg: #e3eef6; --inv-strong: #000000; --inv-text: #0f2233; --inv-text-2: #3c5468; --inv-line: #b9cddd;
+  --orb-ink: #d6e6f2; --orb-point: #b9d3e6; --orb-core-a: #145a80; --orb-core-b: #1f3f8a; --orb-core-c: #127a6a;
+  --orb-puck: #16293a; --orb-ground: #0e1e2c; --orb-sky: #ffffff; --orb-shadow: #000000; --orb-idle: #5ec8d8;
+  --brand-elevenlabs: #e3eef6;
+}
+
+/* ---- Forest: soft green-grey surfaces, a deep pine accent (darker and greyer than the live green) -------- */
+:root[data-theme="forest"] {
+  --amber: #d48806;        /* a deeper amber: a sound mark still reads on this tinted stage */
+  --bg: #fcfdfb; --bg-2: #f4f7f2; --bg-3: #e9efe5; --line: #dfe7da; --line-2: #c6d3be;
+  --text: #18241a; --text-2: #435446; --text-3: #586a5b;
+  --accent: #2f4a34; --accent-hover: #26402b; --on-accent: #ffffff; --kbd-on-accent-line: #6f8c74; --kbd-on-accent-text: #c9dccc;
+  --off: #c6d3be; --off-line: #81937f; --mark-off: #97a894; --edge-off: #b8c7b1; --halo: #fcfdfb;
+  --stage-a: #ffffff; --stage-b: #e8f0e3; --stage-c: #f4f7f2;
+  --inv-bg: #18241a; --inv-strong: #ffffff; --inv-text: #e7efe4; --inv-text-2: #a3b5a5; --inv-line: #34463a;
+  --orb-ink: #18241a; --orb-point: #2b3b2e; --orb-core-a: #d8f5d0; --orb-core-b: #e9f6c8; --orb-core-c: #cdeee6;
+  --orb-puck: #fcfdfb; --orb-ground: #dde6d6; --orb-sky: #ffffff; --orb-shadow: #18241a; --orb-idle: #5f9e6e;
+  --brand-elevenlabs: #18241a;
+}
+:root[data-theme="forest"][data-mode="dark"] {
+  --amber: #f5a623;
+  --bg: #0a110b; --bg-2: #101a12; --bg-3: #172419; --line: #213224; --line-2: #2f4633;
+  --text: #e4eee2; --text-2: #b0c3b1; --text-3: #8aa08c;
+  --accent: #9fd3a8; --accent-hover: #b8e0bf; --on-accent: #0a110b; --kbd-on-accent-line: #4e7a57; --kbd-on-accent-text: #21402a;
+  --off: #2f4633; --off-line: #5f7a62; --mark-off: #5f7a62; --edge-off: #3b553f; --halo: #0a110b;
+  --stage-a: #14231a; --stage-b: #0c160e; --stage-c: #0a110b;
+  --inv-bg: #e4eee2; --inv-strong: #000000; --inv-text: #18241a; --inv-text-2: #435446; --inv-line: #c6d3be;
+  --orb-ink: #dceadb; --orb-point: #bcd4be; --orb-core-a: #1e5a33; --orb-core-b: #3e5a1e; --orb-core-c: #1e5a50;
+  --orb-puck: #18261a; --orb-ground: #101c12; --orb-sky: #ffffff; --orb-shadow: #000000; --orb-idle: #7fc38f;
+  --brand-elevenlabs: #e4eee2;
+}
+
+/* ---- Sunset: warm sand surfaces, a deep plum accent (clear of alert red and unknown violet) -------------- */
+:root[data-theme="sunset"] {
+  --amber: #d48806;        /* a deeper amber: a sound mark still reads on this tinted stage */
+  --bg: #fffdfb; --bg-2: #fdf6f1; --bg-3: #f8ebe2; --line: #f0e0d4; --line-2: #e2cbbb;
+  --text: #2a1a14; --text-2: #5e4436; --text-3: #735646;
+  --accent: #6b2d4a; --accent-hover: #57233c; --on-accent: #ffffff; --kbd-on-accent-line: #9a6680; --kbd-on-accent-text: #e8cdd9;
+  --off: #e2cbbb; --off-line: #a08676; --mark-off: #b39b8c; --edge-off: #d5bfb0; --halo: #fffdfb;
+  --stage-a: #fffaf5; --stage-b: #fbe6d8; --stage-c: #fdf6f1;
+  --inv-bg: #2a1a14; --inv-strong: #ffffff; --inv-text: #f6e9e1; --inv-text-2: #c4a594; --inv-line: #4a3329;
+  --orb-ink: #2a1a14; --orb-point: #3d2a22; --orb-core-a: #ffe2c8; --orb-core-b: #ffd6e0; --orb-core-c: #fff0c8;
+  --orb-puck: #fffdfb; --orb-ground: #f1ddd0; --orb-sky: #ffffff; --orb-shadow: #2a1a14; --orb-idle: #e08a5a;
+  --brand-elevenlabs: #2a1a14;
+}
+:root[data-theme="sunset"][data-mode="dark"] {
+  --amber: #f5a623;
+  --bg: #140c0a; --bg-2: #1c1210; --bg-3: #261916; --line: #33231e; --line-2: #48322b;
+  --text: #f4e6de; --text-2: #cdb3a6; --text-3: #a88b7d;
+  --accent: #f0a6c4; --accent-hover: #f5c0d5; --on-accent: #140c0a; --kbd-on-accent-line: #9a5f78; --kbd-on-accent-text: #4a2234;
+  --off: #48322b; --off-line: #7d6155; --mark-off: #7d6155; --edge-off: #5a3f36; --halo: #140c0a;
+  --stage-a: #2a1712; --stage-b: #170e0b; --stage-c: #140c0a;
+  --inv-bg: #f4e6de; --inv-strong: #000000; --inv-text: #2a1a14; --inv-text-2: #5e4436; --inv-line: #e2cbbb;
+  --orb-ink: #f0dfd6; --orb-point: #dcc4b8; --orb-core-a: #7a3a1e; --orb-core-b: #7a1e4a; --orb-core-c: #7a5a1e;
+  --orb-puck: #2a1b17; --orb-ground: #1e1310; --orb-sky: #ffffff; --orb-shadow: #000000; --orb-idle: #f09a6a;
+  --brand-elevenlabs: #f4e6de;
+}
+
+/* ---- High contrast: black and white, darker semantic inks, AAA text (>= 7:1) ----------------------------- */
+:root[data-theme="contrast"] {
+  --bg: #ffffff; --bg-2: #ffffff; --bg-3: #f0f0f0; --line: #767676; --line-2: #000000;
+  --text: #000000; --text-2: #1a1a1a; --text-3: #333333;
+  --accent: #000000; --accent-hover: #333333; --on-accent: #ffffff; --kbd-on-accent-line: #777777; --kbd-on-accent-text: #cccccc;
+  --blue: #0050d0; --amber: #b86e00; --violet: #5a1aa0; --red: #c4001a; --green: #007a33;
+  --blue-ink: #003d99; --amber-ink: #5c3a00; --red-ink: #a3000b; --green-ink: #005c26;
+  --tint-p: 8%; --tint-line-p: 60%;
+  --off: #8a8a8a; --off-line: #333333; --mark-off: #595959; --edge-off: #595959; --halo: #ffffff;
+  --stage-a: #ffffff; --stage-b: #f2f2f2; --stage-c: #ffffff;
+  --inv-bg: #000000; --inv-strong: #ffffff; --inv-text: #ffffff; --inv-text-2: #d0d0d0; --inv-line: #767676;
+  --orb-ink: #000000; --orb-point: #000000; --orb-core-a: #e0e0e0; --orb-core-b: #e0e0e0; --orb-core-c: #e0e0e0;
+  --orb-puck: #ffffff; --orb-ground: #e0e0e0; --orb-sky: #ffffff; --orb-shadow: #000000; --orb-idle: #0050d0;
+  --brand-elevenlabs: #000000;
+}
+:root[data-theme="contrast"][data-mode="dark"] {
+  --bg: #000000; --bg-2: #000000; --bg-3: #141414; --line: #a0a0a0; --line-2: #ffffff;
+  --text: #ffffff; --text-2: #f0f0f0; --text-3: #d0d0d0;
+  --accent: #ffffff; --accent-hover: #d0d0d0; --on-accent: #000000; --kbd-on-accent-line: #888888; --kbd-on-accent-text: #333333;
+  --blue: #4da3ff; --amber: #ffc233; --violet: #c79bff; --red: #ff6b6b; --green: #4ee08a;
+  --blue-ink: #8cc4ff; --amber-ink: #ffd36b; --red-ink: #ff9c9c; --green-ink: #8cf0b4;
+  --tint-p: 16%; --tint-line-p: 60%;
+  --off: #6b6b6b; --off-line: #d0d0d0; --mark-off: #a0a0a0; --edge-off: #a0a0a0; --halo: #000000;
+  --stage-a: #0d0d0d; --stage-b: #000000; --stage-c: #000000;
+  --inv-bg: #ffffff; --inv-strong: #000000; --inv-text: #000000; --inv-text-2: #1a1a1a; --inv-line: #595959;
+  --orb-ink: #ffffff; --orb-point: #ffffff; --orb-core-a: #262626; --orb-core-b: #262626; --orb-core-c: #262626;
+  --orb-puck: #141414; --orb-ground: #141414; --orb-sky: #ffffff; --orb-shadow: #000000; --orb-idle: #4da3ff;
+  --brand-elevenlabs: #ffffff;
+}
+
+/* Switcher swatches: each theme's background / accent / orb, in the current light or dark mode (the active
+   theme's tokens can't show the others). Keep in step with the blocks above. */
+.sw[data-sw="mono"] { --sw-bg: #ffffff; --sw-accent: #171717; --sw-mark: #cce6ff; }
+.sw[data-sw="ocean"] { --sw-bg: #fbfdff; --sw-accent: #0e5e6f; --sw-mark: #c8f0ff; }
+.sw[data-sw="forest"] { --sw-bg: #fcfdfb; --sw-accent: #2f4a34; --sw-mark: #d8f5d0; }
+.sw[data-sw="sunset"] { --sw-bg: #fffdfb; --sw-accent: #6b2d4a; --sw-mark: #ffe2c8; }
+.sw[data-sw="contrast"] { --sw-bg: #ffffff; --sw-accent: #000000; --sw-mark: #0050d0; }
+:root[data-mode="dark"] .sw[data-sw="mono"] { --sw-bg: #0a0a0a; --sw-accent: #ededed; --sw-mark: #2b5aa0; }
+:root[data-mode="dark"] .sw[data-sw="ocean"] { --sw-bg: #07121c; --sw-accent: #5ec8d8; --sw-mark: #145a80; }
+:root[data-mode="dark"] .sw[data-sw="forest"] { --sw-bg: #0a110b; --sw-accent: #9fd3a8; --sw-mark: #1e5a33; }
+:root[data-mode="dark"] .sw[data-sw="sunset"] { --sw-bg: #140c0a; --sw-accent: #f0a6c4; --sw-mark: #7a3a1e; }
+:root[data-mode="dark"] .sw[data-sw="contrast"] { --sw-bg: #000000; --sw-accent: #ffffff; --sw-mark: #4da3ff; }
+
+/* Switching themes eases colours instead of snapping (not on first paint: theme.js adds .theme-anim on a switch). */
+html.theme-anim, html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after {
+  transition: background-color .25s ease, border-color .25s ease, color .25s ease, fill .25s ease, stroke .25s ease !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.theme-anim, html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after { transition: none !important; }
+}

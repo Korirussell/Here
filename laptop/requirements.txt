@@ -1,0 +1,22 @@
+# Laptop hearing module + relay + tools (Python 3.12). Install PyTorch FIRST from the CUDA index (laptop/README.md §2):
+#   pip install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cu121
+websockets>=14
+numpy
+scipy
+pyyaml
+sounddevice
+soundfile
+pyusb
+libusb-package
+faster-whisper
+silero-vad
+panns-inference    # doorbell classifier (PANNs CNN14)
+jsonschema         # contract validation (tests, relay_tap --validate)
+pytest
+rich               # optional: python -m laptop --dashboard (plain one-line status without it)
+# Attention tiers (laptop/enrich/, Shared/ATTENTION.md). transformers is PINNED: 5.19+ needs torch >= 2.6 and breaks on
+# import with torch 2.5.1; < 5 downgrades huggingface_hub / tokenizers under faster-whisper (WORKLOG_K3 round 7).
+transformers==5.18.0
+peft               # JEV-9B adapter
+bitsandbytes       # JEV-9B 4-bit NF4 (16 GB GPU)
+accelerate         # device_map for JEV-9B

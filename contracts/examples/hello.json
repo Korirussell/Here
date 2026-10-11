@@ -1,0 +1,1 @@
+{"type":"hello","v":3,"src":"phone","t":1760000000.0,"role":"phone","subscribe":["sources","speech_start","utterance","sound_event","alert","config","clock_pong","heartbeat"],"app_version":"0.3.0"}

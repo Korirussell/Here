@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://here.local/contracts/heartbeat.schema.json",
+  "title": "heartbeat",
+  "description": "Every 2 s. thermal: phone only; engine, doa_source: laptop only.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "const": "heartbeat"
+    },
+    "v": {
+      "const": 3
+    },
+    "src": {
+      "enum": [
+        "laptop",
+        "phone",
+        "relay",
+        "dashboard",
+        "memory",
+        "tool"
+      ]
+    },
+    "t": {
+      "type": "number",
+      "description": "observation time, laptop clock, unix seconds"
+    },
+    "seq": {
+      "type": "integer"
+    },
+    "session": {
+      "type": "string",
+      "description": "set by the relay"
+    },
+    "status": {
+      "enum": [
+        "ok",
+        "degraded",
+        "error"
+      ]
+    },
+    "detail": {
+      "type": "string"
+    },
+    "thermal": {
+      "enum": [
+        "nominal",
+        "fair",
+        "serious",
+        "critical"
+      ]
+    },
+    "engine": {
+      "enum": [
+        "faster_whisper",
+        "scribe_realtime"
+      ]
+    },
+    "doa_source": {
+      "enum": [
+        "builtin",
+        "odas"
+      ]
+    }
+  },
+  "required": [
+    "type",
+    "v",
+    "src",
+    "t",
+    "status"
+  ],
+  "additionalProperties": false
+}

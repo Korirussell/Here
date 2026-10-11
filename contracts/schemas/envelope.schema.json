@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://here.local/contracts/envelope.schema.json",
+  "title": "envelope",
+  "description": "Common fields of every message (README §12.2). Receivers ignore unknown types.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "enum": [
+        "hello",
+        "heartbeat",
+        "clock_ping",
+        "clock_pong",
+        "config",
+        "sources",
+        "speech_start",
+        "utterance",
+        "sound_event",
+        "alert",
+        "perception_enrichment",
+        "attribution",
+        "scene",
+        "search_request",
+        "search_result"
+      ]
+    },
+    "v": {
+      "const": 3
+    },
+    "src": {
+      "enum": [
+        "laptop",
+        "phone",
+        "relay",
+        "dashboard",
+        "memory",
+        "tool"
+      ]
+    },
+    "t": {
+      "type": "number",
+      "description": "observation time, laptop clock, unix seconds"
+    },
+    "seq": {
+      "type": "integer"
+    },
+    "session": {
+      "type": "string",
+      "description": "set by the relay"
+    }
+  },
+  "required": [
+    "type",
+    "v",
+    "src",
+    "t"
+  ]
+}

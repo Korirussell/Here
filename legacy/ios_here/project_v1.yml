@@ -1,0 +1,34 @@
+name: ios_here
+options:
+  bundleIdPrefix: com.here.ioshere
+  deploymentTarget:
+    iOS: "16.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: 5.0
+    DEVELOPMENT_TEAM: ""
+    IPHONEOS_DEPLOYMENT_TARGET: "16.0"
+
+targets:
+  ios_here:
+    type: application
+    platform: iOS
+    sources:
+      - path: App
+    info:
+      path: App/Info.plist
+      properties:
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        NSCameraUsageDescription: "HERE uses the camera as the wearer's chest-mounted view, streamed to the laptop for processing. No video is stored on the phone."
+        NSLocalNetworkUsageDescription: "HERE streams camera and heading data to the laptop over the USB connection (Personal Hotspot)."
+        NSBonjourServices: []
+        ITSAppUsesNonExemptEncryption: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.here.ioshere
+        TARGETED_DEVICE_FAMILY: "1"
+        GENERATE_INFOPLIST_FILE: false

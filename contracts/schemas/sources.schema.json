@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://here.local/contracts/sources.schema.json",
+  "title": "sources",
+  "description": "10-30 Hz while anything is active; on change otherwise. Built-in DoA: one source, id 0.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "const": "sources"
+    },
+    "v": {
+      "const": 3
+    },
+    "src": {
+      "enum": [
+        "laptop",
+        "phone",
+        "relay",
+        "dashboard",
+        "memory",
+        "tool"
+      ]
+    },
+    "t": {
+      "type": "number",
+      "description": "observation time, laptop clock, unix seconds"
+    },
+    "seq": {
+      "type": "integer"
+    },
+    "session": {
+      "type": "string",
+      "description": "set by the relay"
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "bearing_deg": {
+            "type": "number",
+            "exclusiveMinimum": -180,
+            "maximum": 180,
+            "description": "degrees, world frame (0 = array forward), clockwise positive, (-180, 180]"
+          },
+          "energy": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "speech": {
+            "type": "boolean"
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "required": [
+          "id",
+          "bearing_deg",
+          "energy",
+          "speech",
+          "confidence"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "type",
+    "v",
+    "src",
+    "t",
+    "sources"
+  ],
+  "additionalProperties": false
+}

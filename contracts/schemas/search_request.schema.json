@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://here.local/contracts/search_request.schema.json",
+  "title": "search_request",
+  "description": "",
+  "type": "object",
+  "properties": {
+    "type": {
+      "const": "search_request"
+    },
+    "v": {
+      "const": 3
+    },
+    "src": {
+      "enum": [
+        "laptop",
+        "phone",
+        "relay",
+        "dashboard",
+        "memory",
+        "tool"
+      ]
+    },
+    "t": {
+      "type": "number",
+      "description": "observation time, laptop clock, unix seconds"
+    },
+    "seq": {
+      "type": "integer"
+    },
+    "session": {
+      "type": "string",
+      "description": "set by the relay"
+    },
+    "query_id": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    },
+    "limit": {
+      "type": "integer",
+      "minimum": 1
+    }
+  },
+  "required": [
+    "type",
+    "v",
+    "src",
+    "t",
+    "query_id",
+    "text",
+    "limit"
+  ],
+  "additionalProperties": false
+}

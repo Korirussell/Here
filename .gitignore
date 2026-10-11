@@ -1,0 +1,42 @@
+.DS_Store
+.venv/
+.venv-relay/
+__pycache__/
+.pytest_cache/
+logs/
+node_modules/
+
+# secrets (README §22): only the .env.example files are committed
+.env
+*.env
+!.env.example
+
+# external projects for reading only (README §2: Ranger has no license; never copied)
+reference/*
+!reference/README.md
+
+# downloaded models
+*.pt
+*.onnx
+*.pth
+*.task
+runs/
+
+# fixtures: synthetic mock_scene is committed; real recordings stay local unless you decide otherwise
+fixtures/*/
+!fixtures/mock_scene/
+!fixtures/sounds/
+
+# real-array golden fixture: TTS voices + the synthetic doorbell through the XVF3800 (tools/speaker_scene.py), no people
+!fixtures/array_tts/
+# raw-mic source material for the rotation scenes (TTS + sounds from the laptop speaker, no people)
+!fixtures/raw_speaker_180/
+# canonical-message event scenes (no audio, tools/fake_events.py --scene): everyone builds against them
+!fixtures/events/
+
+# Private team strategy doc (never commit)
+HACKATHON_WINNERS.md
+
+# Private sponsor-prize notes (kept local, never public)
+/AWARD_CHASING.md
+/OVERHAUL_PROMPT.md

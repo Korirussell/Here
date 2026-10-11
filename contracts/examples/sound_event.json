@@ -1,0 +1,1 @@
+{"type":"sound_event","v":3,"src":"laptop","t":1760000003.0,"event_id":"s-0007","label":"doorbell","category":"alert","emoji":"🔔","text":"Doorbell","confidence":0.71,"bearing_deg":172.0,"t_start":1760000001.0,"t_end":1760000003.0,"count":1,"source_id":1,"model":"panns_cnn14"}

@@ -1,0 +1,4 @@
+{
+  "//": "The page scripts are ES modules. Node < 22 (tests/js/ingest.test.mjs imports core.js) needs this to load them as such; browsers ignore it.",
+  "type": "module"
+}

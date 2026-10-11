@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HERE World</title>
+<link rel="preload" href="vendor/geist/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="themes.css">
+<link rel="stylesheet" href="style.css">
+<script>
+// Colour theme + light/dark, per viewer, on <html> before first paint (no flash). theme.js owns the switcher;
+// keep THEMES / MODES here in step with it.
+(function () {
+  var THEMES = ['mono', 'ocean', 'forest', 'sunset', 'contrast'], MODES = ['system', 'light', 'dark']
+  var theme = 'mono', mode = 'system'
+  try { theme = localStorage.getItem('here.theme') || theme; mode = localStorage.getItem('here.mode') || mode } catch (e) { /* private window */ }
+  if (THEMES.indexOf(theme) < 0) theme = 'mono'
+  if (MODES.indexOf(mode) < 0) mode = 'system'
+  var dark = mode === 'dark' || (mode === 'system' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches)
+  var h = document.documentElement
+  h.dataset.theme = theme; h.dataset.mode = dark ? 'dark' : 'light'; h.dataset.modePref = mode
+})()
+</script>
+<script type="importmap">{ "imports": { "three": "./vendor/three/three.module.min.js" } }</script>
+<link rel="modulepreload" href="vendor/three/three.module.min.js">
+<link rel="modulepreload" href="app.js"><link rel="modulepreload" href="core.js"><link rel="modulepreload" href="live.js">
+<link rel="modulepreload" href="theme.js"><link rel="modulepreload" href="orb.js"><link rel="modulepreload" href="memory.js"><link rel="modulepreload" href="replay.js">
+<link rel="modulepreload" href="inspector.js"><link rel="modulepreload" href="tour.js"><link rel="modulepreload" href="how.js"><link rel="modulepreload" href="architecture.js">
+<script>
+// Until app.js is ready (three.js and the modules take a moment after a refresh), queue keys and tab / Run demo
+// clicks; app.js replays them through its own handlers. A judge pressing S right after a reset is never lost.
+window.__hereQ = []
+document.documentElement.dataset.loading = '1'
+// the Moment view (F) is per viewer and applied before first paint (no layout jump after a refresh); app.js toggles it
+try { if (localStorage.getItem('here.moment') === '1') document.documentElement.classList.add('moment-view') } catch { /* private window */ }
+document.addEventListener('keydown', e => {
+  if (window.__hereReady || (e.target.closest && e.target.closest('input, textarea'))) return
+  window.__hereQ.push({ kind: 'key', key: e.key, shiftKey: e.shiftKey, ctrlKey: e.ctrlKey, metaKey: e.metaKey, altKey: e.altKey })
+  e.preventDefault()
+}, true)
+document.addEventListener('click', e => {
+  if (window.__hereReady) return
+  const t = e.target.closest && e.target.closest('[data-tab], #demo-btn, #theme-btn')
+  if (t) window.__hereQ.push({ kind: 'click', sel: t.dataset.tab ? '[data-tab="' + t.dataset.tab + '"]' : '#' + t.id })
+}, true)
+</script>
+</head>
+<body>
+<a class="skip" href="#captions">Skip to live captions</a>
+<header id="top">
+  <div class="brand">
+    <svg class="logo" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".55"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
+    <b>HERE</b><span class="slash">/</span><span class="crumb">World</span>
+  </div>
+  <nav id="tabs" role="tablist">
+    <button role="tab" data-tab="live" class="on" aria-selected="true">Live</button>
+    <button role="tab" data-tab="memory" aria-selected="false">Memory</button>
+    <button role="tab" data-tab="replay" aria-selected="false">Replay lab</button>
+    <button role="tab" data-tab="how" aria-selected="false">How it works</button>
+  </nav>
+  <div class="top-right">
+    <div class="sys" tabindex="0">
+      <span id="sys-dot" class="sdot off"></span><span id="sys-label">Connecting…</span>
+      <div class="sys-pop"><div class="sys-h">System</div><div id="sys-list"></div></div>
+    </div>
+    <div class="theme" id="theme">
+      <button class="btn icon" id="theme-btn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="theme-pop" title="Colours: theme and light / dark (C)">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg>
+        <span class="sr">Colours</span>
+      </button>
+      <div class="theme-pop" id="theme-pop" role="dialog" aria-label="Colours" hidden>
+        <div class="sys-h">Appearance <kbd>D</kbd></div>
+        <div class="mode-seg" role="radiogroup" aria-label="Light or dark">
+          <button type="button" role="radio" data-pick-mode="light">Light</button>
+          <button type="button" role="radio" data-pick-mode="dark">Dark</button>
+          <button type="button" role="radio" data-pick-mode="system">System</button>
+        </div>
+        <div class="sys-h">Theme <kbd>C</kbd></div>
+        <div class="swatches" id="theme-swatches" role="radiogroup" aria-label="Colour theme"></div>
+      </div>
+    </div>
+    <button class="btn" id="moment-btn" type="button" aria-pressed="false" title="Moment view: the latest important moment, step by step, with the time each step took (F)">Moment <kbd>F</kbd></button>
+    <div class="demo" tabindex="0">
+      <button class="btn primary" id="demo-btn" type="button">Run demo <kbd>S</kbd></button>
+      <div class="demo-pop" id="demo-menu"></div>
+    </div>
+  </div>
+</header>
+
+<div id="banner" hidden></div>
+
+<main>
+  <!-- LIVE -->
+  <section id="live" class="view on">
+    <div class="stage">
+      <div id="orb"></div>
+      <div id="tags"></div>
+      <div id="now" class="now"></div>
+      <section id="moment" class="moment" hidden aria-live="polite" aria-label="The latest important moment, step by step"></section>
+      <div class="legend">
+        <span><i class="shape speech"></i>Speech</span>
+        <span><i class="shape sound"></i>Sound</span>
+        <span><i class="shape unknown"></i>Unknown</span>
+        <span><i class="shape alert"></i>Alert</span>
+        <span><i class="shape view"></i>Wearer view</span>
+      </div>
+      <div id="hero" class="hero" hidden></div>
+      <div class="stage-hint">Drag to orbit · scroll to zoom · double-click to reset</div>
+      <button class="btn icon rail-btn" id="rail-btn" type="button" aria-controls="rail" aria-expanded="true" title="Hide the captions sidebar (B)">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M14.5 4.5v15" stroke="currentColor" stroke-width="1.6"/></svg>
+        <span class="sr">Captions sidebar</span><i class="rail-dot" aria-hidden="true"></i>
+      </button>
+      <div id="pipe" class="pipe" aria-label="Which part of HERE handled the latest message"></div>
+    </div>
+    <aside class="rail" id="rail">
+      <section class="panel"><header class="ph">Live captions</header><div id="captions" tabindex="-1"></div></section>
+      <section class="panel"><header class="ph">Alerts</header><div id="alerts"></div></section>
+      <section class="panel dev"><header class="ph">Latency <span class="ph-sub">laptop → dashboard, median</span></header><div id="latency" class="stats"></div></section>
+      <section class="panel grow dev"><header class="ph">Events <span class="ph-sub">click any row to inspect</span></header><div id="stream"></div></section>
+    </aside>
+  </section>
+
+  <!-- MEMORY -->
+  <section id="memory" class="view">
+    <div class="page">
+      <div class="page-head">
+        <div><div class="eyebrow">Memory</div><h1 id="day-title">Today</h1><div id="day-sub" class="dim"></div></div>
+        <div id="mem-source"></div>
+      </div>
+      <div class="panel timeline-card">
+        <div class="tl-legend"><span><i class="shape speech"></i>Speech (a row per recurring person)</span><span><i class="shape sound"></i>Sound</span>
+          <span><i class="shape hazard"></i>Hazard</span><span><i class="shape unknown"></i>Unknown sound</span><span><i class="shape alert"></i>Alert</span>
+          <span class="dim">Bigger mark = HERE judged it important · click any mark to inspect</span></div>
+        <div id="timeline"></div></div>
+      <div class="mem-grid">
+        <section class="panel ask-card">
+          <header class="ph">Ask HERE</header>
+          <form id="ask-form" autocomplete="off">
+            <input id="ask-q" type="text" placeholder="Ask about your day…" aria-label="Ask a question about your day">
+            <button type="submit" class="btn primary">Ask</button>
+          </form>
+          <div id="ask-suggest" class="chips"></div>
+          <div id="ask-answer"></div>
+        </section>
+        <section class="panel"><header class="ph">Things you may have missed</header><div id="missed"></div></section>
+        <section class="panel"><header class="ph">Insights</header><div id="insights"></div></section>
+        <section class="panel"><header class="ph">Important moments</header><div id="important"></div></section>
+      </div>
+    </div>
+  </section>
+
+  <!-- REPLAY LAB -->
+  <section id="replay" class="view">
+    <div class="page">
+      <div class="page-head">
+        <div><div class="eyebrow">Replay lab</div><h1>What would HERE have surfaced?</h1>
+          <div class="dim">The same recorded moments under different attention settings. Nothing is deleted: a suppressed sound stays ambient, with its direction.</div></div>
+        <div id="rl-source"></div>
+      </div>
+      <div id="rl-segments" class="seg-tabs"></div>
+      <div class="rl-grid">
+        <section class="panel rl-controls">
+          <header class="ph">Alternative policy</header>
+          <div id="rl-presets" class="chips"></div>
+          <div id="rl-sliders"></div>
+        </section>
+        <section class="panel rl-compare"><div id="rl-compare"></div></section>
+      </div>
+      <section class="panel"><header class="ph">Per-event decisions <span class="ph-sub">click a row for the reason</span></header><div id="rl-events"></div></section>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" class="view">
+    <div class="page">
+      <div class="page-head">
+        <div><div class="eyebrow">How it works</div><h1>From a sound in the room to the wearer</h1>
+          <div class="dim">Each box is lit from the running system. Only text and bearings leave the laptop: never audio.</div></div>
+        <div class="how-side"><div id="how-sum" class="how-sum"></div>
+          <div class="how-key"><span class="k live">LIVE</span><span class="k fb">FALLBACK</span><span class="k off">IDLE</span><span class="k off">NOT CONNECTED</span></div>
+          <button type="button" class="btn" id="how-dl">Download as SVG</button></div>
+      </div>
+      <div class="panel how-card"><div id="how-svg"></div></div>
+    </div>
+  </section>
+</main>
+
+<aside id="inspector" aria-label="Event inspector" hidden>
+  <button id="insp-close" aria-label="Close inspector">×</button>
+  <div id="insp-body"></div>
+</aside>
+
+<div id="tour" role="status" aria-live="polite" hidden></div>
+
+<div id="keys" hidden>
+  <h2>Keyboard</h2>
+  <dl>
+    <dt>T</dt><dd>Judge tour: ~80 s guided auto-play (any key or click takes over)</dd>
+    <dt>S</dt><dd>Play the three core moments (through the relay)</dd>
+    <dt>1 2 3</dt><dd>Captions · turn-around · doorbell + name</dd>
+    <dt>L</dt><dd>Loop the moments</dd>
+    <dt>X</dt><dd>Stop the scripted scene</dd>
+    <dt>M</dt><dd>Open the seeded day</dd>
+    <dt>A</dt><dd>Ask a known question</dd>
+    <dt>P</dt><dd>Replay lab</dd>
+    <dt>H</dt><dd>How it works (the architecture, lit live)</dd>
+    <dt>F</dt><dd>Moment view: the latest important moment, step by step, with measured times and who did each step</dd>
+    <dt>B</dt><dd>Hide / show the captions sidebar (a dot marks new captions or alerts while it's hidden)</dd>
+    <dt>C</dt><dd>Colours: open the theme and light / dark picker</dd>
+    <dt>D</dt><dd>Cycle light / dark / system</dd>
+    <dt>R</dt><dd>Reset the view</dd>
+    <dt>⇧ Esc</dt><dd>Panic: stop, reset, back to Live</dd>
+    <dt>?</dt><dd>This help</dd>
+  </dl>
+</div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

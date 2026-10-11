@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://here.local/contracts/speech_start.schema.json",
+  "title": "speech_start",
+  "description": "Fast path: the moment speech starts at a direction.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "const": "speech_start"
+    },
+    "v": {
+      "const": 3
+    },
+    "src": {
+      "enum": [
+        "laptop",
+        "phone",
+        "relay",
+        "dashboard",
+        "memory",
+        "tool"
+      ]
+    },
+    "t": {
+      "type": "number",
+      "description": "observation time, laptop clock, unix seconds"
+    },
+    "seq": {
+      "type": "integer"
+    },
+    "session": {
+      "type": "string",
+      "description": "set by the relay"
+    },
+    "utt_id": {
+      "type": "string"
+    },
+    "bearing_deg": {
+      "type": "number",
+      "exclusiveMinimum": -180,
+      "maximum": 180,
+      "description": "degrees, world frame (0 = array forward), clockwise positive, (-180, 180]"
+    },
+    "source_id": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    }
+  },
+  "required": [
+    "type",
+    "v",
+    "src",
+    "t",
+    "utt_id",
+    "bearing_deg",
+    "source_id",
+    "confidence"
+  ],
+  "additionalProperties": false
+}

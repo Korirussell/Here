@@ -1,0 +1,526 @@
+{
+  "seeded": true,
+  "source": "precomputed",
+  "generated_by": "python -m extras.cloud.insights_local --write-seed",
+  "insights": [
+    {
+      "id": "rear_hazards",
+      "category": "safety",
+      "title": "11 important sounds came from behind you",
+      "text": "4 were hazards (alarm, car horn, loud bang, siren). Behind is exactly where you can't see: the belt and the rear chevrons carried them.",
+      "score": 0.95,
+      "evidence_ids": [
+        "seed-a-0001",
+        "seed-a-0002",
+        "seed-a-0003",
+        "seed-a-0004",
+        "seed-a-0007",
+        "seed-a-0008",
+        "seed-a-0009",
+        "seed-a-0011",
+        "seed-a-0012",
+        "seed-a-0013",
+        "seed-a-0014"
+      ],
+      "source": "precomputed",
+      "data": {
+        "by_kind": {
+          "name_called": 3,
+          "doorbell": 2,
+          "car_horn": 1,
+          "siren": 1,
+          "loud_bang": 1,
+          "knock": 2,
+          "alarm": 1
+        }
+      }
+    },
+    {
+      "id": "replay_crowd_filter",
+      "category": "replay",
+      "title": "The crowd filter at lunch",
+      "text": "Showing everything would have surfaced 46 events at lunch; the default policy surfaced 11 and still kept 2 important ones.",
+      "score": 0.85,
+      "evidence_ids": [],
+      "source": "precomputed",
+      "data": {
+        "scenarios": {
+          "commute": {
+            "default": {
+              "surfaced": 4,
+              "suppressed": 17,
+              "kept_important": 3,
+              "missed_important": 0
+            },
+            "everything": {
+              "surfaced": 21,
+              "suppressed": 0,
+              "kept_important": 3,
+              "missed_important": 0
+            },
+            "focus": {
+              "surfaced": 3,
+              "suppressed": 18,
+              "kept_important": 3,
+              "missed_important": 0
+            },
+            "no_hazard_priority": {
+              "surfaced": 4,
+              "suppressed": 17,
+              "kept_important": 3,
+              "missed_important": 0
+            }
+          },
+          "evening": {
+            "default": {
+              "surfaced": 7,
+              "suppressed": 4,
+              "kept_important": 6,
+              "missed_important": 0
+            },
+            "everything": {
+              "surfaced": 11,
+              "suppressed": 0,
+              "kept_important": 6,
+              "missed_important": 0
+            },
+            "focus": {
+              "surfaced": 7,
+              "suppressed": 4,
+              "kept_important": 6,
+              "missed_important": 0
+            },
+            "no_hazard_priority": {
+              "surfaced": 6,
+              "suppressed": 5,
+              "kept_important": 6,
+              "missed_important": 0
+            }
+          },
+          "hackathon": {
+            "default": {
+              "surfaced": 7,
+              "suppressed": 3,
+              "kept_important": 2,
+              "missed_important": 0
+            },
+            "everything": {
+              "surfaced": 10,
+              "suppressed": 0,
+              "kept_important": 2,
+              "missed_important": 0
+            },
+            "focus": {
+              "surfaced": 7,
+              "suppressed": 3,
+              "kept_important": 2,
+              "missed_important": 0
+            },
+            "no_hazard_priority": {
+              "surfaced": 3,
+              "suppressed": 7,
+              "kept_important": 1,
+              "missed_important": 1
+            }
+          },
+          "lecture": {
+            "default": {
+              "surfaced": 13,
+              "suppressed": 2,
+              "kept_important": 6,
+              "missed_important": 0
+            },
+            "everything": {
+              "surfaced": 15,
+              "suppressed": 0,
+              "kept_important": 6,
+              "missed_important": 0
+            },
+            "focus": {
+              "surfaced": 13,
+              "suppressed": 2,
+              "kept_important": 6,
+              "missed_important": 0
+            },
+            "no_hazard_priority": {
+              "surfaced": 7,
+              "suppressed": 8,
+              "kept_important": 6,
+              "missed_important": 0
+            }
+          },
+          "lunch": {
+            "default": {
+              "surfaced": 11,
+              "suppressed": 35,
+              "kept_important": 2,
+              "missed_important": 0
+            },
+            "everything": {
+              "surfaced": 46,
+              "suppressed": 0,
+              "kept_important": 2,
+              "missed_important": 0
+            },
+            "focus": {
+              "surfaced": 11,
+              "suppressed": 35,
+              "kept_important": 2,
+              "missed_important": 0
+            },
+            "no_hazard_priority": {
+              "surfaced": 5,
+              "suppressed": 41,
+              "kept_important": 2,
+              "missed_important": 0
+            }
+          },
+          "meeting": {
+            "default": {
+              "surfaced": 8,
+              "suppressed": 3,
+              "kept_important": 3,
+              "missed_important": 0
+            },
+            "everything": {
+              "surfaced": 11,
+              "suppressed": 0,
+              "kept_important": 3,
+              "missed_important": 0
+            },
+            "focus": {
+              "surfaced": 8,
+              "suppressed": 3,
+              "kept_important": 3,
+              "missed_important": 0
+            },
+            "no_hazard_priority": {
+              "surfaced": 3,
+              "suppressed": 8,
+              "kept_important": 3,
+              "missed_important": 0
+            }
+          },
+          "morning": {
+            "default": {
+              "surfaced": 8,
+              "suppressed": 4,
+              "kept_important": 5,
+              "missed_important": 0
+            },
+            "everything": {
+              "surfaced": 12,
+              "suppressed": 0,
+              "kept_important": 5,
+              "missed_important": 0
+            },
+            "focus": {
+              "surfaced": 8,
+              "suppressed": 4,
+              "kept_important": 5,
+              "missed_important": 0
+            },
+            "no_hazard_priority": {
+              "surfaced": 5,
+              "suppressed": 7,
+              "kept_important": 5,
+              "missed_important": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "top_partners",
+      "category": "people",
+      "title": "You talked most with Person 3",
+      "text": "Top conversation partners: Person 3 (14 lines), Person 2 (12 lines), Person 1 (11 lines). Person 3 and Person 2 showed up in 4 different parts of your day.",
+      "score": 0.8,
+      "evidence_ids": [],
+      "source": "precomputed",
+      "data": {
+        "partners": {
+          "Person 3": 14,
+          "Person 2": 12,
+          "Person 1": 11,
+          "Person 4": 3,
+          "Person 5": 2
+        },
+        "segments": {
+          "Person 3": [
+            "evening",
+            "lunch",
+            "meeting",
+            "morning"
+          ],
+          "Person 1": [
+            "lecture"
+          ],
+          "Person 2": [
+            "hackathon",
+            "lecture",
+            "lunch",
+            "meeting"
+          ],
+          "Person 5": [
+            "meeting"
+          ],
+          "Person 4": [
+            "hackathon"
+          ]
+        }
+      }
+    },
+    {
+      "id": "recurring_topics",
+      "category": "topics",
+      "title": "What kept coming up",
+      "text": "Recurring topics across settings: “friday” (3x in 3), “relay” (5x in 2), “exam” (4x in 2), “belt” (3x in 2), “next” (3x in 2).",
+      "score": 0.75,
+      "evidence_ids": [
+        "seed-u-0003",
+        "seed-u-0017",
+        "seed-u-0024",
+        "seed-u-0030",
+        "seed-u-0032",
+        "seed-u-0033",
+        "seed-u-0037",
+        "seed-u-0039",
+        "seed-u-0013",
+        "seed-u-0014",
+        "seed-u-0016",
+        "seed-u-0050"
+      ],
+      "source": "precomputed",
+      "data": {
+        "topics": {
+          "friday": {
+            "count": 3,
+            "segments": [
+              "lecture",
+              "lunch",
+              "morning"
+            ]
+          },
+          "relay": {
+            "count": 5,
+            "segments": [
+              "lunch",
+              "meeting"
+            ]
+          },
+          "exam": {
+            "count": 4,
+            "segments": [
+              "evening",
+              "lecture"
+            ]
+          },
+          "belt": {
+            "count": 3,
+            "segments": [
+              "lunch",
+              "meeting"
+            ]
+          },
+          "next": {
+            "count": 3,
+            "segments": [
+              "lecture",
+              "meeting"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "routine_person_3",
+      "category": "routine",
+      "title": "Person 3 is part of your routine",
+      "text": "Person 3 appeared in 4 settings: Evening at home, Noisy lunch, Team meeting in the lab, Morning at home.",
+      "score": 0.7,
+      "evidence_ids": [],
+      "source": "precomputed",
+      "data": {
+        "segments": [
+          "evening",
+          "lunch",
+          "meeting",
+          "morning"
+        ]
+      }
+    },
+    {
+      "id": "routine_person_2",
+      "category": "routine",
+      "title": "Person 2 is part of your routine",
+      "text": "Person 2 appeared in 4 settings: Hackathon presentation, Signals lecture, Noisy lunch, Team meeting in the lab.",
+      "score": 0.7,
+      "evidence_ids": [],
+      "source": "precomputed",
+      "data": {
+        "segments": [
+          "hackathon",
+          "lecture",
+          "lunch",
+          "meeting"
+        ]
+      }
+    },
+    {
+      "id": "surfaced_suppressed",
+      "category": "attention",
+      "title": "HERE kept 59 things quiet",
+      "text": "It surfaced 67 events and suppressed 59 as ambient; most of the quiet came from noisy lunch (35 events).",
+      "score": 0.7,
+      "evidence_ids": [],
+      "source": "precomputed",
+      "data": {
+        "by_segment": {
+          "morning": {
+            "surfaced": 11,
+            "suppressed": 1
+          },
+          "commute": {
+            "surfaced": 5,
+            "suppressed": 16
+          },
+          "lecture": {
+            "surfaced": 14,
+            "suppressed": 1
+          },
+          "lunch": {
+            "surfaced": 11,
+            "suppressed": 35
+          },
+          "meeting": {
+            "surfaced": 9,
+            "suppressed": 2
+          },
+          "hackathon": {
+            "surfaced": 7,
+            "suppressed": 3
+          },
+          "evening": {
+            "surfaced": 10,
+            "suppressed": 1
+          }
+        }
+      }
+    },
+    {
+      "id": "noise_density",
+      "category": "environment",
+      "title": "Noisy lunch was the noisiest part of the day",
+      "text": "0.81 sound events per minute there vs 0.03 in signals lecture.",
+      "score": 0.65,
+      "evidence_ids": [],
+      "source": "precomputed",
+      "data": {
+        "per_min": {
+          "morning": 0.15,
+          "commute": 0.74,
+          "lecture": 0.03,
+          "lunch": 0.81,
+          "meeting": 0.06,
+          "hackathon": 0.1,
+          "evening": 0.04
+        }
+      }
+    },
+    {
+      "id": "replay_hazard_priority",
+      "category": "replay",
+      "title": "Why hazards bypass the sensitivity slider",
+      "text": "With hazard priority off and low sensitivity, 1 important events across the day would have been missed.",
+      "score": 0.6,
+      "evidence_ids": [],
+      "source": "precomputed",
+      "data": {}
+    },
+    {
+      "id": "unknown_rate",
+      "category": "honesty",
+      "title": "5% of sounds were honestly 'unknown'",
+      "text": "4 of 75 sounds had a direction but no confident label. HERE showed where they came from instead of guessing.",
+      "score": 0.55,
+      "evidence_ids": [
+        "seed-s-0021",
+        "seed-s-0022",
+        "seed-s-0025",
+        "seed-s-0070"
+      ],
+      "source": "precomputed",
+      "data": {
+        "unknown": 4,
+        "sounds": 75,
+        "rate": 0.053
+      }
+    },
+    {
+      "id": "speech_vs_environment",
+      "category": "environment",
+      "title": "Speech vs environment by place",
+      "text": "Dining hall: 33 speech / 13 other; University Ave crosswalk: 1 speech / 20 other; Shelby Hall 1103: 13 speech / 2 other; Home: kitchen: 7 speech / 5 other; Engineering lab 214: 8 speech / 3 other; Home: living room: 6 speech / 5 other; Hackathon hall: 6 speech / 4 other.",
+      "score": 0.5,
+      "evidence_ids": [],
+      "source": "precomputed",
+      "data": {
+        "by_location": {
+          "dining_hall": {
+            "speech": 33,
+            "environment": 13
+          },
+          "eng_lab_214": {
+            "speech": 8,
+            "environment": 3
+          },
+          "hackathon_hall": {
+            "speech": 6,
+            "environment": 4
+          },
+          "home_kitchen": {
+            "speech": 7,
+            "environment": 5
+          },
+          "home_living_room": {
+            "speech": 6,
+            "environment": 5
+          },
+          "shelby_1103": {
+            "speech": 13,
+            "environment": 2
+          },
+          "university_ave_crosswalk": {
+            "speech": 1,
+            "environment": 20
+          }
+        }
+      }
+    },
+    {
+      "id": "events_per_hour",
+      "category": "timeline",
+      "title": "Busiest hour: 12:00",
+      "text": "48 events between 12:00 and 13:00.",
+      "score": 0.45,
+      "evidence_ids": [],
+      "source": "precomputed",
+      "data": {
+        "per_hour": {
+          "7": 8,
+          "8": 30,
+          "9": 14,
+          "10": 2,
+          "12": 48,
+          "14": 13,
+          "16": 11,
+          "18": 6,
+          "19": 3,
+          "20": 4,
+          "21": 1
+        }
+      }
+    }
+  ]
+}

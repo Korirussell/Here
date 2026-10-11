@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://here.local/contracts/scene.schema.json",
+  "title": "scene",
+  "description": "~2-5 Hz, extras only.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "const": "scene"
+    },
+    "v": {
+      "const": 3
+    },
+    "src": {
+      "enum": [
+        "laptop",
+        "phone",
+        "relay",
+        "dashboard",
+        "memory",
+        "tool"
+      ]
+    },
+    "t": {
+      "type": "number",
+      "description": "observation time, laptop clock, unix seconds"
+    },
+    "seq": {
+      "type": "integer"
+    },
+    "session": {
+      "type": "string",
+      "description": "set by the relay"
+    },
+    "heading_deg": {
+      "type": "number",
+      "exclusiveMinimum": -180,
+      "maximum": 180,
+      "description": "degrees, world frame (0 = array forward), clockwise positive, (-180, 180]"
+    },
+    "people": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "bearing_deg": {
+            "type": "number",
+            "exclusiveMinimum": -180,
+            "maximum": 180,
+            "description": "degrees, world frame (0 = array forward), clockwise positive, (-180, 180]"
+          },
+          "speaking": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "label",
+          "bearing_deg",
+          "speaking"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "type",
+    "v",
+    "src",
+    "t",
+    "heading_deg",
+    "people"
+  ],
+  "additionalProperties": false
+}

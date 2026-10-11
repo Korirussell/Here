@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://here.local/contracts/perception_enrichment.schema.json",
+  "title": "perception_enrichment",
+  "description": "Optional, arrives after the event it refers to (ref). attention: how prominent to make it (a Hugging Face zero-shot model, or deterministic rules when attention_model is 'rules'); directed_at_user: probability; context: one-line semantic note (Gemini). Never decides whether an event exists or where it is.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "const": "perception_enrichment"
+    },
+    "v": {
+      "const": 3
+    },
+    "src": {
+      "enum": [
+        "laptop",
+        "phone",
+        "relay",
+        "dashboard",
+        "memory",
+        "tool"
+      ]
+    },
+    "t": {
+      "type": "number",
+      "description": "observation time, laptop clock, unix seconds"
+    },
+    "seq": {
+      "type": "integer"
+    },
+    "session": {
+      "type": "string",
+      "description": "set by the relay"
+    },
+    "ref": {
+      "type": "object",
+      "properties": {
+        "utt_id": {
+          "type": "string"
+        },
+        "event_id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "attention": {
+      "enum": [
+        "ambient",
+        "notice",
+        "important",
+        "urgent"
+      ]
+    },
+    "attention_confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "attention_model": {
+      "type": "string"
+    },
+    "directed_at_user": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "context": {
+      "type": "string"
+    },
+    "context_model": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "type",
+    "v",
+    "src",
+    "t",
+    "ref",
+    "attention",
+    "attention_confidence",
+    "attention_model"
+  ],
+  "additionalProperties": false
+}

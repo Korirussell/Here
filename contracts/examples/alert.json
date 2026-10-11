@@ -1,0 +1,1 @@
+{"type":"alert","v":3,"src":"laptop","t":1760000003.0,"alert_id":"a-0003","kind":"doorbell","label":"Doorbell","emoji":"🔔","priority":2,"bearing_deg":172.0,"active":true,"confidence":0.71,"ref":{"event_id":"s-0007"}}

@@ -1,0 +1,21 @@
+{
+  "name": "here-insights",
+  "tasks": [
+    {
+      "task_key": "insights",
+      "notebook_task": {
+        "notebook_path": "/Workspace/Shared/here/extras/cloud/databricks/here_insights",
+        "source": "WORKSPACE",
+        "base_parameters": {
+          "export_path": "/Volumes/workspace/here/exports/events.jsonl",
+          "output_path": "/Volumes/workspace/here/exports/insights_databricks.json",
+          "catalog_schema": "workspace.here",
+          "tz_offset_h": "-5",
+          "user_name": "Kori"
+        }
+      }
+    }
+  ],
+  "max_concurrent_runs": 1,
+  "timeout_seconds": 900
+}

@@ -1,0 +1,1634 @@
+{
+ "morning": {
+  "segment_id": "morning",
+  "policy": {
+   "sensitivity": 0.5,
+   "crowd_filter": true,
+   "focus_mode": false,
+   "hazard_priority": true,
+   "speech_priority": false
+  },
+  "surfaced": 8,
+  "suppressed": 4,
+  "kept_important": 5,
+  "missed_important": 0,
+  "by_category": {
+   "crowd": {
+    "surfaced": 0,
+    "suppressed": 1
+   },
+   "speech": {
+    "surfaced": 6,
+    "suppressed": 0
+   },
+   "ambient": {
+    "surfaced": 0,
+    "suppressed": 3
+   },
+   "name_called": {
+    "surfaced": 1,
+    "suppressed": 0
+   },
+   "alert": {
+    "surfaced": 1,
+    "suppressed": 0
+   }
+  },
+  "decisions": [
+   {
+    "event_id": "seed-s-0001",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791549665.084,
+    "text": "Music",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-u-0001",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791549790.013,
+    "text": "Morning! There's coffee in the pot if you want some.",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.55 >= threshold 0.47",
+    "score": 0.55
+   },
+   {
+    "event_id": "seed-u-0002",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791549842.485,
+    "text": "Did you finish the slides for the hackathon?",
+    "surfaced": true,
+    "important": true,
+    "reason": "score 0.89 >= threshold 0.47",
+    "score": 0.892
+   },
+   {
+    "event_id": "seed-u-0003",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791549930.181,
+    "text": "I can't believe it's Friday already.",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.55 >= threshold 0.47",
+    "score": 0.55
+   },
+   {
+    "event_id": "seed-s-0002",
+    "type": "sound_event",
+    "category": "ambient",
+    "t": 1791550340.212,
+    "text": "Door",
+    "surfaced": false,
+    "important": false,
+    "reason": "score 0.35 < threshold 0.47",
+    "score": 0.35
+   },
+   {
+    "event_id": "seed-u-0004",
+    "type": "utterance",
+    "category": "name_called",
+    "t": 1791550695.871,
+    "text": "Kori, your phone is buzzing on the counter!",
+    "surfaced": true,
+    "important": true,
+    "reason": "your name",
+    "score": 0.95
+   },
+   {
+    "event_id": "seed-s-0003",
+    "type": "sound_event",
+    "category": "ambient",
+    "t": 1791550720.286,
+    "text": "Phone ringing",
+    "surfaced": false,
+    "important": false,
+    "reason": "score 0.35 < threshold 0.47",
+    "score": 0.35
+   },
+   {
+    "event_id": "seed-u-0005",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791551100.629,
+    "text": "Are you taking the bus or walking today?",
+    "surfaced": true,
+    "important": true,
+    "reason": "score 0.87 >= threshold 0.47",
+    "score": 0.868
+   },
+   {
+    "event_id": "seed-u-0006",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791551172.88,
+    "text": "Remember the landlord is coming at seven tonight to look at the sink.",
+    "surfaced": true,
+    "important": true,
+    "reason": "score 0.82 >= threshold 0.47",
+    "score": 0.82
+   },
+   {
+    "event_id": "seed-s-0004",
+    "type": "sound_event",
+    "category": "alert",
+    "t": 1791551550.55,
+    "text": "Doorbell",
+    "surfaced": true,
+    "important": true,
+    "reason": "score 0.77 >= threshold 0.47",
+    "score": 0.775
+   },
+   {
+    "event_id": "seed-u-0007",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791551570.471,
+    "text": "That's probably the package I ordered.",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.55 >= threshold 0.47",
+    "score": 0.55
+   },
+   {
+    "event_id": "seed-s-0005",
+    "type": "sound_event",
+    "category": "ambient",
+    "t": 1791551710.358,
+    "text": "Dog barking",
+    "surfaced": false,
+    "important": false,
+    "reason": "score 0.35 < threshold 0.47",
+    "score": 0.35
+   }
+  ]
+ },
+ "commute": {
+  "segment_id": "commute",
+  "policy": {
+   "sensitivity": 0.5,
+   "crowd_filter": true,
+   "focus_mode": false,
+   "hazard_priority": true,
+   "speech_priority": false
+  },
+  "surfaced": 4,
+  "suppressed": 17,
+  "kept_important": 3,
+  "missed_important": 0,
+  "by_category": {
+   "crowd": {
+    "surfaced": 0,
+    "suppressed": 14
+   },
+   "hazard": {
+    "surfaced": 3,
+    "suppressed": 0
+   },
+   "unknown": {
+    "surfaced": 0,
+    "suppressed": 3
+   },
+   "speech": {
+    "surfaced": 1,
+    "suppressed": 0
+   }
+  },
+  "decisions": [
+   {
+    "event_id": "seed-s-0006",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791552420.047,
+    "text": "Vehicle",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0007",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791552482.549,
+    "text": "Vehicle",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0008",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791552664.169,
+    "text": "Vehicle",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0020",
+    "type": "sound_event",
+    "category": "hazard",
+    "t": 1791552700.747,
+    "text": "Car horn",
+    "surfaced": true,
+    "important": true,
+    "reason": "hazard priority",
+    "score": 0.95
+   },
+   {
+    "event_id": "seed-s-0009",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791552766.494,
+    "text": "Vehicle",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0021",
+    "type": "sound_event",
+    "category": "unknown",
+    "t": 1791552785.675,
+    "text": "Unknown sound",
+    "surfaced": false,
+    "important": false,
+    "reason": "score 0.40 < threshold 0.47",
+    "score": 0.4
+   },
+   {
+    "event_id": "seed-s-0010",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791552857.695,
+    "text": "Vehicle",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0011",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791552974.147,
+    "text": "Chairs scraping",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0022",
+    "type": "sound_event",
+    "category": "unknown",
+    "t": 1791552990.837,
+    "text": "Unknown sound",
+    "surfaced": false,
+    "important": false,
+    "reason": "score 0.25 < threshold 0.47",
+    "score": 0.25
+   },
+   {
+    "event_id": "seed-s-0023",
+    "type": "sound_event",
+    "category": "hazard",
+    "t": 1791553095.412,
+    "text": "Siren",
+    "surfaced": true,
+    "important": true,
+    "reason": "hazard priority",
+    "score": 0.95
+   },
+   {
+    "event_id": "seed-s-0012",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791553137.083,
+    "text": "Vehicle",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0013",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791553213.213,
+    "text": "Dishes clattering",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0014",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791553432.065,
+    "text": "Vehicle",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-u-0008",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791553460.35,
+    "text": "Excuse me, is this the way to the engineering building?",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.74 >= threshold 0.47",
+    "score": 0.744
+   },
+   {
+    "event_id": "seed-s-0015",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791553519.553,
+    "text": "Vehicle",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0016",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791553712.677,
+    "text": "Vehicle",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0017",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791553799.508,
+    "text": "Vehicle",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0024",
+    "type": "sound_event",
+    "category": "hazard",
+    "t": 1791553805.794,
+    "text": "Loud bang",
+    "surfaced": true,
+    "important": true,
+    "reason": "hazard priority",
+    "score": 0.8
+   },
+   {
+    "event_id": "seed-s-0025",
+    "type": "sound_event",
+    "category": "unknown",
+    "t": 1791553860.301,
+    "text": "Unknown sound",
+    "surfaced": false,
+    "important": false,
+    "reason": "score 0.25 < threshold 0.47",
+    "score": 0.25
+   },
+   {
+    "event_id": "seed-s-0018",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791553947.412,
+    "text": "Vehicle",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0019",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791554046.687,
+    "text": "Vehicle",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   }
+  ]
+ },
+ "lecture": {
+  "segment_id": "lecture",
+  "policy": {
+   "sensitivity": 0.5,
+   "crowd_filter": true,
+   "focus_mode": false,
+   "hazard_priority": true,
+   "speech_priority": false
+  },
+  "surfaced": 13,
+  "suppressed": 2,
+  "kept_important": 6,
+  "missed_important": 0,
+  "by_category": {
+   "speech": {
+    "surfaced": 12,
+    "suppressed": 0
+   },
+   "ambient": {
+    "surfaced": 0,
+    "suppressed": 2
+   },
+   "name_called": {
+    "surfaced": 1,
+    "suppressed": 0
+   }
+  },
+  "decisions": [
+   {
+    "event_id": "seed-u-0009",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791554460.419,
+    "text": "Good morning everyone, let's get started.",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.55 >= threshold 0.47",
+    "score": 0.55
+   },
+   {
+    "event_id": "seed-u-0010",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791554530.633,
+    "text": "Today we finish chapter six, beamforming and direction of arrival.",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.59 >= threshold 0.47",
+    "score": 0.586
+   },
+   {
+    "event_id": "seed-s-0026",
+    "type": "sound_event",
+    "category": "ambient",
+    "t": 1791554670.039,
+    "text": "Door",
+    "surfaced": false,
+    "important": false,
+    "reason": "score 0.35 < threshold 0.47",
+    "score": 0.35
+   },
+   {
+    "event_id": "seed-u-0011",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791555160.33,
+    "text": "A steering vector tells the array how much to delay each microphone.",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.57 >= threshold 0.47",
+    "score": 0.568
+   },
+   {
+    "event_id": "seed-u-0012",
+    "type": "utterance",
+    "category": "name_called",
+    "t": 1791555605.77,
+    "text": "Kori, can you tell us what the steering vector represents?",
+    "surfaced": true,
+    "important": true,
+    "reason": "your name",
+    "score": 0.85
+   },
+   {
+    "event_id": "seed-u-0013",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791556500.345,
+    "text": "Quick reminder about the exam before I forget.",
+    "surfaced": true,
+    "important": true,
+    "reason": "score 0.70 >= threshold 0.47",
+    "score": 0.7
+   },
+   {
+    "event_id": "seed-u-0014",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791556520.06,
+    "text": "The midterm exam is next Thursday, October 15th, here in this room.",
+    "surfaced": true,
+    "important": true,
+    "reason": "score 0.70 >= threshold 0.47",
+    "score": 0.7
+   },
+   {
+    "event_id": "seed-u-0015",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791556545.412,
+    "text": "It covers chapters four through seven, and you can bring one page of handwritten notes.",
+    "surfaced": true,
+    "important": true,
+    "reason": "score 0.70 >= threshold 0.47",
+    "score": 0.7
+   },
+   {
+    "event_id": "seed-u-0016",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791556570.777,
+    "text": "Did he just say the exam is next Thursday?",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.75 >= threshold 0.47",
+    "score": 0.746
+   },
+   {
+    "event_id": "seed-u-0017",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791556600.21,
+    "text": "And the project report is due Friday, October 16th at 11:59 pm on Canvas.",
+    "surfaced": true,
+    "important": true,
+    "reason": "score 0.70 >= threshold 0.47",
+    "score": 0.7
+   },
+   {
+    "event_id": "seed-u-0018",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791556625.673,
+    "text": "Late reports lose ten percent per day, so please don't push it.",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.60 >= threshold 0.47",
+    "score": 0.604
+   },
+   {
+    "event_id": "seed-s-0027",
+    "type": "sound_event",
+    "category": "ambient",
+    "t": 1791556860.535,
+    "text": "Phone ringing",
+    "surfaced": false,
+    "important": false,
+    "reason": "score 0.20 < threshold 0.47",
+    "score": 0.2
+   },
+   {
+    "event_id": "seed-u-0019",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791557550.761,
+    "text": "Office hours move to Wednesday at two this week.",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.55 >= threshold 0.47",
+    "score": 0.55
+   },
+   {
+    "event_id": "seed-u-0020",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791558540.753,
+    "text": "Want to study together Tuesday night?",
+    "surfaced": true,
+    "important": true,
+    "reason": "score 0.83 >= threshold 0.47",
+    "score": 0.83
+   },
+   {
+    "event_id": "seed-u-0021",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791558750.247,
+    "text": "That's it for today, see you Monday.",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.55 >= threshold 0.47",
+    "score": 0.55
+   }
+  ]
+ },
+ "lunch": {
+  "segment_id": "lunch",
+  "policy": {
+   "sensitivity": 0.5,
+   "crowd_filter": true,
+   "focus_mode": false,
+   "hazard_priority": true,
+   "speech_priority": false
+  },
+  "surfaced": 11,
+  "suppressed": 35,
+  "kept_important": 2,
+  "missed_important": 0,
+  "by_category": {
+   "crowd": {
+    "surfaced": 0,
+    "suppressed": 35
+   },
+   "name_called": {
+    "surfaced": 1,
+    "suppressed": 0
+   },
+   "speech": {
+    "surfaced": 9,
+    "suppressed": 0
+   },
+   "hazard": {
+    "surfaced": 1,
+    "suppressed": 0
+   }
+  },
+  "decisions": [
+   {
+    "event_id": "seed-s-0028",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791565502.442,
+    "text": "Speech",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-u-0022",
+    "type": "utterance",
+    "category": "name_called",
+    "t": 1791565630.323,
+    "text": "Kori! Over here, we saved you a seat.",
+    "surfaced": true,
+    "important": true,
+    "reason": "your name",
+    "score": 0.95
+   },
+   {
+    "event_id": "seed-s-0029",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791565655.69,
+    "text": "Speech",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0030",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791565723.489,
+    "text": "Dishes clattering",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-u-0023",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791565740.001,
+    "text": "Okay so the internship fair is Wednesday in the student center.",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.82 >= threshold 0.47",
+    "score": 0.82
+   },
+   {
+    "event_id": "seed-s-0031",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791565741.692,
+    "text": "Speech",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-u-0024",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791565780.07,
+    "text": "Wait, I thought it was Friday?",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.55 >= threshold 0.47",
+    "score": 0.55
+   },
+   {
+    "event_id": "seed-u-0025",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791565805.119,
+    "text": "No, Wednesday! They moved it because of the game.",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.57 >= threshold 0.47",
+    "score": 0.574
+   },
+   {
+    "event_id": "seed-s-0032",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791565834.333,
+    "text": "Speech",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0033",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791565916.345,
+    "text": "Speech",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-u-0026",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791565950.141,
+    "text": "Are we still demoing the belt first or the glasses?",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.76 >= threshold 0.47",
+    "score": 0.76
+   },
+   {
+    "event_id": "seed-u-0027",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791565990.799,
+    "text": "Glasses first, then the belt when someone talks from behind.",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.55 >= threshold 0.47",
+    "score": 0.55
+   },
+   {
+    "event_id": "seed-s-0034",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791566003.508,
+    "text": "Speech",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0035",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791566109.663,
+    "text": "Chairs scraping",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0036",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791566193.521,
+    "text": "Speech",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0037",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791566256.051,
+    "text": "Speech",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0062",
+    "type": "sound_event",
+    "category": "hazard",
+    "t": 1791566300.47,
+    "text": "Loud bang",
+    "surfaced": true,
+    "important": true,
+    "reason": "hazard priority",
+    "score": 0.95
+   },
+   {
+    "event_id": "seed-u-0028",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791566310.362,
+    "text": "Somebody just dropped an entire tray of pasta.",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.55 >= threshold 0.47",
+    "score": 0.55
+   },
+   {
+    "event_id": "seed-s-0063",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791566315.338,
+    "text": "Laughter",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0038",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791566317.206,
+    "text": "Music",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0039",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791566438.0,
+    "text": "Music",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0040",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791566507.437,
+    "text": "Speech",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0041",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791566559.786,
+    "text": "Sound",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-u-0029",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791566640.33,
+    "text": "My mom keeps asking when I'm coming home for break.",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.55 >= threshold 0.47",
+    "score": 0.55
+   },
+   {
+    "event_id": "seed-s-0042",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791566687.726,
+    "text": "Speech",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0043",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791566717.006,
+    "text": "Music",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0044",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791566811.497,
+    "text": "Laughter",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0045",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791566909.151,
+    "text": "Speech",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0046",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791566932.222,
+    "text": "Speech",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0047",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791567031.754,
+    "text": "Speech",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-u-0030",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791567075.212,
+    "text": "We need to deploy the relay before the judges show up.",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.60 >= threshold 0.47",
+    "score": 0.598
+   },
+   {
+    "event_id": "seed-s-0048",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791567138.837,
+    "text": "Chairs scraping",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0049",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791567218.376,
+    "text": "Music",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0050",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791567314.936,
+    "text": "Laughter",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0051",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791567370.18,
+    "text": "Speech",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0052",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791567436.568,
+    "text": "Music",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0053",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791567554.495,
+    "text": "Speech",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0054",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791567585.184,
+    "text": "Dishes clattering",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-u-0031",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791567600.562,
+    "text": "I'll grab more fries, do you want anything?",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.85 >= threshold 0.47",
+    "score": 0.85
+   },
+   {
+    "event_id": "seed-s-0055",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791567683.054,
+    "text": "Chairs scraping",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0056",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791567732.229,
+    "text": "Laughter",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0057",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791567863.16,
+    "text": "Speech",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0058",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791567958.434,
+    "text": "Music",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0059",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791567975.525,
+    "text": "Laughter",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0060",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791568060.85,
+    "text": "Speech",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-s-0061",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791568154.071,
+    "text": "Speech",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   }
+  ]
+ },
+ "meeting": {
+  "segment_id": "meeting",
+  "policy": {
+   "sensitivity": 0.5,
+   "crowd_filter": true,
+   "focus_mode": false,
+   "hazard_priority": true,
+   "speech_priority": false
+  },
+  "surfaced": 8,
+  "suppressed": 3,
+  "kept_important": 3,
+  "missed_important": 0,
+  "by_category": {
+   "speech": {
+    "surfaced": 6,
+    "suppressed": 1
+   },
+   "alert": {
+    "surfaced": 1,
+    "suppressed": 0
+   },
+   "name_called": {
+    "surfaced": 1,
+    "suppressed": 0
+   },
+   "ambient": {
+    "surfaced": 0,
+    "suppressed": 2
+   }
+  },
+  "decisions": [
+   {
+    "event_id": "seed-u-0032",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791572460.582,
+    "text": "Okay, status round. Relay first.",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.55 >= threshold 0.47",
+    "score": 0.55
+   },
+   {
+    "event_id": "seed-u-0033",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791572530.817,
+    "text": "The relay works locally, Vultr deploy is next.",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.55 >= threshold 0.47",
+    "score": 0.55
+   },
+   {
+    "event_id": "seed-u-0034",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791572580.369,
+    "text": "The belt motors are all wired, motor three was loose.",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.59 >= threshold 0.47",
+    "score": 0.586
+   },
+   {
+    "event_id": "seed-u-0035",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791572730.511,
+    "text": "Latency on the captions is around two hundred milliseconds.",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.59 >= threshold 0.47",
+    "score": 0.586
+   },
+   {
+    "event_id": "seed-s-0064",
+    "type": "sound_event",
+    "category": "alert",
+    "t": 1791573060.477,
+    "text": "Knock",
+    "surfaced": true,
+    "important": true,
+    "reason": "score 0.77 >= threshold 0.47",
+    "score": 0.775
+   },
+   {
+    "event_id": "seed-u-0036",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791573080.834,
+    "text": "Sorry, is this room booked at three?",
+    "surfaced": false,
+    "important": false,
+    "reason": "score 0.36 < threshold 0.47",
+    "score": 0.36
+   },
+   {
+    "event_id": "seed-u-0037",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791573600.741,
+    "text": "We need the relay deployed by eight tonight, no excuses.",
+    "surfaced": true,
+    "important": true,
+    "reason": "score 0.70 >= threshold 0.47",
+    "score": 0.7
+   },
+   {
+    "event_id": "seed-u-0038",
+    "type": "utterance",
+    "category": "name_called",
+    "t": 1791573760.576,
+    "text": "Kori, can you own the memory dashboard demo?",
+    "surfaced": true,
+    "important": true,
+    "reason": "your name",
+    "score": 0.85
+   },
+   {
+    "event_id": "seed-s-0065",
+    "type": "sound_event",
+    "category": "ambient",
+    "t": 1791574200.284,
+    "text": "Phone ringing",
+    "surfaced": false,
+    "important": false,
+    "reason": "score 0.20 < threshold 0.47",
+    "score": 0.2
+   },
+   {
+    "event_id": "seed-u-0039",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791574860.125,
+    "text": "If the internet drops we switch to the local relay.",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.55 >= threshold 0.47",
+    "score": 0.55
+   },
+   {
+    "event_id": "seed-s-0066",
+    "type": "sound_event",
+    "category": "ambient",
+    "t": 1791575520.617,
+    "text": "Door",
+    "surfaced": false,
+    "important": false,
+    "reason": "score 0.35 < threshold 0.47",
+    "score": 0.35
+   }
+  ]
+ },
+ "hackathon": {
+  "segment_id": "hackathon",
+  "policy": {
+   "sensitivity": 0.5,
+   "crowd_filter": true,
+   "focus_mode": false,
+   "hazard_priority": true,
+   "speech_priority": false
+  },
+  "surfaced": 7,
+  "suppressed": 3,
+  "kept_important": 2,
+  "missed_important": 0,
+  "by_category": {
+   "crowd": {
+    "surfaced": 0,
+    "suppressed": 2
+   },
+   "speech": {
+    "surfaced": 6,
+    "suppressed": 0
+   },
+   "hazard": {
+    "surfaced": 1,
+    "suppressed": 0
+   },
+   "unknown": {
+    "surfaced": 0,
+    "suppressed": 1
+   }
+  },
+  "decisions": [
+   {
+    "event_id": "seed-s-0067",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791579630.579,
+    "text": "Music",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-u-0040",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791580200.126,
+    "text": "Hi judges, this is HERE, it shows you who is talking and where.",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.55 >= threshold 0.47",
+    "score": 0.55
+   },
+   {
+    "event_id": "seed-u-0041",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791580400.345,
+    "text": "How fast does the caption show up?",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.76 >= threshold 0.47",
+    "score": 0.76
+   },
+   {
+    "event_id": "seed-u-0042",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791580430.084,
+    "text": "The direction arrives in under a quarter of a second.",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.55 >= threshold 0.47",
+    "score": 0.55
+   },
+   {
+    "event_id": "seed-u-0043",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791580560.288,
+    "text": "What happens if the internet drops?",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.76 >= threshold 0.47",
+    "score": 0.76
+   },
+   {
+    "event_id": "seed-s-0068",
+    "type": "sound_event",
+    "category": "hazard",
+    "t": 1791580720.897,
+    "text": "Alarm",
+    "surfaced": true,
+    "important": true,
+    "reason": "hazard priority",
+    "score": 0.95
+   },
+   {
+    "event_id": "seed-u-0044",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791580740.749,
+    "text": "That's just the alarm test, everyone stay seated.",
+    "surfaced": true,
+    "important": true,
+    "reason": "score 0.60 >= threshold 0.47",
+    "score": 0.6
+   },
+   {
+    "event_id": "seed-s-0069",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791581040.286,
+    "text": "Applause",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-u-0045",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791581100.831,
+    "text": "Great demo, I'd love to see it on a busy street.",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.59 >= threshold 0.47",
+    "score": 0.586
+   },
+   {
+    "event_id": "seed-s-0070",
+    "type": "sound_event",
+    "category": "unknown",
+    "t": 1791582000.707,
+    "text": "Unknown sound",
+    "surfaced": false,
+    "important": false,
+    "reason": "score 0.25 < threshold 0.47",
+    "score": 0.25
+   }
+  ]
+ },
+ "evening": {
+  "segment_id": "evening",
+  "policy": {
+   "sensitivity": 0.5,
+   "crowd_filter": true,
+   "focus_mode": false,
+   "hazard_priority": true,
+   "speech_priority": false
+  },
+  "surfaced": 7,
+  "suppressed": 4,
+  "kept_important": 6,
+  "missed_important": 0,
+  "by_category": {
+   "crowd": {
+    "surfaced": 0,
+    "suppressed": 1
+   },
+   "speech": {
+    "surfaced": 3,
+    "suppressed": 2
+   },
+   "alert": {
+    "surfaced": 2,
+    "suppressed": 0
+   },
+   "hazard": {
+    "surfaced": 1,
+    "suppressed": 0
+   },
+   "name_called": {
+    "surfaced": 1,
+    "suppressed": 0
+   },
+   "ambient": {
+    "surfaced": 0,
+    "suppressed": 1
+   }
+  },
+  "decisions": [
+   {
+    "event_id": "seed-s-0071",
+    "type": "sound_event",
+    "category": "crowd",
+    "t": 1791589800.561,
+    "text": "TV",
+    "surfaced": false,
+    "important": false,
+    "reason": "crowd filter",
+    "score": 0.125
+   },
+   {
+    "event_id": "seed-u-0046",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791589950.759,
+    "text": "How did the presentation go?",
+    "surfaced": true,
+    "important": true,
+    "reason": "score 0.91 >= threshold 0.47",
+    "score": 0.91
+   },
+   {
+    "event_id": "seed-u-0047",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791590010.691,
+    "text": "My grandma's back in the hospital, I might fly home this weekend.",
+    "surfaced": true,
+    "important": false,
+    "reason": "score 0.59 >= threshold 0.47",
+    "score": 0.586
+   },
+   {
+    "event_id": "seed-s-0072",
+    "type": "sound_event",
+    "category": "alert",
+    "t": 1791590280.134,
+    "text": "Doorbell",
+    "surfaced": true,
+    "important": true,
+    "reason": "score 0.77 >= threshold 0.47",
+    "score": 0.775
+   },
+   {
+    "event_id": "seed-u-0048",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791590310.32,
+    "text": "Hi, I'm here to look at the sink.",
+    "surfaced": false,
+    "important": false,
+    "reason": "score 0.45 < threshold 0.47",
+    "score": 0.45
+   },
+   {
+    "event_id": "seed-s-0073",
+    "type": "sound_event",
+    "category": "hazard",
+    "t": 1791591600.859,
+    "text": "Baby crying",
+    "surfaced": true,
+    "important": true,
+    "reason": "hazard priority",
+    "score": 0.65
+   },
+   {
+    "event_id": "seed-u-0049",
+    "type": "utterance",
+    "category": "name_called",
+    "t": 1791592920.566,
+    "text": "Kori, dinner's ready!",
+    "surfaced": true,
+    "important": true,
+    "reason": "your name",
+    "score": 0.95
+   },
+   {
+    "event_id": "seed-s-0074",
+    "type": "sound_event",
+    "category": "alert",
+    "t": 1791594900.09,
+    "text": "Knock",
+    "surfaced": true,
+    "important": true,
+    "reason": "score 0.77 >= threshold 0.47",
+    "score": 0.775
+   },
+   {
+    "event_id": "seed-u-0050",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791594960.611,
+    "text": "Good luck on the exam Thursday, you've got this.",
+    "surfaced": true,
+    "important": true,
+    "reason": "score 0.78 >= threshold 0.47",
+    "score": 0.78
+   },
+   {
+    "event_id": "seed-s-0075",
+    "type": "sound_event",
+    "category": "ambient",
+    "t": 1791595800.334,
+    "text": "Dog barking",
+    "surfaced": false,
+    "important": false,
+    "reason": "score 0.35 < threshold 0.47",
+    "score": 0.35
+   },
+   {
+    "event_id": "seed-u-0051",
+    "type": "utterance",
+    "category": "speech",
+    "t": 1791597900.178,
+    "text": "I'm heading to bed, night!",
+    "surfaced": false,
+    "important": false,
+    "reason": "score 0.45 < threshold 0.47",
+    "score": 0.45
+   }
+  ]
+ }
+}

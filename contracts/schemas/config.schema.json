@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://here.local/contracts/config.schema.json",
+  "title": "config",
+  "description": "Phone -> relay -> all; the relay re-sends the latest to new clients.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "const": "config"
+    },
+    "v": {
+      "const": 3
+    },
+    "src": {
+      "enum": [
+        "laptop",
+        "phone",
+        "relay",
+        "dashboard",
+        "memory",
+        "tool"
+      ]
+    },
+    "t": {
+      "type": "number",
+      "description": "observation time, laptop clock, unix seconds"
+    },
+    "seq": {
+      "type": "integer"
+    },
+    "session": {
+      "type": "string",
+      "description": "set by the relay"
+    },
+    "user_name": {
+      "type": "string"
+    },
+    "name_aliases": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "focus_mode": {
+      "type": "boolean"
+    },
+    "belt_only_mode": {
+      "type": "boolean"
+    },
+    "features": {
+      "type": "object",
+      "properties": {
+        "captions": {
+          "type": "boolean"
+        },
+        "tone": {
+          "type": "boolean"
+        },
+        "rings": {
+          "type": "boolean"
+        },
+        "alerts": {
+          "type": "boolean"
+        },
+        "belt": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "captions",
+        "tone",
+        "rings",
+        "alerts",
+        "belt"
+      ],
+      "additionalProperties": false
+    },
+    "alerts_enabled": {
+      "type": "object",
+      "propertyNames": {
+        "enum": [
+          "doorbell",
+          "name_called",
+          "dog_barking",
+          "baby_crying",
+          "knock",
+          "alarm",
+          "loud_bang",
+          "car_horn",
+          "siren",
+          "door"
+        ]
+      },
+      "additionalProperties": {
+        "type": "boolean"
+      }
+    },
+    "belt_strength": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 255
+    }
+  },
+  "required": [
+    "type",
+    "v",
+    "src",
+    "t",
+    "user_name",
+    "name_aliases",
+    "focus_mode",
+    "belt_only_mode",
+    "features",
+    "alerts_enabled",
+    "belt_strength"
+  ],
+  "additionalProperties": false
+}

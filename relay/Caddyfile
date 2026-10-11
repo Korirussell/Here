@@ -1,0 +1,15 @@
+# Caddy in front of the HERE relay (README §7): automatic HTTPS, WebSocket upgrade, and the memory API.
+# HERE_HOST comes from the environment (/etc/default/caddy or the systemd unit), e.g.
+#   HERE_HOST=here.example.com     (a domain you point at the server)
+#   HERE_HOST=203-0-113-7.sslip.io (free hostname for the server's IP; dashes, not dots)
+{$HERE_HOST} {
+	encode zstd gzip
+	@ws path /ws /health
+	reverse_proxy @ws 127.0.0.1:8080 {
+		flush_interval -1
+	}
+	# memory API (extras/memory, here-memory.service). Optional: if it's not running, /api returns 502 and
+	# nothing else is affected. Proxied requests need the relay token (extras/memory/api.py).
+	reverse_proxy /api/* 127.0.0.1:8790
+	respond / "HERE relay. WebSocket at /ws, status at /health, memory at /api/health." 200
+}

@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Belt Controller</title>
+<!--
+  Web Bluetooth controller for belt/firmware/here_belt_6motor (Nordic UART-style UUIDs, 3/4-byte commands).
+  Chrome or Edge only (Safari / iOS have no Web Bluetooth). Needs a secure context: serve it from localhost,
+  e.g. `python -m http.server 8799 -d belt/controller`, then open http://localhost:8799.
+-->
+<style>
+  :root {
+    --bg: #0f1115; --panel: #181b22; --line: #2a2f3a; --text: #e8eaf0; --muted: #9aa3b2;
+    --accent: #4cc2ff; --hot: #ff6b4a; --ok: #3ddc84;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.4 system-ui, sans-serif; }
+  main { max-width: 720px; margin: 0 auto; padding: 16px; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 16px; }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  button { background: #222733; color: var(--text); border: 1px solid var(--line); border-radius: 8px;
+           padding: 10px 14px; font: inherit; cursor: pointer; }
+  button:hover:not(:disabled) { border-color: var(--accent); }
+  button:disabled { opacity: .45; cursor: not-allowed; }
+  button.primary { background: var(--accent); color: #062033; border-color: var(--accent); font-weight: 600; }
+  button.stop { background: var(--hot); color: #2a0800; border-color: var(--hot); font-weight: 700; }
+  #status { margin-left: auto; color: var(--muted); }
+  #status.on { color: var(--ok); }
+  .dial { position: relative; width: 300px; height: 300px; margin: 8px auto; }
+  .dial .ring { position: absolute; inset: 40px; border: 2px dashed var(--line); border-radius: 50%; }
+  .dial .you { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); color: var(--muted); font-size: 13px; text-align: center; }
+  .motor { position: absolute; width: 74px; height: 56px; transform: translate(-50%, -50%); padding: 4px;
+           display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 12px; }
+  .motor b { font-size: 16px; }
+  .motor.buzz { background: var(--accent); color: #062033; border-color: var(--accent); }
+  label { display: flex; align-items: center; gap: 10px; margin: 6px 0; }
+  label span.name { width: 80px; color: var(--muted); }
+  input[type=range] { flex: 1; }
+  label output { width: 64px; text-align: right; font-variant-numeric: tabular-nums; }
+  #log { font: 12px/1.5 ui-monospace, monospace; color: var(--muted); max-height: 140px; overflow: auto; white-space: pre-wrap; }
+  .hint { color: var(--muted); font-size: 13px; }
+  kbd { border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: 12px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>HERE Belt Controller</h1>
+  <p class="sub">6 motors over Bluetooth, for the <code>HERE-Belt</code> 6-motor firmware.</p>
+
+  <div class="panel row">
+    <button id="connect" class="primary">Connect belt</button>
+    <button id="disconnect" disabled>Disconnect</button>
+    <button id="stop" class="stop" disabled>STOP ALL</button>
+    <span id="status">Not connected</span>
+  </div>
+
+  <div class="panel">
+    <div class="dial" id="dial">
+      <div class="ring"></div>
+      <div class="you">wearer<br>(front is up)</div>
+    </div>
+    <p class="hint">Click a motor to buzz it. Keys: <kbd>1</kbd>–<kbd>6</kbd> motors, <kbd>A</kbd> all,
+      <kbd>S</kbd> sweep, <kbd>Space</kbd> stop.</p>
+  </div>
+
+  <div class="panel">
+    <label><span class="name">Strength</span><input id="strength" type="range" min="0" max="255" value="190"><output id="strengthOut"></output></label>
+    <label><span class="name">Duration</span><input id="duration" type="range" min="1" max="255" value="40"><output id="durationOut"></output></label>
+    <p class="hint">The firmware caps strength at 220 (MAX_DUTY). Duration is sent in 10 ms units (max 2.55 s).</p>
+  </div>
+
+  <div class="panel row">
+    <button data-group="all">All</button>
+    <button data-group="front">Front</button>
+    <button data-group="back">Back</button>
+    <button data-group="right">Right side</button>
+    <button data-group="left">Left side</button>
+    <button data-group="frontback">Front + back</button>
+    <button id="sweep">Sweep around</button>
+    <button id="pulse">Pulse all ×3</button>
+  </div>
+
+  <div class="panel">
+    <label><span class="name">Direction</span><input id="dir" type="range" min="-180" max="180" value="0" step="5"><output id="dirOut"></output></label>
+    <div class="row"><button id="dirGo">Buzz toward direction</button>
+      <span class="hint">Picks the nearest motor (0 = front, +90 = right, 180 = behind).</span></div>
+  </div>
+
+  <div class="panel"><div id="log"></div></div>
+</main>
+
+<script>
+const SERVICE = '6e400001-b5a3-f393-e0a9-e50e24dcca9e';
+const CMD = '6e400002-b5a3-f393-e0a9-e50e24dcca9e';
+// Logical motor index (what the firmware takes) -> where it sits on the wearer, measured on the real belt
+// (2026-10-11). Degrees clockwise from the wearer's front.
+const MOTORS = [
+  { name: 'Back-R', deg: 150 },
+  { name: 'Left', deg: 270 },
+  { name: 'Front-R', deg: 30 },
+  { name: 'Back-L', deg: 210 },
+  { name: 'Front-L', deg: 330 },
+  { name: 'Right', deg: 90 },
+];
+const maskOf = (...names) => names.reduce((m, n) => m | (1 << MOTORS.findIndex(x => x.name === n)), 0);
+const CLOCKWISE = MOTORS.map((m, i) => i).sort((a, b) => MOTORS[a].deg - MOTORS[b].deg);
+
+// The motor nearest a direction (degrees clockwise from the wearer's front).
+function nearestMotor(deg) {
+  const d = (a, b) => Math.abs(((a - b + 540) % 360) - 180);
+  return MOTORS.reduce((best, m, i) => d(m.deg, deg) < d(MOTORS[best].deg, deg) ? i : best, 0);
+}
+
+let device = null, cmdChar = null, queue = Promise.resolve();
+const $ = (id) => document.getElementById(id);
+const strength = $('strength'), duration = $('duration');
+
+function log(msg) {
+  const t = new Date().toLocaleTimeString();
+  $('log').textContent = `${t}  ${msg}\n` + $('log').textContent;
+}
+
+function setConnected(on, name) {
+  $('status').textContent = on ? `Connected: ${name}` : 'Not connected';
+  $('status').classList.toggle('on', on);
+  $('connect').disabled = on;
+  $('disconnect').disabled = !on;
+  $('stop').disabled = !on;
+}
+
+function showValues() {
+  $('strengthOut').textContent = strength.value;
+  $('durationOut').textContent = `${duration.value * 10} ms`;
+}
+strength.oninput = duration.oninput = showValues;
+showValues();
+
+// Writes are serialized: GATT allows only one operation at a time.
+function send(bytes, label) {
+  if (!cmdChar) { log('Not connected'); return Promise.resolve(); }
+  const data = new Uint8Array(bytes);
+  queue = queue.then(async () => {
+    try {
+      if (cmdChar.writeValueWithoutResponse) await cmdChar.writeValueWithoutResponse(data);
+      else await cmdChar.writeValue(data);
+      log(`${label}  [${[...data].map(b => b.toString(16).padStart(2, '0').toUpperCase()).join(' ')}]`);
+    } catch (e) { log(`Write failed: ${e.message}`); }
+  });
+  return queue;
+}
+
+function flash(mask, ms) {
+  MOTORS.forEach((_, i) => {
+    if (mask & (1 << i)) {
+      const el = $('m' + i);
+      el.classList.add('buzz');
+      setTimeout(() => el.classList.remove('buzz'), ms);
+    }
+  });
+}
+
+function buzzMotor(i) {
+  const s = +strength.value, d = +duration.value;
+  flash(1 << i, d * 10);
+  return send([i, s, d], `Motor ${i} (${MOTORS[i].name})`);
+}
+
+function buzzMask(mask, label) {
+  const s = +strength.value, d = +duration.value;
+  flash(mask, d * 10);
+  return send([0xFE, mask, s, d], label || `Group mask ${mask.toString(2).padStart(6, '0')}`);
+}
+
+function stopAll() {
+  document.querySelectorAll('.motor').forEach(el => el.classList.remove('buzz'));
+  return send([0xFF, 0, 0], 'STOP ALL');
+}
+
+const wait = (ms) => new Promise(r => setTimeout(r, ms));
+
+async function sweep() {
+  for (const i of CLOCKWISE) {
+    buzzMotor(i);
+    await wait(Math.max(150, duration.value * 10));
+  }
+}
+
+async function pulse() {
+  for (let k = 0; k < 3; k++) {
+    buzzMask(63, 'Pulse all');
+    await wait(duration.value * 10 + 200);
+  }
+}
+
+// Motor buttons around the dial, front at the top, clockwise.
+const dial = $('dial');
+MOTORS.forEach((m, i) => {
+  const b = document.createElement('button');
+  b.className = 'motor';
+  b.id = 'm' + i;
+  const r = 125, a = (m.deg - 90) * Math.PI / 180;
+  b.style.left = `${150 + r * Math.cos(a)}px`;
+  b.style.top = `${150 + r * Math.sin(a)}px`;
+  b.innerHTML = `<b>${i + 1}</b>${m.name}`;
+  b.title = `Motor ${i} (key ${i + 1})`;
+  b.onclick = () => buzzMotor(i);
+  dial.appendChild(b);
+});
+
+const GROUPS = {
+  all: 63,
+  front: maskOf('Front-R', 'Front-L'),
+  back: maskOf('Back-R', 'Back-L'),
+  right: maskOf('Front-R', 'Right', 'Back-R'),
+  left: maskOf('Front-L', 'Left', 'Back-L'),
+  frontback: maskOf('Front-R', 'Front-L', 'Back-R', 'Back-L'),
+};
+document.querySelectorAll('[data-group]').forEach(b => {
+  b.onclick = () => buzzMask(GROUPS[b.dataset.group], b.textContent);
+});
+
+const dir = $('dir');
+const showDir = () => {
+  const i = nearestMotor((+dir.value + 360) % 360);
+  $('dirOut').textContent = `${dir.value}°`;
+  $('dirGo').textContent = `Buzz toward ${dir.value}° (nearest: motor ${i + 1}, ${MOTORS[i].name})`;
+};
+dir.oninput = showDir;
+showDir();
+// Straight ahead / behind (and anything else that lands between two motors) buzzes both neighbours.
+$('dirGo').onclick = () => {
+  const deg = (+dir.value + 360) % 360;
+  const d = (a, b) => Math.abs(((a - b + 540) % 360) - 180);
+  const [a, b] = MOTORS.map((m, i) => i).sort((x, y) => d(MOTORS[x].deg, deg) - d(MOTORS[y].deg, deg));
+  if (d(MOTORS[b].deg, deg) - d(MOTORS[a].deg, deg) < 10) buzzMask((1 << a) | (1 << b), `Toward ${dir.value}°`);
+  else buzzMotor(a);
+};
+$('sweep').onclick = sweep;
+$('pulse').onclick = pulse;
+$('stop').onclick = stopAll;
+
+$('connect').onclick = async () => {
+  if (!navigator.bluetooth) {
+    log('Web Bluetooth is unavailable here. Use Chrome or Edge on a laptop, served from localhost.');
+    return;
+  }
+  try {
+    device = await navigator.bluetooth.requestDevice({
+      filters: [{ name: 'HERE-Belt' }, { services: [SERVICE] }],
+      optionalServices: [SERVICE],
+    });
+    device.addEventListener('gattserverdisconnected', () => {
+      cmdChar = null;
+      setConnected(false);
+      log('Belt disconnected (the firmware stops all motors)');
+    });
+    log(`Connecting to ${device.name || 'belt'}...`);
+    const server = await device.gatt.connect();
+    const service = await server.getPrimaryService(SERVICE);
+    cmdChar = await service.getCharacteristic(CMD);
+    setConnected(true, device.name || 'HERE-Belt');
+    log('Connected');
+  } catch (e) {
+    log(`Connect failed: ${e.message}`);
+  }
+};
+
+$('disconnect').onclick = async () => {
+  if (device && device.gatt.connected) {
+    await stopAll();
+    device.gatt.disconnect();
+  }
+};
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT') return;
+  if (e.key >= '1' && e.key <= '6') buzzMotor(+e.key - 1);
+  else if (e.key === 'a' || e.key === 'A') buzzMask(GROUPS.all, 'All');
+  else if (e.key === 's' || e.key === 'S') sweep();
+  else if (e.key === ' ') { e.preventDefault(); stopAll(); }
+});
+</script>
+</body>
+</html>

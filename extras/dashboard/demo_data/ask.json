@@ -1,0 +1,66 @@
+{
+ "answers": [
+  {
+   "match": [
+    "fair"
+   ],
+   "q": "What did Maya say about the fair?",
+   "answer": "Maya said the internship fair is on Friday at ten, in the Busch campus center. Jordan added to bring about twenty printed resumes.",
+   "evidence_ids": [
+    "u-0032",
+    "u-0034"
+   ]
+  },
+  {
+   "match": [
+    "name"
+   ],
+   "q": "When was my name called?",
+   "answer": "5 times: by Mom at home, Sam on the walk, Prof. Lee in lecture, the café counter, and Sam at the hackathon. Three of them came from behind you.",
+   "evidence_ids": [
+    "u-0002",
+    "u-0008",
+    "u-0017",
+    "u-0036",
+    "u-0060"
+   ]
+  },
+  {
+   "match": [
+    "miss"
+   ],
+   "q": "What did I miss today?",
+   "answer": "Things that happened behind you: Mom's badge reminder, a car horn from behind-left on College Ave, a tray dropped at the café, your café order being called, and the pizza doorbell.",
+   "evidence_ids": [
+    "u-0002",
+    "u-0038",
+    "u-0060",
+    "u-0061",
+    "s-0014",
+    "s-0020",
+    "s-0033"
+   ]
+  },
+  {
+   "match": [
+    "horn"
+   ],
+   "q": "Where did the car horn come from?",
+   "answer": "Behind you on the left (about -150°), at 8:22 on College Ave, while you were crossing.",
+   "evidence_ids": [
+    "s-0014"
+   ]
+  },
+  {
+   "match": [
+    "due"
+   ],
+   "q": "What's due this week?",
+   "answer": "Prof. Lee said the problem set is due Thursday at midnight, and dynamic programming will be on the midterm.",
+   "evidence_ids": [
+    "u-0011",
+    "u-0014"
+   ]
+  }
+ ]
+}

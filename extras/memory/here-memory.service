@@ -1,0 +1,20 @@
+# systemd unit for the HERE memory service (relay/DEPLOY.md step 8). Optional: the relay never depends on it.
+[Unit]
+Description=HERE memory (relay client role memory + /api on 127.0.0.1:8790)
+After=network-online.target here-relay.service
+Wants=network-online.target
+
+[Service]
+User=here
+WorkingDirectory=/opt/here
+EnvironmentFile=/opt/here/extras/memory/.env
+ExecStart=/opt/here/.venv/bin/python -m extras.memory --host 127.0.0.1 --port 8790
+Restart=always
+RestartSec=2
+NoNewPrivileges=true
+ProtectSystem=full
+ReadWritePaths=/opt/here/extras/memory/data /opt/here/logs
+MemoryMax=600M
+
+[Install]
+WantedBy=multi-user.target
